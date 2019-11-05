@@ -1,0 +1,376 @@
+GOSPEL GCF Organizational Hierarchy
+	1. GCF Command - commands all ground troops
+	2. GCF Lance Command - army equivalent
+	3. GCF Corps - corps equivalent
+	4. GCF Lance Corps - divison equivalent
+	5. GCF Regiment - regiment/brigade equivalent
+	6. GCF Lance Regiment - battalion equivalent
+	7. GCF Company - company equivalent
+	8. GCF Lance Company - platoon equivalent
+	9. GCF Squad - squad equivalent
+	10. GCF Lance - fireteam equivalent
+GOSPEL GCF Rank Hierarchy
+	GCF Command Officers - expected to be in administration and high level strategic planning
+	1. GCF Command General - heads a Command
+	2. GCF Lance Command General - heads a Lance Command
+	3. GCF General - heads a Corps
+	4. GCF Lance General - heads a Lance Corps
+
+	GCF Field Officers - expected to be managing/leading troops in the field in low level strategy
+	5. GCF Colonel - heads a Regiment
+	6. GCF Lance Colonel - heads a Lance Regiment
+	
+	GCF Battle Officers - expected to lead troops in the line of fire in executing tactics
+	7. GCF Captain - heads a Company
+	8. GCF Lance Captain - heads a Lance Company
+
+	GCF Senior NCOs - expected to manage enlisted/officer relations and serve as an experienced advisor
+	9. GCF Command Sergeant - Senior NCO equivalent, serves as advisory command for Lance Command and up
+	10. GCF Lance Command Sergeant - Senior NCO equivalent, serves as advisory command for Lance Corps and up
+	11. GCF Sergeant Major - Senior NCO equivalent, serves as advisory command for Lance Regiment and up
+	12 GCF Lance Sergeant Major - Senior NCO, focuses on advisory command for Lance Company and up	
+
+	GCF NCOs - expected to lead other enlisted troops on the lowest tactical level
+	13. GCF Sergeant - heads a Squad
+	14. GCF Lance Sergeant - heads heavy weapon Squads, more combat/less command training
+	15. GCF Corporal - heads a Lance, advances to Sergeant
+	16. GCF Lance Corporal - heads heavy weapon Lances, more combat/less command training, advances to Lance Sergeant
+
+	GCF Enlisted - expected to follow orders and get their work done	
+	17. GCF Trooper/Lance Trooper - private equivalent, advances to Corporal or Lance Corporal respectively, Lance Troopers have more combat training as HW specialists
+GOSPEL GCF Organization Expected Elements Hierarchy
+	GCF Command
+	GCF Lance Command
+	GCF Corps
+		GCF Corps Headquarters
+			Forward Command - directs the front of the battle, manages high level tactics
+			Central Command - coordinates front and rear towards strategic plan
+			Rear Command - directs supply lines and logistics
+		GCF Support Lance Corps
+			GCF Signal Regiment - manages communication between Corps elements, other Corps, and Lance Command
+			GCF Intelligence Regiment - finds and analyzes intel on enemy Corps-size unit, structures and performs counter-intel
+			GCF ChemWep Regiment - manages defenses against and use of chemical weaponry on the Corps scale
+			GCF Air Defense Regiment - manages defense against airborne threats to minimize Corps casualties and disruption
+			GCF Engineer Regiment - manages creation/destruction of fortification and defenses on a Corps scale
+			GCF Air Support Regiment - provides VTOL strike support to eliminate tactical strongpoints on a Corps-wide scale
+			GCF Armored Cavalry Regiment - 
+			GCF Civil Regiment - manages Corps-Civilian relations and maintains local populace loyalty
+			GCF MP Regiment - manages Corps discipline and maintains Corps loyalty to GOSPEL overall
+		GCF Artillery Lance Corps - provides sustained artillery support to soften enemy defences and offenses on a Corps scale
+	GCF Lance Corps
+		1 GCF Lance Corps Headquarters
+			GCF Lance Corps Staff
+				2 GCF Colonel - Aviaton Officer, Artillery Officer
+				GCF Lance Colonel - Air Defense Artillery Officer
+			GCF Lance Corps Headquarters Company
+				1 GCF Captain - Company Commander
+				1 GCF Lance Captain - Executive Officer
+				1 GCF Lance Sergeant Major - Company Sergeant
+				3 GCF Sergeant - 2 Supply Sergeant, Personnel Admin Sergeant
+				1 GCF Lance Sergeant - Contamination Specialist
+				3 GCF Corporal - Mail Delivery Specialist, 2 Supply Specialist
+				1 GCF Lance Corporal - Armorer				
+
+				GCF Lance Corps Main CiviLog Section
+					2 GCF Lance Sergeant Major - Motor Sergeant, Senior Mechanic
+					10 GCF Lance Sergeant - 2 Power Equipment Repair, 2 Light Wheel Vehicle Mechanic, 2 Equipment/Parts Sergeant, Signal System Maintenance, Utilities Equipment Repair, Recovery Vehicle Operation, Chemical Equiment Repair
+					3 GCF Lance Corporal - Power Equipment Repair, Light Wheel Vehicle Mechanic, Petrol Light Vehicle Operator
+
+					GCF Lance Sergeant Major - Senior Food Operations Sergeant
+					GCF Sergeant - Senior First Cook
+					3 GCF Corporal - Cook
+				GCF Lance Corps Main Intel Section
+					GCF Lance Colonel - Assistant Chief of Staff
+					GCF Captain - Assistant
+					GCF Sergeant Major - Chief Intelligence Sergeant
+					GCF Sergeant - Intelligence Sergeant
+					3 GCF Corporal - Intelligence Analyst
+
+					GCF Captain - Security Officer
+					2 GCF Sergeant - Telecom Chief, Senior Telecom Operations Management
+					GCF Corporal - Intelligence Analyst
+					2 GCF Trooper - Telecom Operations
+
+					GCF Sergeant- Radio Supervisor
+					GCF Corporal - Senior Radio Operations
+					GCF Trooper - Radio Operations
+				GCF Lance Corps Main Operations Section
+					GCF Captain - HQ Commandant
+					GCF Lance Sergeant Major - Operations Sergeant
+					2 GCF Trooper - Operations Assistant, Vehicle Driver
+				GCF Lance Corps Main Medical Section
+					GCF Captain - Physician Assistant
+					2 GCF Sergeant - Treatment Team Sergeant, Ambulance Team LEader
+					3 GCF Corporal, 2 Medical SPecialist, Ambulance Aide/Driver
+
+				GCF Lance Corps Rear Command
+					GCF Lance General - Deputy Commander
+					GCF Lance Captain - Aide-De-Camp
+					3 GCF Sergeant - Enlsit Aide, Admin Assistant, Chauffeur
+				GCF Lance Corps Rear OpInt Section
+					3 GCF Captain - Assistant Intelligence, Assistant Operations, Operations Officer
+					GCF Sergeant Major - Operations Sergeant
+					2 GCF Sergeant - Intelligence Analyst, Operations Assistant
+				GCF Lance Corps Rear CiviLog Section
+					GCF Lance Colonel - Public Affairs Officer
+					GCF Sergeant Major - Public Affairs NCO
+					GCF Sergeant - Assistant Public Affairs NCO
+					2 GCF Corporal - Public Affairs Broadcast, Journalist
+					2 GCF Trooper - Public Affairs Journalist
+
+					GCF Lance Colonel - Assistant Chief of Staff
+					GCF Captain - Civil Affairs Officer
+					GCF Corporal - Administration Assistant
+
+					GCF Lance Colonel - Logistics Assistant Chief of Staff
+					3 GCF Captain - Transportation Officer, Logistics Assistant, Aircraft Maintenance Officer
+					4 GCF Sergeant Major - Command Food Service Tech, Chief Mechanical Maintenance NCO, Chief Food Operations Management NCO, Senior Supply Supervisor
+					GCF Lance Sergeant Major - Transportation Supervisor
+					3 GCF Sergeant - Movements Specialist, Admin Specialist, Supply Specialist
+
+					GCF Lance Colonel - Staff Judge
+					5 GCF Captain - Chief Contract Law, Chief Criminal Law, Chief Claims Law, Chief Legal Assist, Deputy Staff Judge
+					5 GCF Lance Captain - Contract Law, Legal Assist, 3 Counsel
+					GCF Sergeant Major - Chief Legal NCO
+					GCF Lance Sergeant Major - Senior Legal NCO
+					5 GCF Sergeant - 3 Legal NCO, 2 COurt Reporter
+					2 GCF Corporal - Legal Specialist
+					3 GCF Trooper - Legal Specialist
+
+					GCF Lance Colonel - Inspector General
+					GCF Captain - Assistant Inspector General
+					2 GCF Lance Sergeant Major - Inspector Genral NCO
+					GCF Corporal - Administration Assistant
+				GCF Lance Corps Rear Personnel Section
+					GCF Lance Colonel - Assistant Chief of Staff
+					2 GCF Captain - Assistant Personnel, Operations Officer
+					1 GCF Sergeant Major - Chief Personnel Service Sergeant
+					1 GCF Sergeant - Administrative Specialist
+
+					GCF Sergeant Major - Senior Personnel Service Sergeant
+					3 GCF Lance Sergeant Major - Personnel Lance Company Sergeant
+					1 GCF Sergeant - Personnel Service Sergeant
+					1 GCF Corporal - Personnel Service Specialist
+					1 GCF Trooper - Personnel Service Clerk
+
+					GCF Captain - Strength Accounts Officer
+					GCF Sergeant Major - Personnel Tech
+					GCF Lance Sergeant Major - Senior Personnel Service Sergeant
+					7 GCF Sergeant - Personnel Serivce Sergeant
+					7 GCF Corporal - Personnel Service Specialist
+					10 GCF Trooper - Personnel Service Clerk
+
+				GCF Lance Corps Rear Chaplain Section
+					SSOP Lance Chaplain - Religious Advisor
+					SSOP Lance Chaplain - Assistant Religious Advisor
+					GCF Sergeant Major - Chaplain NCO
+					GCF Sergeant - Assistant Chaplain NCO
+				GCF Lance Corps Rear Medical Section
+					GCF Lance Colonel - Surgeon
+		1 GCF Support Regiment
+			GCF Signal Lance Regiment
+			GCF Intelligence Lance Regiment
+			GCF Air Defense Lance Regiment
+			GCF Engineer Lance Regiment
+			GCF MP Company
+		1 GCF Artillery Regiment		
+	GCF Regiment
+		1 GCF Regiment Headquarters
+			GCF Regiment Staff
+			GCF Regiment Headquarters Company
+		? GCF Lance Regiment
+	GCF Lance Regiment
+		1 GCF Lance Regiment Headquarters
+			GCF Lance Regiment Staff
+				1 GCF Lance Colonel - Lance Regiment Commander
+				2 GCF Captain - Executive Officer, Operations Officer
+				5 GCF Lance Captain - Personnel Officer, Intelligence Officer, CiviLog Officer, Communications Officer
+				1 GCF Sergeant Major - Lance Regiment Sergeant
+				1 SSOP Lance Chaplain - Religious Advisor
+			GCF Lance Regiment Headquarters Company
+				1 GCF Captain - Company Commander
+				1 GCF Lance Captain - Executive Officer
+				1 GCF Lance Sergeant Major - Company Sergeant
+				1 GCF Lance Sergeant Major - Contaminations Expert
+				GCF Lance Regiment Operations Section
+					2 GCF Lance Captain - Assistant Operations Officer/Battle Captains
+					1 GCF Lance Sergeant Major - Operations Sergeant
+					3 GCF Lance Sergeant - Master Gunner, Training/Battle NCOs
+					6 GCF Corporal - Operations Lance Leader
+					18 GCF Trooper - Operations Assistant
+				GCF Lance Regiment Personnel Section
+					1 GCF Sergeant - Assistant Personnel/Personnel Lance Leader
+					3 GCF Corporal - Personnel Manager
+				GCF Lance Regiment Intelligence Section
+					2 GCF Sergeant - Intelligence Analysts
+					2 GCF Corporal - Assistant Analysts/Intelligence Lance Leaders
+					8 GCF Trooper - Radar, Satellite, Radio Interceptor/Operators
+				GCF Lance Regiment CiviLog Section
+					1 GCF Lance Sergeant - Head Armorer
+					3 GCF Sergeant - 1 Civil Relations, 2 Supply
+					2 GCF Lance Corporal - Armorers
+					4 GCF Corporal - 2 Civil Relations Assistant, 2 Supply Assistant
+					4 GCF Lance Trooper - Armorer Assistants
+					6 GCF Trooper - Maintenance
+				GCF Lance Regiment Communications Section
+					2 GCF Sergeant - Communications Lance Leaders
+					4 GCF Corporal - Radio Operators
+	GCF Infantry Company
+		1 GCF Company Headquarters
+			1 GCF Captain - Company Commander
+			1 GCF Lance Captain - Executive Officer
+			1 GCF Lance Sergeant Major - Company Sergeant
+			2 GCF Sergeant - Contaminations Advisor, Supply Advisor
+			1 GCF Lance Sergeant - Armorer
+			1 GCF Corporal - Radio Operator
+		1 GCF Anti-Armor Squad
+			1 GCF Lance Sergeant - Anti-Armor Fire Direction
+			2 GCF Lance Corporal - Lance Leaders
+			4 GCF Lance Trooper - Anti-Armor Specialist
+			2 GCF Trooper - Ammunition Handler
+		1 GCF Indirect Fire Squad
+			1 GCF Lance Sergeant - Squad/1st Lance Leader
+			1 GCF Lance Corporal - 2nd Lance Leader
+			2 GCF Lance Trooper - Gunner
+			2 GCF Trooper - Assist Gunner
+		? GCF Infantry Lance Company
+	GCF Infantry Lance Company
+		1 GCF Lance Company Headquarters
+			1 GCF Lance Captain - Lance Company Commander
+			1 GCF Lance Sergeant Major - Lance Company Sergeant
+			2 GCF Lance Corporal - Machine Gunner
+			2 GCF Lance Trooper - Assist Machine Gunner
+			1 GCF Corporal - Radio Operator
+		? GCF Infantry Squad 	
+			1 GCF Sergeant - Squad/1st Lance Leader
+			1 GCF Corporal - 2nd Lance Leader
+			4 GCF Trooper - Rifleman
+			2 GCF Lance Trooper - Grenadier
+GOSPEL ASF Organizational Hierarchy
+	1. ASF Air Command - commands all air forces
+	2. ASF Lance Air Command - air division equivalent
+	3. ASF Wing - wing equivalent
+	4. ASF Lance Wing - squadron equivalent
+	5. ASF Flight - flight equivalent
+	6. ASF Lance Flight - element equivalent 
+GOSPEL ASF Rank Hierarchy
+	ASF Command Officers - expected to manage administration and high level strategic planning
+	1. ASF Marshal - heads an Air Command
+	2. ASF Lance Marshal - heads a Lance Air Command
+	3. ASF Wing Colonel - heads a Wing, typically base commander
+
+	ASF Flight Officers - expected to manage low level strategic planning and lead air forces in combat
+	4. ASF Lance Wing Colonel - heads a Lance Wing
+	5. ASF Flight Major - heads a Flight
+	6. ASF Lance Flight Major - heads a Lance Flight
+	
+	ASF Combat Officers - expected to manage low level administration and fly combat missions 
+	7. ASF Lieutenant - serves as secondary leader of a Lance Flight, and leader of non-flying units
+	8. ASF Lance Lieutenant - pilots aerospace craft, serves as secondary leader of non-flying units
+
+	9. ASF Wing Sergeant
+	10. ASF Lance Wing Sergeant
+	11. ASF Flight Sergeant
+	12. ASF Lance Flight Sergeant
+	13. ASF Flight Trooper
+GOSPEL SCCF Organizational Hierarchy
+	1. SCCF Sea Command - commands entire navy
+	2. SCCF Lance Sea Command - front/region
+	3. SCCF Fleet - battle fleet equivalent
+	4. SCCF Lance Fleet - task force equivalent
+	5. SCCF Division - task group equivalent
+	6. SCCF Lance Division - squadron equivalent
+GOSPEL SCCF Rank Hierarchy
+	1. SCCF Command Admiral - heads Sea Command
+	2. SCCF Lance Command Admiral - heads Lance Sea Command
+	3. SCCF Admiral - heads Fleet
+	4. SCCF Lance Admiral - heads Lance Fleet
+	5. SCCF Command Captain - heads Division
+	6. SCCF Lance Command Captain - heads Lance Division
+
+	SCCF Ship Officers - expected to be responsible for the ship under their command
+	7. SCCF Captain - heads a single large/capital ship
+	8. SCCF Lance Captain - heads a single medium ship
+	9. SCCF Commander - heads a single small ship
+	10. SCCF Lance Commander - heads a single auxiliary ship
+
+	11. SCCF Fleet Petty Officer
+	12. SCCF Lance Fleet Petty Officer
+	13. SCCF Petty Officer
+	14. SCCF Lance Petty Officer
+	15. SCCF Fleet Trooper
+GOSPEL ATVAF Organizational Hierarchy
+	1. ATVAF Storm Command - commands entire marine force
+	2. ATVAF Lance Storm Command - equivalent front/region
+	3. ATVAF Legion - equivalent to division
+	4. ATVAF Lance Legion - equivalent to regiment
+	5. ATVAF Battalion - equivalent to battalion
+	6. ATVAF Lance Battalion - equivalent to company
+	7. ATVAF Platoon - equivalent to platoon
+	8. ATVAF Lance Platoon - equivalent to squad
+GOSPEL ATVAF Rank Hierarchy
+	1. ATVAF Praetor - heads Storm Command
+	2. ATVAF Lance Praetor - heads Lance Storm Command
+	3. ATVAF Legate - heads Legion
+	4. ATVAF Lance Legate - heads Lance Legion
+	5. ATVAF Centurion - heads Battalion
+	6. ATVAF Lance Centurion - heads Lance Battalion
+	
+	7. ATVAF Prefect - Senior NCO, provides advisory command to Lance Storm Command and up
+	8. ATVAF Lance Prefect - Senior NCO, provides advisory command to Lance Legion and up
+	9. ATVAF Praetorian - Senior NCO, provides advisory command to Lance Battalion and up OR serves as honor guard leader
+	10. ATVAF Lance Praetorian - Senior NCO, serves as Platoon sergeant OR honor guard
+	11. ATVAF Decurion - NCO, heads a Lance Platoon
+	12. ATVAF Lance Decurion - NCO, assists a Decurion (especially if the unit needs to split up)
+	13. ATVAF Legionnaire - basic soldier
+GOSPEL SASF Organizational Hierarchy
+	1. SASF Void Command - commands all space navy forces
+	2. SASF Lance Void Command - equivalent to front
+	3. SASF Support Fleet - equivalent to battle fleet
+	4. SASF Lance Support Fleet - equivalent to task force
+	5. SASF Squadron - equivalent to flotilla
+	6. SASF Lance Squadron - equivalent to squadron
+GOSPEL SASF Rank Hierarchy
+	1. SASF Command Commodore - heads Void Command 
+	2. SASF Lance Command Commodore - heads Lance Void Command
+	3. SASF Commodore - heads Support Fleet
+	4. SASF Lance Commodore - heads Lance Support Fleet
+	5. SASF Auxiliary Commodore - heads Squadron
+	6. SASF Lance Auxiliary Commodore - heads Lance Squadron
+
+	7. SASF Commander - heads large ships(carriers/light cruisers)
+	8. SASF Lance Commander - heads non-large ships, on larger ships leads departments
+
+	9. SASF Fleet Sergeant - Senior NCO, coordinates divisions/leads departments
+	10. SASF Auxiliary Sergeant - NCO, coordinates teams, typically 2nd in command for departments or command for divisions
+	11. SASF Auxiliary - NCO, commands teams of Lance Auxilaries in their duties
+	12. SASF Lance Auxiliary - basic trooper
+GOSPEL SSOP Rank Hierarchy
+	1. Command Deacon - heads entire chaplain force
+	2. Lance Command Deacon - heads regional chaplain force
+	3. Deacon - religious advisor to Command
+	4. Lance Deacon - religious advisor to Lance Commands
+	5. Chaplain - religious advisor to Lance Corps and up
+	6. Lance Chaplain - religious advisor to Lance Regiment and up
+
+Definitions
+	GOSPEL - Guardians Of Sacred Peace: Earth Lance
+		Human military forces serving the Aliens
+	Lance - For command/organization is essentially equivalent to 'lesser'
+		For NCO/Enlisted refers to units with training in specialist/support equipment
+	CivilLog - Civil Relations & Logistics, support staff focused on improving relations with civilians and using both civilian and military assets
+		to transport and manage unit logistics
+Notes
+	GOSPEL Ground Control Force (GCF) - GOSPEL's Army, uses infantry, mechanized, cavalry, artillery, and armor forces to maintain territorial control
+	GOSPEL Aerospace Superiority Force (ASF) - GOSPEL's Air Force, uses aerospace fighters, bombers, transports, and surveillance to maintain aerospace superiority and disrupt enemy logistics
+	GOSPEL Sea Command and Control Force (SCCF) - GOSPEL's Aquatic Navy, uses carriers, destroyers, cruisers, battleships, submarines, frigates, and patrol boats to ensure control and safety of the sea
+	GOSPEL All Terrain Vanguard Assault Force (ATVAF) - GOSPEL's Marines, uses drop pods, infantry, heavy infantry, and other rapid assault forces to quickly take/destroy enemy installations, forming a beachead for other forces to control
+		Even the most basic ATVAF troops are highly trained, thus they tend to get more freedom than the other branches
+		Their ranks speak to their elitism as they purposefully made their names more obtuse for non-ATVAF personnel
+	GOSPEL Space Action Support Force (SASF) - GOSPEL's Space Navy, uses frigates, corvettes, destroyers, and light cruisers to project space control and provide fire support
+	GOSPEL Sacred Special Operations Practioners (SSOP) - GOSPEL's chaplain/priests, have a seperate rank structure but are primarily deployed as part of other branches
+Trooper Designation
+AAAAA-0-A 00 0 0 0 0 0-00
+Planet-BranchNumber-UnitType TwoDigitCorpsHexNumber RegimentHexNumber BattalionHexNumber CompanyHexNumber PlatoonHexNumber SquadHexNumber-TrooperHexNumber
+ex. EARTH-1-I09A4256-0C
+Earth GCF 9th Infantry Corps, 10th Regiment, 4th Lance Regiment, 2nd Company, 5th Platoon, 6th Squad, 12th Trooper
