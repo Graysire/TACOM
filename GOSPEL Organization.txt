@@ -187,25 +187,61 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 				5 GCF Lance Captain - Personnel Officer, Intelligence Officer, CiviLog Officer, Communications Officer
 				1 GCF Sergeant Major - Lance Regiment Sergeant
 				1 SSOP Lance Chaplain - Religious Advisor
+				1 GCF Sergeant - Operations Sergeant
+				1 GCF Trooper - Radio Operator
 			GCF Lance Regiment Headquarters Company
+				1 GCF Captain - Company Commander
+				1 GCF Lance Captain - Executive Officer
+				1 GCF Lance Sergeant Major - Company Sergeant
+				2 GCF Sergeant - Supply Sergeant
+				1 GCF Lance Corporal - Armorer
+				1 GCF Corporal - Supply Specialist
+				1 GCF Trooper - Supply Specialist
+
 				1 GCF Captain - Company Commander
 				1 GCF Lance Captain - Executive Officer
 				1 GCF Lance Sergeant Major - Company Sergeant
 				1 GCF Lance Sergeant Major - Contaminations Expert
 				GCF Lance Regiment Operations Section
+					S3 Sec
+					1 GCF Captain - Air Operations Officer
+					2 GCF Lance Captain - Liason Officer, Chemical Officer
+					2 GCF Lance Sergeant Major - Senior Operations Sergeant, Assist Operations Sergeant
+					2 GCF Sergeant - Operations Sergeant, Contamination Sergeant
+					4 GCF Corporal - 3 Operations Assistant, Admin Specialist
+					1 GCF Trooper - Radio Operator
+
 					2 GCF Lance Captain - Assistant Operations Officer/Battle Captains
 					1 GCF Lance Sergeant Major - Operations Sergeant
 					3 GCF Lance Sergeant - Master Gunner, Training/Battle NCOs
 					6 GCF Corporal - Operations Lance Leader
 					18 GCF Trooper - Operations Assistant
 				GCF Lance Regiment Personnel Section
+					S1 Sec
+					1 GCF Lance Sergeant Major - Senior Personnel Sergeant
+					3 GCF Sergeant- Personnel Service Sargeant, Legal NCO, Personnel Admin Sergeant
+					1 GCF Corporal - Personnel Admin Specialist
+					2 GCF Trooper - Personnel Admin Clerk, Mail Delivery Clerk
+
 					1 GCF Sergeant - Assistant Personnel/Personnel Lance Leader
 					3 GCF Corporal - Personnel Manager
 				GCF Lance Regiment Intelligence Section
+					S2 Sec
+					1 GCF Lance Captain - Tactical Intelligence Officer
+					1 GCF Lance Sergeant Major - Senior Intelligence Sergeant
+					1 GCF Sergeant - Intelligence Sergeant
+					1 GCF Corporal - Intelligence Analyst
+
 					2 GCF Sergeant - Intelligence Analysts
 					2 GCF Corporal - Assistant Analysts/Intelligence Lance Leaders
 					8 GCF Trooper - Radar, Satellite, Radio Interceptor/Operators
 				GCF Lance Regiment CiviLog Section
+					S4 Sec
+					1 GCF Lance Sergeant Major- Supply Sergeant
+					1 GCF Sergeant - Assist Supply Sergeant
+					2 GCF Corporal - Supply Specialist
+					1 GCF Trooper - Supply Specialist
+
 					1 GCF Lance Sergeant - Head Armorer
 					3 GCF Sergeant - 1 Civil Relations, 2 Supply
 					2 GCF Lance Corporal - Armorers
@@ -213,16 +249,45 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 					4 GCF Lance Trooper - Armorer Assistants
 					6 GCF Trooper - Maintenance
 				GCF Lance Regiment Communications Section
+					BN Com Sec
+					1 GCF Lance Sergeant Major - Section Chief
+					7 GCF Sergeant - Radio SUpervisor, Senior Radio Operatons Maintenance, Tema Chief, 4 Forward Signal Support NCO
+					3 GCF Corporal - Radio Operations Maintance, Radio Retransmit Operator, Signal Info Service Specialist
+					2 GCF Trooper - Radio Retransmit Officer, Signal Support System Specialist
+
 					2 GCF Sergeant - Communications Lance Leaders
 					4 GCF Corporal - Radio Operators
-	GCF Infantry Company
+				GCF Lance Regiment Scout Lance Company (Dragoon)
+					Scout Lance Company Headquarters
+						1 GCF Lance Captain - Lance Company Commander
+						1 GCF Lance Sergeant Major - Lance Company Sergeant
+						1 GCF Sergeant - Lance Leader
+						3 GCF Trooper - Scout
+					4 Scout Squad
+						1 GCF Sergeant - Squad Leader
+						1 GCF Corporal - Lance Leader
+						4 GCF Trooper - Scout
+				GCF Lance Regiment Heavy Mortar Lance Company
+					Heavy Mortar Lance Company Headquarters
+						1 GCF Lance Captain - Lance Company Commander
+						1 GCF Sergeant Major - Lance Company Sergeant
+					2 Mortar Section
+						1 GCF Lance Sergeant Major - Squad Leader
+						2 GCF Sergeant - Fire Direction Chief, Fire Direction Computer
+						3 Mortar Squad
+							1 GCF Sergeant - Squad Leader
+							1 GCF Corporal - Gunner
+							2 GCF Trooper - Assist Gunner
+					
+
+	GCF Infantry Company			
 		1 GCF Company Headquarters
 			1 GCF Captain - Company Commander
 			1 GCF Lance Captain - Executive Officer
 			1 GCF Lance Sergeant Major - Company Sergeant
 			2 GCF Sergeant - Contaminations Advisor, Supply Advisor
 			1 GCF Lance Sergeant - Armorer
-			1 GCF Corporal - Radio Operator
+			1 GCF Trooper - Radio Operator
 		1 GCF Anti-Armor Squad
 			1 GCF Lance Sergeant - Anti-Armor Fire Direction
 			2 GCF Lance Corporal - Lance Leaders
