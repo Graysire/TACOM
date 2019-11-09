@@ -1,0 +1,98 @@
+Individual Scale
+	A Weapon has
+		Damage D
+		Max Fire Rate MFR
+		Used Fire Rate FR, cannot be greater than MFR 
+		Recoil R
+	A Character has
+		Ranged Skill RS
+		Ranged Defense RD
+		Armor A
+		Weapon
+	An Attack is
+		result = 1d100 + RS - target's RD - R * (FR - 1)
+		if result > 0
+			damage dealt = result + (result - FR * A) or (D * FR - A * FR ) whichever is lower
+		else
+			no damage dealt
+Squad Scale
+	A Combat contains 2 OrgFormationUnit
+	Every Update/Round
+	Attack Step
+		for each Character C in OrgFormationUnit A
+			C attacks random Character in OrgFormationUnit B
+		for each Character D in OrgFormationUnit B
+			D attacks random Character in OrgFormationUnit A
+	Cleanup Step
+		Characters with HP <= 0 are 'killed' (removed from OrgFormationUnit, etc.)
+		update Size/Morale, etc. for OrgFormationUnit
+	Break Step
+		determine if OrgFormationUnits leave combat due to death, morale, retreating, etc.
+		if yes, OrgFormationUnits are unengaged, Combat ends
+Formation Scale
+	A Conflict contains 2 Organizaions
+	A Conflict contains multiple Combat/Conflict
+	Every Update/Round
+	for each Combat/Conflict C
+		update Combat/Conflict C
+		Break Step
+			if all subCombat/Conflicts have ended
+				check if Organizations leave combat due to death, morale, etc.
+				if yes, Organizations are unengaged, Conflict End
+		Breakthrough Step
+			if any SubCombat/Conflicts have ended
+				for each unengaged subOrg O
+					Engage with O as attacker against random enemy subOrg (weighted towards combat subOrgs)
+Engagement
+	with attacker Organization A and defender Organization B
+	create Conflict with A and B
+		for each combat subOrg in A engage random subOrg in B (weighted towards combat subOrgs)
+	
+
+	
+			
+			
+		
+
+
+
+D = 10
+FR = 2
+R = 5
+
+A = 5
+
+One Shot
+rolled a 20
+
+20 + (20 - 5 or 10 - 5) = 25 damage
+15 + (15 - 10 or 20 - 10) = 20 damage
+
+rolled a 50
+50 + (50 - 5 or 10 - 5) = 55 damage
+45 + (45 - 10 or 20 - 10) = 55 damage
+
+D = 30
+FR = 5
+R = 10
+A = 5
+
+rolled a 20
+1- 20 + (20 - 5 or 30 - 5) = 35 damage
+3- miss
+5- miss
+
+rolled a 50
+1- 50 + (50 - 5 or 30 - 5) = 75 damage
+3- 30 + (30 - 15 or 90 - 15) = 45 damage
+5- 10 + (10 - 15 or 150 - 15) = 5 damage
+
+rolled a 100
+1- 100 + (100 - 5 or 30 - 5) = 125 damage
+3- 80 + (80 - 15 or 90 - 15) = 145 damage
+5- 60 + (60 - 25 or 150 - 25) = 95 damage
+
+rolled a 150
+1- 150 + (150 - 5 or 30 - 5) = 175 damage
+3- 130 + (130 - 15 or 90 - 15) = 205 damage
+5- 110 + (110 - 25 or 150 - 25) = 195 damage
