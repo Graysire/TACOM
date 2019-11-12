@@ -59,9 +59,13 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 		GCF Artillery Lance Corps - provides sustained artillery support to soften enemy defences and offenses on a Corps scale
 	GCF Lance Corps
 		1 GCF Lance Corps Headquarters
-			GCF Lance Corps Staff
+			GCF Lance Corps Staff (Main Command Post)
+				GCF Lance General - Lance Corps Commander
 				2 GCF Colonel - Aviaton Officer, Artillery Officer
-				GCF Lance Colonel - Air Defense Artillery Officer
+				4 GCF Lance Colonel - Air Defense Artillery Officer, Provost Marshal, Lance Corps Engineer, Signals Officer
+				GCF Captain - Aide-De-Camp
+				GCF Lance Command Sergeant Major - Lance Corps Sergeant
+				3 GCF Sergeant - Executive Admin Assistant, Chauffer, Enlisted Aide
 			GCF Lance Corps Headquarters Company
 				1 GCF Captain - Company Commander
 				1 GCF Lance Captain - Executive Officer
@@ -69,71 +73,127 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 				3 GCF Sergeant - 2 Supply Sergeant, Personnel Admin Sergeant
 				1 GCF Lance Sergeant - Contamination Specialist
 				3 GCF Corporal - Mail Delivery Specialist, 2 Supply Specialist
-				1 GCF Lance Corporal - Armorer				
+				1 GCF Lance Corporal - Armorer
 
+				GCF Lance Corps Forward Command Section
+					GCF Colonel - Assistant Lance Corps COmmander
+					2 GCF Lance Colonel - Operations Officer, Assistant Operations Officer
+					GCF Captain - Operations Officer
+					GCF Lance Cpatain - Aide-De-Camp
+					GCF Sergeant Major - Operations Sergeant
+					GCF Lance Sergeant Majopr - Operations Sergeant
+					3 GCF Srgeant - Enlsited Aide, Exevutive Admin Assistant, Chauffeur
+					GCF Corporal - Operatins Assistant
+					GCF Trooper - Signal Support System Specialist
+
+				GCF Lance Corps Forward	Operations Section
+					GCF Captain - Tactical Chemical Operations Officer
+					GCF Lance Sergeant Major - Contaminatinos Staff NCO		
+
+					GCF Captain - Fire Support Officer
+				GCF Lance Corps Forward Intelligence Section
+					GCF Lance Colonel - Tactical Intelligence Officer
+					GCF Captain - Imagery Intelligence Officer
+					GCF Lance Sergeant Major - Senior Intelligence Sergeant
+					GCF Sergeant - General Support Services Segreant
+				GCF Lance Corps Main Personnel Section
+					GCF Colonel - Chief of Staff
+					GCF Lance Colonel - Secretary Chief of Staff
+					GCF Captain - Liason officer
+					2 GCF Corporal - Operations Assistant, Executive Admin Assistant
 				GCF Lance Corps Main CiviLog Section
 					2 GCF Lance Sergeant Major - Motor Sergeant, Senior Mechanic
-					10 GCF Lance Sergeant - 2 Power Equipment Repair, 2 Light Wheel Vehicle Mechanic, 2 Equipment/Parts Sergeant, Signal System Maintenance, Utilities Equipment Repair, Recovery Vehicle Operation, Chemical Equiment Repair
-					3 GCF Lance Corporal - Power Equipment Repair, Light Wheel Vehicle Mechanic, Petrol Light Vehicle Operator
+					2 GCF Lance Sergeant - Light Vehicle Mechanic, Parts Sergeant
+					5 GCF Lance Corporal - Signal Support System Maintenance, Power-Gen Equipment Repair, Light Vehicle Mechanic, Recovery Vehicle Operator, Parts Specialist
+					3 GCF Lance Trooper - 2 Light Vehicle Mechanic, Fuel Vehicle Operator
 
 					GCF Lance Sergeant Major - Senior Food Operations Sergeant
-					GCF Sergeant - Senior First Cook
-					3 GCF Corporal - Cook
+					3 GCF Sergeant - Senior First Cook, 2 Cook
+					4 GCF Corporal - Cook
+					3 GCF Trooper - Cook
 				GCF Lance Corps Main Intel Section
-					GCF Lance Colonel - Assistant Chief of Staff
-					GCF Captain - Assistant
+					GCF Lance Colonel - Assistant Intelligence Chief of Staff
+					GCF Captain - Assistant Intelligence
 					GCF Sergeant Major - Chief Intelligence Sergeant
 					GCF Sergeant - Intelligence Sergeant
 					3 GCF Corporal - Intelligence Analyst
 
 					GCF Captain - Security Officer
-					2 GCF Sergeant - Telecom Chief, Senior Telecom Operations Management
-					GCF Corporal - Intelligence Analyst
+					2 GCF Sergeant - Telecom Chief, Senior Telecom Operations Management, Intelligence Analyst
+					3 GCF Corporal - 2 Telecom Operator-Maintenance, Intelligence Analyst
 					2 GCF Trooper - Telecom Operations
+
+					GCF Captain - Tactical Surveillance Officer
+					GCF Lance Sergeant Major - Senior Intelligence Sergeant
+					GCF Corporal - Admin Specialist
 
 					GCF Sergeant- Radio Supervisor
 					GCF Corporal - Senior Radio Operations
 					GCF Trooper - Radio Operations
+
+					GCF Captain - Signals Intelligence/Electronic Warfare Officer
+					GC Sergeant - Signals Intelligence Sergeant
 				GCF Lance Corps Main Operations Section
+					GCF Lance Colonel - Assistant Operations Chief of Staff
+					GCF Captain - Assistant Operations
+					GCF Sergeant Major - Operations Sergeant
+					GCF Lance Sergeant Major - Operations Sergeant
+					GCF Sergeant - Operations Sergeant
+					2 GCF Corporal - Operations Assistant
+
 					GCF Captain - HQ Commandant
 					GCF Lance Sergeant Major - Operations Sergeant
 					2 GCF Trooper - Operations Assistant, Vehicle Driver
+
+					GCF Lance Colonel - Chemical Officer
+					GCF Captain - Contaminations Officer
+					2 GCF Sergeant Major - Senior Contaminations Staff NCO, Chemical Operations NCO
+					1 GCF Sergeant - Computer Plotter
+					1 GCF Corporal - Admin Specialist
+
+					GCF Captain - Operations Air Officer
+					2 GCF Lance Captain - Assistant Operations Air Officer
+
+					6 GCF Captain - 3 Plans Officer, Psychological Operations Officer, Force Management Officer, International Law Officer
+					3 GCF Lance Captain - Assistant Plans Officer
+					GCF Lance Sergeant Major - Senior Psychological Operations Sergeant
+					3 GCF Corporal - 2 Operations Assistant, Admin Specialist
+					GCF Trooper - Admin Clerk
 				GCF Lance Corps Main Medical Section
 					GCF Captain - Physician Assistant
-					2 GCF Sergeant - Treatment Team Sergeant, Ambulance Team LEader
-					3 GCF Corporal, 2 Medical SPecialist, Ambulance Aide/Driver
+					2 GCF Sergeant - Treatment Team Sergeant, Ambulance Team Leader
+					GCF Corporal - Medical Specialist
+					2 GCF Trooper - Medical Specialist, Ambulance Aide/Driver
 
 				GCF Lance Corps Rear Command
-					GCF Lance General - Deputy Commander
+					GCF Colonel - Deputy Commander
 					GCF Lance Captain - Aide-De-Camp
-					3 GCF Sergeant - Enlsit Aide, Admin Assistant, Chauffeur
+					3 GCF Sergeant - Enlisted Aide, Admin Assistant, Chauffeur
 				GCF Lance Corps Rear OpInt Section
 					3 GCF Captain - Assistant Intelligence, Assistant Operations, Operations Officer
 					GCF Sergeant Major - Operations Sergeant
-					2 GCF Sergeant - Intelligence Analyst, Operations Assistant
+					GCF Sergeant - Intelligence Analyst
+					GCF Corporal - Operations Assistant
 				GCF Lance Corps Rear CiviLog Section
 					GCF Lance Colonel - Public Affairs Officer
-					GCF Sergeant Major - Public Affairs NCO
-					GCF Sergeant - Assistant Public Affairs NCO
+					GCF Sergeant Major - Chief Public Affairs NCO
+					GCF Sergeant - Public Affairs NCO
 					2 GCF Corporal - Public Affairs Broadcast, Journalist
 					2 GCF Trooper - Public Affairs Journalist
 
-					GCF Lance Colonel - Assistant Chief of Staff
-					GCF Captain - Civil Affairs Officer
-					GCF Corporal - Administration Assistant
-
-					GCF Lance Colonel - Logistics Assistant Chief of Staff
-					3 GCF Captain - Transportation Officer, Logistics Assistant, Aircraft Maintenance Officer
+					2 GCF Lance Colonel - Assistant CiviLog Chief of Staff
+					4 GCF Captain - Civil Affairs Officer, Transportation Officer, Logistics Assistant, Aircraft Maintenance Officer
 					4 GCF Sergeant Major - Command Food Service Tech, Chief Mechanical Maintenance NCO, Chief Food Operations Management NCO, Senior Supply Supervisor
 					GCF Lance Sergeant Major - Transportation Supervisor
-					3 GCF Sergeant - Movements Specialist, Admin Specialist, Supply Specialist
+					1 GCF Sergeant - Movements Specialist
+					3 GCF Corporal - 2 Admin Specialist, Supply Specialist	
 
 					GCF Lance Colonel - Staff Judge
 					5 GCF Captain - Chief Contract Law, Chief Criminal Law, Chief Claims Law, Chief Legal Assist, Deputy Staff Judge
 					5 GCF Lance Captain - Contract Law, Legal Assist, 3 Counsel
 					GCF Sergeant Major - Chief Legal NCO
-					GCF Lance Sergeant Major - Senior Legal NCO
-					5 GCF Sergeant - 3 Legal NCO, 2 COurt Reporter
+					GCF 2 Lance Sergeant Major - Senior Legal NCO, Legal Administrator
+					5 GCF Sergeant - 3 Legal NCO, 2 Court Reporter
 					2 GCF Corporal - Legal Specialist
 					3 GCF Trooper - Legal Specialist
 
@@ -142,7 +202,7 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 					2 GCF Lance Sergeant Major - Inspector Genral NCO
 					GCF Corporal - Administration Assistant
 				GCF Lance Corps Rear Personnel Section
-					GCF Lance Colonel - Assistant Chief of Staff
+					GCF Lance Colonel - Assistant Personnel Chief of Staff
 					2 GCF Captain - Assistant Personnel, Operations Officer
 					1 GCF Sergeant Major - Chief Personnel Service Sergeant
 					1 GCF Sergeant - Administrative Specialist
@@ -161,7 +221,7 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 					10 GCF Trooper - Personnel Service Clerk
 
 				GCF Lance Corps Rear Chaplain Section
-					SSOP Lance Chaplain - Religious Advisor
+					SSOP Chaplain - Religious Advisor
 					SSOP Lance Chaplain - Assistant Religious Advisor
 					GCF Sergeant Major - Chaplain NCO
 					GCF Sergeant - Assistant Chaplain NCO
@@ -263,53 +323,30 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 					2 GCF Sergeant - Operations Sergeant, Contamination Sergeant
 					4 GCF Corporal - 3 Operations Assistant, Admin Specialist
 					1 GCF Trooper - Radio Operator
-
-					2 GCF Lance Captain - Assistant Operations Officer/Battle Captains
-					1 GCF Lance Sergeant Major - Operations Sergeant
-					3 GCF Lance Sergeant - Master Gunner, Training/Battle NCOs
-					6 GCF Corporal - Operations Lance Leader
-					18 GCF Trooper - Operations Assistant
 				GCF Lance Regiment Personnel Section
 					S1 Sec
 					1 GCF Lance Sergeant Major - Senior Personnel Sergeant
 					3 GCF Sergeant- Personnel Service Sargeant, Legal NCO, Personnel Admin Sergeant
 					1 GCF Corporal - Personnel Admin Specialist
 					2 GCF Trooper - Personnel Admin Clerk, Mail Delivery Clerk
-
-					1 GCF Sergeant - Assistant Personnel/Personnel Lance Leader
-					3 GCF Corporal - Personnel Manager
 				GCF Lance Regiment Intelligence Section
 					S2 Sec
 					1 GCF Lance Captain - Tactical Intelligence Officer
 					1 GCF Lance Sergeant Major - Senior Intelligence Sergeant
 					1 GCF Sergeant - Intelligence Sergeant
 					1 GCF Corporal - Intelligence Analyst
-
-					2 GCF Sergeant - Intelligence Analysts
-					2 GCF Corporal - Assistant Analysts/Intelligence Lance Leaders
-					8 GCF Trooper - Radar, Satellite, Radio Interceptor/Operators
 				GCF Lance Regiment CiviLog Section
 					S4 Sec
 					1 GCF Lance Sergeant Major- Supply Sergeant
 					1 GCF Sergeant - Assist Supply Sergeant
 					2 GCF Corporal - Supply Specialist
 					1 GCF Trooper - Supply Specialist
-
-					1 GCF Lance Sergeant - Head Armorer
-					3 GCF Sergeant - 1 Civil Relations, 2 Supply
-					2 GCF Lance Corporal - Armorers
-					4 GCF Corporal - 2 Civil Relations Assistant, 2 Supply Assistant
-					4 GCF Lance Trooper - Armorer Assistants
-					6 GCF Trooper - Maintenance
 				GCF Lance Regiment Communications Section
 					BN Com Sec
 					1 GCF Lance Sergeant Major - Section Chief
 					7 GCF Sergeant - Radio SUpervisor, Senior Radio Operatons Maintenance, Tema Chief, 4 Forward Signal Support NCO
 					3 GCF Corporal - Radio Operations Maintance, Radio Retransmit Operator, Signal Info Service Specialist
 					2 GCF Trooper - Radio Retransmit Officer, Signal Support System Specialist
-
-					2 GCF Sergeant - Communications Lance Leaders
-					4 GCF Corporal - Radio Operators
 				GCF Lance Regiment Scout Lance Company (Dragoon)
 					Scout Lance Company Headquarters
 						1 GCF Lance Captain - Lance Company Commander
