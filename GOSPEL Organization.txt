@@ -98,12 +98,12 @@ GOSPEL SASF Rank Hierarchy
 	11. SASF Auxiliary - NCO, commands teams of Lance Auxilaries in their duties
 	12. SASF Lance Auxiliary - basic trooper
 GOSPEL SSOP Rank Hierarchy
-	1. Command Deacon - heads entire chaplain force
-	2. Lance Command Deacon - heads regional chaplain force
-	3. Deacon - religious advisor to Command
-	4. Lance Deacon - religious advisor to Lance Commands
-	5. Chaplain - religious advisor to Lance Corps and up
-	6. Lance Chaplain - religious advisor to Lance Regiment and up
+	1. SSOP Command Deacon - heads entire chaplain force
+	2. SSOP Lance Command Deacon - heads regional chaplain force
+	3. SSOP Deacon - religious advisor to Command
+	4. SSOP Lance Deacon - religious advisor to Lance Commands
+	5. SSOP Chaplain - religious advisor to Lance Corps and up
+	6. SSOP Lance Chaplain - religious advisor to Lance Regiment and up
 
 Definitions
 	GOSPEL - Guardians Of Sacred Peace: Earth Lance
