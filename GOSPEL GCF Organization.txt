@@ -40,6 +40,22 @@ GOSPEL GCF Rank Hierarchy
 	17. GCF Trooper/Lance Trooper - private equivalent, advances to Corporal or Lance Corporal respectively, Lance Troopers have more combat training as HW specialists
 GOSPEL GCF Organization Expected Elements Hierarchy
 	GCF Command
+		GCF Command Staff
+			2 GCF Command General - GCF Chief of Staff, GCF Vice Chief of Staff
+			4 GCF Lance Command General - Judge Advocate General, Provost Marshal General, Surgeon General, Chief of Reserves
+			GCF Lance General - Aide-De-Camp
+			GCF Command Sergeant Major - Chief Command Sergeant
+			GCF Lance Command Sergeant Major - Enlisted Aide
+			2 Sergeant Major - Executive Admin Assistant, Chauffeur
+			SSOP Deacon - Chief GCF Chaplain
+		GCF Personnel Section
+			GCF Personnel Headquarters
+				GCF Lance Command General - Assistant Personnel Chief of Staff
+				GCF General - Assistant Personnel
+				6 GCF Lance General - 4 Liason Officer, Assistant Secretary General Staff, Chief of Awards
+				2 GCF Lance Command Sergeant Major - Senior Administration Supervisor, Awards Aide
+				2 GCF Sergeant Major - Executive Admin Assistant, Enlisted Aide
+				8 GCF Lance Sergeant Major - 4 Liason Assistant, 4 Admin Sergeant
 	GCF Lance Command
 	GCF Corps
 		GCF Corps Headquarters
