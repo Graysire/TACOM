@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+//Grayson Hill
+//Last Edited: 11/19/2019
 
-    // Update is called once per frame
-    void Update()
+//Character represents all characters in the game with full statistics
+public class Character : AbstractCharacter
+{
+    public override string ToString()
     {
-        
+        throw new System.NotImplementedException();
     }
 }
+

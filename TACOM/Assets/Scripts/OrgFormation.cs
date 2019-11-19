@@ -31,4 +31,41 @@ public class OrgFormation : Organization
             subOrgs[i] = other.subOrgs[i];
         }
     }
+
+    //returns as a string
+    public override string ToString()
+    {
+        string toString = orgName + "\n";
+        for (int i = 0; i < subOrgs.Length; i++)
+        {
+            toString += "\t" + subOrgs[i].ToStringTabbed(2) + "\n";
+        }
+        return toString;
+    }
+
+    //returns the toString tabbed in numTabs times
+    public override string ToStringTabbed(int numTabs)
+    {
+        string toString = orgName + "\n";
+        for (int i = 0; i < subOrgs.Length; i++)
+        {
+            for (int a = 0; a < numTabs; a++)
+            {
+                toString += "\t";
+            }
+            toString += subOrgs[i].ToStringTabbed(numTabs + 1) + "\n";
+        }
+        return toString;
+    }
+
+    //returns number of Characters in this Org and all its subOrgs
+    public override int GetOrgSize()
+    {
+        int size = 0;
+        for (int i = 0; i < subOrgs.Length; i++)
+        {
+            size += subOrgs[i].GetOrgSize();
+        }
+        return size;
+    }
 }

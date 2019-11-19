@@ -9,9 +9,11 @@ public class Tester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Organization o1 = Factory.CreateOrg(Factory.OrgType.GCF_ISquad);
-        Organization o2 = Factory.CreateOrg(Factory.OrgType.GCF_ILanceCompanyHQ);
-        Organization o3 = Factory.CreateOrg(Factory.OrgType.GCF_ILanceCompany);
+        Organization o1 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
+        Organization o2 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompanyHQ);
+        Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
+        Debug.Log("Lance COmpany Size: " + o3.GetOrgSize());
+        Debug.Log(o3);
     }
 
 }
