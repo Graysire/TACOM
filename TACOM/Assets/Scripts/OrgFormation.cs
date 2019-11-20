@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 10/31/2019
+//Last Edited: 11/19/2019
 
 //An organization that contains other orgaizations
 public class OrgFormation : Organization

@@ -9,7 +9,8 @@ using UnityEngine;
 public class OrgFactory
 {
     //enumeration of all standard Organizations
-    public enum OrgType { GCF_ISquad, GCF_ILanceCompanyHQ, GCF_ILanceCompany,GCF_ICompanyHQ, GCF_ICompanyAntiArmorSquad, GCF_ICompanyIndirectFireSquad, GCF_ICompany,GCF_LanceRegiment,GCF_Regiment,GCF_LanceCorps,GCF_Corps,GCF_LanceCommand,GCF_Command}
+    public enum OrgType { GCF_ISquad, GCF_ILanceCompanyHQ, GCF_ILanceCompany,GCF_ICompanyHQ, GCF_ICompanyAntiArmorSquad, GCF_ICompanyIndirectFireSquad, GCF_ICompany,
+        GCF_LanceRegiment,GCF_Regiment,GCF_LanceCorps,GCF_Corps,GCF_LanceCommand,GCF_Command}
 
     //returns a new Organization based on the OrgType input
     public static Organization CreateOrg(OrgType type)

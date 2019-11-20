@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 10/31/2019
+//Last Edited: 11/19/2019
 
 //Organization that is composed of characters, if the Organization hierarchy is a tree, this is the leaves
 public class OrgUnit : Organization
@@ -23,7 +23,6 @@ public class OrgUnit : Organization
     }
     public OrgUnit(OrgUnit other) //copy constructor
     {
-        Debug.Log("Copy");
         orgName = other.orgName;
         subChars = new Character[other.subChars.Length];
         for (int i = 0; i < other.subChars.Length; i++)
@@ -61,5 +60,14 @@ public class OrgUnit : Organization
     public override int GetOrgSize()
     {
         return subChars.Length;
+    }
+
+    //replaces all SimpleCharacters with their Character versions
+    public void ReplaceSimple()
+    {
+        for (int i = 0; i < subChars.Length; i++)
+        {
+            subChars[i] = CharFactory.CreateChar((SimpleCharacter) subChars[i]);
+        }
     }
 }

@@ -11,5 +11,9 @@ public abstract class AbstractCharacter
     protected Organization parentOrg; //the organization the characer belongs to
 
     public abstract override string ToString();
+    public Organization GetParentOrg()
+    {
+        return parentOrg;
+    }
 
 }
