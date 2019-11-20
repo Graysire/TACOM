@@ -12,8 +12,9 @@ public class Tester : MonoBehaviour
         Organization o1 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
         Organization o2 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompanyHQ);
         Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
-        Debug.Log("Lance COmpany Size: " + o3.GetOrgSize());
-        Debug.Log(o3);
+        Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
+        Debug.Log("Company Size: " + o4.GetOrgSize());
+        Debug.Log(o4);
     }
 
 }
