@@ -15,5 +15,9 @@ public abstract class AbstractCharacter
     {
         return parentOrg;
     }
+    public void setParentOrg(Organization parent)
+    {
+        parentOrg = parent;
+    }
 
 }

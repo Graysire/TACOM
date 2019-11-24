@@ -12,5 +12,6 @@ public class Character : AbstractCharacter
     {
         throw new System.NotImplementedException();
     }
+
 }
 

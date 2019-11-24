@@ -20,6 +20,10 @@ public class OrgUnit : Organization
     {
         orgName = name;
         subChars = cha;
+        for (int i = 0; i < subChars.Length; i++)
+        {
+            subChars[i].setParentOrg(this);
+        }
     }
     public OrgUnit(OrgUnit other) //copy constructor
     {
@@ -67,7 +71,12 @@ public class OrgUnit : Organization
     {
         for (int i = 0; i < subChars.Length; i++)
         {
-            subChars[i] = CharFactory.CreateChar((SimpleCharacter) subChars[i]);
+            if (subChars[i].GetType() == typeof(SimpleCharacter))
+            {
+                subChars[i] = CharFactory.CreateChar((SimpleCharacter)subChars[i]);
+
+            }
+
         }
     }
 }
