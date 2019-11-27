@@ -15,6 +15,15 @@ public class Tester : MonoBehaviour
         Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
         Debug.Log("Company Size: " + o4.GetOrgSize());
         Debug.Log(o4);
+
+        Character c1 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));
+        Debug.Log(c1);
+        Character c2 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));
+        Debug.Log(c2);
+        c1.Attack(c2);
+        Debug.Log(c1);
+        Debug.Log(c2);
+
     }
 
 }
