@@ -53,7 +53,7 @@ public class Organization : AttackerBase
         string toString = orgName + "\n";
         for (int i = 0; i < orgComponents.Length; i++)
         {
-            for (int a = 0; a<numTabs; a++)
+            for (int a = 0; a < numTabs; a++)
             {
                 toString += "\t";
             }
@@ -87,9 +87,19 @@ public class Organization : AttackerBase
         }
     }
     //public override abstract IAttackable GetTarget();
-    public void TakeDamage(int dmg)
+
+    //replaces all SimpleCharacters with their Character versions
+    public void ReplaceSimple()
     {
-        Debug.Log("Organization taking damage");
+        for (int i = 0; i < orgComponents.Length; i++)
+        {
+            if (orgComponents[i].GetType() == typeof(SimpleCharacter))
+            {
+                orgComponents[i] = CharFactory.CreateChar((SimpleCharacter)orgComponents[i]);
+
+            }
+
+        }
     }
 
     protected enum OrgCombatType { Line, Logistics, Command};

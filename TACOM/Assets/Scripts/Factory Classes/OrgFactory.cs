@@ -26,7 +26,7 @@ public class OrgFactory
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper), CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper), CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper), CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper)};
-                return new OrgUnit("Infantry Squad", tempChar);
+                return new Organization("Infantry Squad", tempChar);
             case OrgType.GCF_ILanceCompanyHQ:
                 //GCF Lance Captain, GCF Lance Sergeant Major, 1 GCF Corporal, 2 GCF Lance Corporal, 2 GCF Lance Trooper
                 tempChar = new SimpleCharacter[] {
@@ -34,7 +34,7 @@ public class OrgFactory
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Corporal), CharFactory.CreateChar(CharFactory.CharType.GCF_LCorporal),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LCorporal), CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper)};
-                return new OrgUnit("Infantry Lance Company Headquarters Squad", tempChar);
+                return new Organization("Infantry Lance Company Headquarters Squad", tempChar);
             case OrgType.GCF_ILanceCompany:
                 //GCF Infantry Lance COmpany HQ, 4 GCF Infantry Squad
                 tempOrg = new Organization[] {
@@ -49,14 +49,14 @@ public class OrgFactory
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper), CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper), CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper) };
-                return new OrgUnit("Infantry Company Anti-Armor Squad", tempChar);
+                return new Organization("Infantry Company Anti-Armor Squad", tempChar);
             case OrgType.GCF_ICompanyIndirectFireSquad:
                 //GCF Lance Sergeant, 1 GCF Lance Corporal, 2 GCF Lance Trooper, 2 GCF Trooper
                 tempChar = new SimpleCharacter[] {
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant), CharFactory.CreateChar(CharFactory.CharType.GCF_LCorporal),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper), CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper), CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper) };
-                return new OrgUnit("Infantry Company Indirect Fire Squad", tempChar);
+                return new Organization("Infantry Company Indirect Fire Squad", tempChar);
             case OrgType.GCF_ICompanyHQ:
                 //GCF Captain, GCF Lance Captain, GCF Lance Sergeant Major, 2 GCF Sergeant, GCF Lance Sergeant, GCF Trooper
                 tempChar = new SimpleCharacter[] {
@@ -64,7 +64,7 @@ public class OrgFactory
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant_Major), CharFactory.CreateChar(CharFactory.CharType.GCF_Sergeant),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Sergeant), CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper)};
-                return new OrgUnit("Infantry Company Headquarters Squad", tempChar);
+                return new Organization("Infantry Company Headquarters Squad", tempChar);
             case OrgType.GCF_ICompany:
                 //GCF Infantry Company HQ, GCF Infantry Company Anti-Armor Squad, GCF Infantry Company Indirect Fire Squad, 4 GCF Infantry Lance Company
                 tempOrg = new Organization[] {

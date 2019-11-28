@@ -31,4 +31,9 @@ public class SimpleCharacter : AbstractCharacter
     {
         return "" + charType;
     }
+
+    public override string ToStringTabbed(int numTabs)
+    {
+        return ToString();
+    }
 }

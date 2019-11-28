@@ -105,5 +105,10 @@ public class Character : AbstractCharacter, IAttacker
         return threat;
     }
 
+    public override string ToStringTabbed(int numTabs)
+    {
+        return ToString();
+    }
+
 }
 
