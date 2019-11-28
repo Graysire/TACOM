@@ -40,7 +40,7 @@ public class OrgFactory
                 tempOrg = new Organization[] {
                     CreateOrg(OrgType.GCF_ILanceCompanyHQ), CreateOrg(OrgType.GCF_ISquad), CreateOrg(OrgType.GCF_ISquad),
                     CreateOrg(OrgType.GCF_ISquad), CreateOrg(OrgType.GCF_ISquad) };
-                return new OrgFormation("Infantry Lance Company", tempOrg);
+                return new Organization("Infantry Lance Company", tempOrg);
             case OrgType.GCF_ICompanyAntiArmorSquad:
                 //GCF Lance Sergeant, 2 GCF Lance Corporal, 4 GCF Lance Trooper, 2 GCF Trooper
                 tempChar = new SimpleCharacter[] {
@@ -71,9 +71,9 @@ public class OrgFactory
                     CreateOrg(OrgType.GCF_ICompanyHQ), CreateOrg(OrgType.GCF_ICompanyIndirectFireSquad), CreateOrg(OrgType.GCF_ICompanyAntiArmorSquad),
                     CreateOrg(OrgType.GCF_ILanceCompany), CreateOrg(OrgType.GCF_ILanceCompany), CreateOrg(OrgType.GCF_ILanceCompany),
                     CreateOrg(OrgType.GCF_ILanceCompany)};
-                return new OrgFormation("Infantry Company", tempOrg);
+                return new Organization("Infantry Company", tempOrg);
             default:
-                return new OrgFormation();
+                return new Organization();
         }
     }
 }

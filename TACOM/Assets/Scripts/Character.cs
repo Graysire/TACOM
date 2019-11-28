@@ -6,15 +6,17 @@ using UnityEngine;
 //Last Edited: 11/27/2019
 
 //Character represents all characters in the game with full statistics
-public class Character : AbstractCharacter
+public class Character : AbstractCharacter, IAttacker
 {
-    private int rangedSkill;
-    private int rangedDefense;
-    private int armor;
-    private int maxHealth;
-    private int health;
-    private Weapon weapon;
+    private int rangedSkill; //Character's accuracy in ranged combat
+    private int rangedDefense; //Character's ability to dodge ranged attacks
+    private int armor; //Character's damage reduction
+    private int maxHealth; //Character's maximum health
+    private int health; //Character's current health
+    private int threat;
+    private Weapon weapon; //Character's weapon
 
+    //Default Constructor
     public Character()
     {
         rangedSkill = 0;
@@ -22,10 +24,12 @@ public class Character : AbstractCharacter
         armor = 0;
         maxHealth = 0;
         health = 0;
+        threat = 0;
         weapon = new Weapon();
     }
 
-    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep)
+    //Constructor giving ranged skill, ranged defense, armor, health, and weapon
+    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep, int threat)
     {
         rangedSkill = rSkill;
         rangedDefense = rDef;
@@ -33,46 +37,73 @@ public class Character : AbstractCharacter
         maxHealth = hp;
         health = hp;
         weapon = wep;
+        this.threat = threat;
     }
 
+    //returns Character as a string
     public override string ToString()
     {
         return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth;
     }
 
+    //Generic Attack against an attackable target
+    public override void Attack(IAttackable target)
+    {
+        Debug.Log("Character attacking Non-Character");
+    }
+
+    //Attack against a Character target
     public void Attack(Character target)
     {
-        int usedFireRate = Random.Range(1, weapon.getMaxFireRate());
-        string temp = "UFR: " + usedFireRate;
-        for (int i = 0; i < Mathf.Ceil((float) usedFireRate / weapon.getBurstNumber()); i++)
+        int usedFireRate = Random.Range(1, weapon.getMaxFireRate()); //the number of shots fired
+        //string debug = "UFR: " + usedFireRate;
+        for (int i = 0; i < Mathf.Ceil((float)usedFireRate / weapon.getBurstNumber()); i++) //roll an attack for each (shots fired/burst number rounded up)
         {
+            //roll 1d100 + skill - target defense - recoil * shots fire - 1
             int roll = Random.Range(1, 101) + rangedSkill - target.rangedDefense - weapon.getRecoil() * (usedFireRate - 1);
-            temp += ", ROLL: " + roll;
-            if (roll > 0)
+            //debug += ", ROLL: " + roll;
+            if (roll > 0) //if hit the target
             {
                 int damageMod;
-                if (roll > weapon.getDamage() * usedFireRate)
+                if (roll > weapon.getDamage() * usedFireRate) //if roll is greater than maximum potential extra damage, deal maximum extra damage
                 {
                     damageMod = weapon.getDamage() * usedFireRate;
-                    temp += ", MaxDmg: " + damageMod;
+                    //debug += ", MaxDmg: " + damageMod;
                 }
-                else
+                else //otherwise the extra damage is equal to the roll
                 {
                     damageMod = roll;
-                    temp += ", Dmg: " + damageMod;
+                    //debug += ", Dmg: " + damageMod;
                 }
-                int damageResult = roll + damageMod - usedFireRate * target.armor;
-                temp += ", TOT:" + damageResult;
-                if (damageResult > 0)
+                int damageResult = roll + damageMod - usedFireRate * target.armor; //final damage is roll + damage modifer - target's armor * shots fired
+                //debug += ", TOT:" + damageResult;
+                if (damageResult > 0) //if any damage is dealt
                 {
-                    target.health -= damageResult;
-
+                    target.TakeDamage(damageResult); //deal damage
                 }
             }
         }
-        Debug.Log(temp);
+        //Debug.Log(debug);
+
     }
 
+    //Character reduces their health by dmg
+    public void TakeDamage(int dmg)
+    {
+        health -= dmg;
+    }
+
+    //returns self
+    public override IAttackable GetTarget()
+    {
+        return this;
+    }
+    
+    //returns threat level
+    public override int GetThreat()
+    {
+        return threat;
+    }
 
 }
 

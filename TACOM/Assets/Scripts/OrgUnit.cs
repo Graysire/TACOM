@@ -61,7 +61,7 @@ public class OrgUnit : Organization
     }
 
     //returns number of Characters in the OrgUnit
-    public override int GetOrgSize()
+    public int GetOrgSize()
     {
         return subChars.Length;
     }

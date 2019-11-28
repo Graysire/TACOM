@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 11/19/2019
+//Last Edited: 11/27/2019
 
 //AbstractCharacter has all of the basic methods requried by all Characters
-public abstract class AbstractCharacter
+public abstract class AbstractCharacter : AttackerBase
 {
     protected Organization parentOrg; //the organization the characer belongs to
 

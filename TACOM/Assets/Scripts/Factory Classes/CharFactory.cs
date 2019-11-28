@@ -27,7 +27,7 @@ public class CharFactory
         switch (type.GetCharType())
         {
             case CharType.GCF_Trooper:
-                return new Character(20, 10, 5, 100, new Weapon(20, 5, 4, 2));
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1);
             default:
                 return new Character();
         }
