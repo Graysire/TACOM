@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 11/19/2019
+//Last Edited: 11/27/2019
 
 //hub class that manages the creation of standard Characters
 public class CharFactory
