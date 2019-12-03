@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 11/27/2019
+//Last Edited: 12/2/2019
 
 //Represents a grouping of individuals or organizations within a faction
 public class Organization : AttackerBase
@@ -18,13 +18,17 @@ public class Organization : AttackerBase
     {
         orgName = "Default";
         orgComponents = new IAttacker[0];
+        opsType = AttackableOpsType.Line;
+        unitType = AttackableUnitType.Infantry;
     }
 
     //constructor inputting name and array of components
-    public Organization(string name, IAttacker[] sub)
+    public Organization(string name, IAttacker[] sub, AttackableOpsType ops = AttackableOpsType.Line, AttackableUnitType unit = AttackableUnitType.Infantry)
     {
         orgName = name;
         orgComponents = sub;
+        opsType = ops;
+        unitType = unit;
     }
 
     //copy constructor
@@ -62,6 +66,15 @@ public class Organization : AttackerBase
         return toString;
     }
     public override int GetThreat()
+    {
+        int total = 0;
+        foreach (IAttackable a in orgComponents)
+        {
+            total += a.GetThreat();
+        }
+        return total;
+    }
+    public override int GetThreat(AttackableOpsType ops)
     {
         int total = 0;
         foreach (IAttackable a in orgComponents)

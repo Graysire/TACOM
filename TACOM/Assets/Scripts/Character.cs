@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 11/27/2019
+//Last Edited: 12/2/2019
 
 //Character represents all characters in the game with full statistics
 public class Character : AbstractCharacter, IAttacker
@@ -26,10 +26,12 @@ public class Character : AbstractCharacter, IAttacker
         health = 0;
         threat = 0;
         weapon = new Weapon();
+        opsType = AttackableOpsType.Line;
+        unitType = AttackableUnitType.Infantry;
     }
 
     //Constructor giving ranged skill, ranged defense, armor, health, and weapon
-    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep, int threat)
+    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep, int threat, AttackableOpsType ops = AttackableOpsType.Line, AttackableUnitType unit = AttackableUnitType.Infantry)
     {
         rangedSkill = rSkill;
         rangedDefense = rDef;
@@ -38,6 +40,8 @@ public class Character : AbstractCharacter, IAttacker
         health = hp;
         weapon = wep;
         this.threat = threat;
+        opsType = ops;
+        unitType = unit;
     }
 
     //returns Character as a string
@@ -108,6 +112,16 @@ public class Character : AbstractCharacter, IAttacker
     public override string ToStringTabbed(int numTabs)
     {
         return ToString();
+    }
+
+    public override int GetThreat(AttackableOpsType ops)
+    {
+        return threat;
+    }
+
+    public override int GetThreat(AttackableUnitType unit)
+    {
+        return threat;
     }
 
 }
