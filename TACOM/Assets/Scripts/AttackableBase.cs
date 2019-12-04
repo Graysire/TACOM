@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  Grayson Hill
- Last Updated: 12/2/19
+ Last Updated: 12/3/19
      */
 
 //base implementation of the IAttackable interface
@@ -38,6 +38,18 @@ public abstract class AttackableBase : IAttackable
     public virtual int GetMinThreat()
     {
         return 1;
+    }
+
+    //returns Attackables operational type
+    public virtual AttackableOpsType GetOpsType()
+    {
+        return opsType;
+    }
+
+    //returns Attackables unit type
+    public virtual AttackableUnitType GetUnitType()
+    {
+        return unitType;
     }
 
     //enum used for the purpose of an attackable

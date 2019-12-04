@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 11/27/2019
+//Last Edited: 12/3/2019
 
 //hub class that manages the creation of standard Characters
 public class CharFactory
@@ -16,9 +16,9 @@ public class CharFactory
     }
 
     //returns a SimpleCharacter based on type
-    public static SimpleCharacter CreateChar(CharType type)
+    public static SimpleCharacter CreateChar(CharType type, AttackableBase.AttackableOpsType ops = AttackableBase.AttackableOpsType.Line, AttackableBase.AttackableUnitType unit = AttackableBase.AttackableUnitType.Infantry)
     {
-        return new SimpleCharacter(type);
+        return new SimpleCharacter(type, ops, unit);
     }
 
     //returns the normal Character version of a SimpleCharacter based on its type
@@ -27,7 +27,23 @@ public class CharFactory
         switch (type.GetCharType())
         {
             case CharType.GCF_Trooper:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1);
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_LTrooper:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_Corporal:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 2, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_LCorporal:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 2, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_Sergeant:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 3, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_LSergeant:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 3, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_LSergeant_Major:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 5, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_LCaptain:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 4, type.GetOpsType(), type.GetUnitType());
+            case CharType.GCF_Captain:
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 6, type.GetOpsType(), type.GetUnitType());
             default:
                 return new Character();
         }

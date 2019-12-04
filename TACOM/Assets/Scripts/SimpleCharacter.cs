@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 11/27/2019
+//Last Edited: 12/3/2019
 
 //SimpleCharacter serves as a placeholder until an instance of Character is needed
 public class SimpleCharacter : AbstractCharacter
@@ -16,9 +16,11 @@ public class SimpleCharacter : AbstractCharacter
     }
 
     //constructors accepts type of the character
-    public SimpleCharacter(CharFactory.CharType type)
+    public SimpleCharacter(CharFactory.CharType type, AttackableOpsType ops, AttackableUnitType unit)
     {
         charType = type;
+        opsType = ops;
+        unitType = unit;
     }
 
     //returns type of the character

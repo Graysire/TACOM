@@ -6,7 +6,7 @@ using UnityEngine;
 //Last Edited: 12/2/2019
 
 //Character represents all characters in the game with full statistics
-public class Character : AbstractCharacter, IAttacker
+public class Character : AbstractCharacter
 {
     private int rangedSkill; //Character's accuracy in ranged combat
     private int rangedDefense; //Character's ability to dodge ranged attacks
@@ -109,19 +109,35 @@ public class Character : AbstractCharacter, IAttacker
         return threat;
     }
 
-    public override string ToStringTabbed(int numTabs)
-    {
-        return ToString();
-    }
-
+    //returns threat level if opType matches ops
     public override int GetThreat(AttackableOpsType ops)
     {
-        return threat;
+        Debug.Log(opsType + " " + ops);
+        if (opsType == ops)
+        {
+            return threat;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public override int GetThreat(AttackableUnitType unit)
     {
-        return threat;
+        if (unitType == unit)
+        {
+            return threat;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public override string ToStringTabbed(int numTabs)
+    {
+        return ToString();
     }
 
 }

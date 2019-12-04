@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/2/2019
+//Last Edited: 12/3/2019
 
 //Represents a grouping of individuals or organizations within a faction
 public class Organization : AttackerBase
 {
     protected string orgName;
     protected OrgCombatType combatType;
-    protected IAttacker[] orgComponents;
+    private IAttacker[] orgComponents;
     //protected Faction orgFaction;
 
     //default constructor
@@ -45,7 +45,8 @@ public class Organization : AttackerBase
 
     public override string ToString() //returns Organization as a string
     {
-        string toString = orgName + "\n";
+        string toString = orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
+            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ")\n";
         for (int i = 0; i < orgComponents.Length; i++)
         {
             toString += "\t" + orgComponents[i].ToStringTabbed(2) + "\n";
@@ -54,7 +55,8 @@ public class Organization : AttackerBase
     }
     public override string ToStringTabbed(int numTabs) //returns Organization as a string with tabs to create a visibile hierarchy
     {
-        string toString = orgName + "\n";
+        string toString = orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
+            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ")\n";
         for (int i = 0; i < orgComponents.Length; i++)
         {
             for (int a = 0; a < numTabs; a++)
@@ -79,7 +81,22 @@ public class Organization : AttackerBase
         int total = 0;
         foreach (IAttackable a in orgComponents)
         {
-            total += a.GetThreat();
+            if (a.GetType().IsSubclassOf(typeof(AttackableBase)))
+            {
+                total += ((AttackableBase) a).GetThreat(ops);
+            }
+        }
+        return total;
+    }
+    public override int GetThreat(AttackableUnitType unit)
+    {
+        int total = 0;
+        foreach (IAttackable a in orgComponents)
+        {
+            if (a.GetType().IsSubclassOf(typeof(AttackableBase)))
+            {
+                total += ((AttackableBase)a).GetThreat(unit);
+            }
         }
         return total;
     }
@@ -110,6 +127,10 @@ public class Organization : AttackerBase
             {
                 orgComponents[i] = CharFactory.CreateChar((SimpleCharacter)orgComponents[i]);
 
+            }
+            else if (orgComponents[i].GetType() == typeof(Organization))
+            {
+                ((Organization)orgComponents[i]).ReplaceSimple();
             }
 
         }
