@@ -630,7 +630,7 @@ GOSPEL GCF Organization Expected Elements Hierarchy
 			1 GCF Lance Sergeant Major - Lance Company Sergeant
 			2 GCF Lance Corporal - Machine Gunner
 			2 GCF Lance Trooper - Assist Machine Gunner
-			1 GCF Corporal - Radio Operator
+			1 GCF Trooper - Radio Operator
 		? GCF Infantry Squad 	
 			1 GCF Sergeant - Squad/1st Lance Leader
 			1 GCF Corporal - 2nd Lance Leader

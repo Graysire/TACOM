@@ -14,6 +14,10 @@ public interface IAttackable
     IAttackable GetTarget();
     //returns an int representing the liklihood of an Attackable being targetted
     int GetThreat();
+    int GetThreat(AttackableBase.AttackableOpsType ops); //the threat of the specific OpsType
+    int GetThreat(AttackableBase.AttackableUnitType unit); //the threat of the specific UnitType
+
+
     //returns the number of Attackables that don't contain other Attackables within this Attackable
     int GetMinThreat();
     

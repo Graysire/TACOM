@@ -16,6 +16,9 @@ public class Tester : MonoBehaviour
         o4.ReplaceSimple();
         Debug.Log("Company Size: " + o4.GetMinThreat());
         Debug.Log(o4);
+        o4.GetTarget();
+        o4.GetTarget();
+
 
         //Character c1 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));
         //Debug.Log(c1);

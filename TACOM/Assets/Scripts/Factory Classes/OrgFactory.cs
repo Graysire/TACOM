@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/3/2019
+//Last Edited: 12/4/2019
 
 //hub class that manages the creation of standard Organizations
 public class OrgFactory
@@ -27,10 +27,10 @@ public class OrgFactory
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper), CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper)};
                 return new Organization("Infantry Squad", tempAttack, AttackableBase.AttackableOpsType.Line, AttackableBase.AttackableUnitType.Infantry);
             case OrgType.GCF_ILanceCompanyHQ:
-                //GCF Lance Captain, GCF Lance Sergeant Major, 1 GCF Corporal, 2 GCF Lance Corporal, 2 GCF Lance Trooper
+                //GCF Lance Captain, GCF Lance Sergeant Major, 2 GCF Lance Corporal, 2 GCF Lance Trooper, GCF Trooper
                 tempAttack = new IAttacker[] {
-                    CharFactory.CreateChar(CharFactory.CharType.GCF_LCaptain, AttackableBase.AttackableOpsType.Command), CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant_Major),
-                    CharFactory.CreateChar(CharFactory.CharType.GCF_Corporal), CharFactory.CreateChar(CharFactory.CharType.GCF_LCorporal),
+                    CharFactory.CreateChar(CharFactory.CharType.GCF_LCaptain, AttackableBase.AttackableOpsType.Command), CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant_Major, AttackableBase.AttackableOpsType.Command),
+                    CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper, AttackableBase.AttackableOpsType.Logistics), CharFactory.CreateChar(CharFactory.CharType.GCF_LCorporal),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LCorporal), CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper),
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper)};
                 return new Organization("Infantry Lance Company Headquarters Squad", tempAttack, AttackableBase.AttackableOpsType.Command, AttackableBase.AttackableUnitType.Infantry);
@@ -60,9 +60,9 @@ public class OrgFactory
                 //GCF Captain, GCF Lance Captain, GCF Lance Sergeant Major, 2 GCF Sergeant, GCF Lance Sergeant, GCF Trooper
                 tempAttack = new IAttacker[] {
                     CharFactory.CreateChar(CharFactory.CharType.GCF_Captain, AttackableBase.AttackableOpsType.Command), CharFactory.CreateChar(CharFactory.CharType.GCF_LCaptain, AttackableBase.AttackableOpsType.Command),
-                    CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant_Major, AttackableBase.AttackableOpsType.Command), CharFactory.CreateChar(CharFactory.CharType.GCF_Sergeant),
-                    CharFactory.CreateChar(CharFactory.CharType.GCF_Sergeant), CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant),
-                    CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper)};
+                    CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant_Major, AttackableBase.AttackableOpsType.Command), CharFactory.CreateChar(CharFactory.CharType.GCF_Sergeant, AttackableBase.AttackableOpsType.Logistics),
+                    CharFactory.CreateChar(CharFactory.CharType.GCF_Sergeant, AttackableBase.AttackableOpsType.Logistics), CharFactory.CreateChar(CharFactory.CharType.GCF_LSergeant, AttackableBase.AttackableOpsType.Logistics),
+                    CharFactory.CreateChar(CharFactory.CharType.GCF_Trooper, AttackableBase.AttackableOpsType.Logistics)};
                 return new Organization("Infantry Company Headquarters Squad", tempAttack, AttackableBase.AttackableOpsType.Command, AttackableBase.AttackableUnitType.Infantry);
             case OrgType.GCF_ICompany:
                 //GCF Infantry Company HQ, GCF Infantry Company Anti-Armor Squad, GCF Infantry Company Indirect Fire Squad, 4 GCF Infantry Lance Company

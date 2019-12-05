@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  Grayson Hill
- Last Updated: 12/3/19
+ Last Updated: 12/4/19
      */
 
 //base implementation of the IAttackable interface

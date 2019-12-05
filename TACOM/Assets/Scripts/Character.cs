@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/2/2019
+//Last Edited: 12/4/2019
 
 //Character represents all characters in the game with full statistics
 public class Character : AbstractCharacter
@@ -112,7 +112,6 @@ public class Character : AbstractCharacter
     //returns threat level if opType matches ops
     public override int GetThreat(AttackableOpsType ops)
     {
-        Debug.Log(opsType + " " + ops);
         if (opsType == ops)
         {
             return threat;
