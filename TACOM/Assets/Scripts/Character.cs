@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/4/2019
+//Last Edited: 12/5/2019
 
 //Character represents all characters in the game with full statistics
 public class Character : AbstractCharacter
 {
+    private static int displayTabs = 4; //number of tabs used to align display in the toString method
+
     private int rangedSkill; //Character's accuracy in ranged combat
     private int rangedDefense; //Character's ability to dodge ranged attacks
     private int armor; //Character's damage reduction
     private int maxHealth; //Character's maximum health
     private int health; //Character's current health
-    private int threat;
+    private int threat; //how threatening a character is
+    private string rank; //a character's rank
     private Weapon weapon; //Character's weapon
 
     //Default Constructor
@@ -25,13 +28,14 @@ public class Character : AbstractCharacter
         maxHealth = 0;
         health = 0;
         threat = 0;
+        rank = "Infantry";
         weapon = new Weapon();
         opsType = AttackableOpsType.Line;
         unitType = AttackableUnitType.Infantry;
     }
 
     //Constructor giving ranged skill, ranged defense, armor, health, and weapon
-    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep, int threat, AttackableOpsType ops = AttackableOpsType.Line, AttackableUnitType unit = AttackableUnitType.Infantry)
+    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep, int threat, string rnk, AttackableOpsType ops = AttackableOpsType.Line, AttackableUnitType unit = AttackableUnitType.Infantry)
     {
         rangedSkill = rSkill;
         rangedDefense = rDef;
@@ -40,6 +44,7 @@ public class Character : AbstractCharacter
         health = hp;
         weapon = wep;
         this.threat = threat;
+        rank = rnk;
         opsType = ops;
         unitType = unit;
     }
@@ -47,7 +52,14 @@ public class Character : AbstractCharacter
     //returns Character as a string
     public override string ToString()
     {
-        return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth + ", W: " + GetWeight();
+        int numTabs = (int) Mathf.Ceil((rank.Length * 0.1f));
+        string temp = rank;
+        for (int i = 0; i < displayTabs - numTabs; i++)
+        {
+            temp += "\t";
+        }
+        return temp + opsType + " Weight:" + GetWeight();
+        //return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth + ", " + opsType + " W:" + GetWeight();
     }
 
     //Generic Attack against an attackable target
@@ -133,6 +145,32 @@ public class Character : AbstractCharacter
             return 0;
         }
     }
+
+    public override int GetMinThreat(AttackableOpsType ops)
+    {
+        if (opsType == ops)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public override int GetMinThreat(AttackableUnitType unit)
+    {
+        if (unitType == unit)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+
 
     public override string ToStringTabbed(int numTabs)
     {

@@ -14,7 +14,6 @@ public class Tester : MonoBehaviour
         Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
         Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
         o4.ReplaceSimple();
-        Debug.Log("Company Size: " + o4.GetMinThreat());
         Debug.Log(o4);
         o4.GetTarget();
         o4.GetTarget();

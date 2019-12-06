@@ -67,6 +67,14 @@ public abstract class AttackableBase : IAttackable
         return 1;
     }
 
+    public virtual string GetSTWString()
+    {
+        return "(S/T/W Total: " + GetMinThreat() + "/" + GetThreat() + "/" + GetWeight() +
+            ", Command: " + GetMinThreat(AttackableOpsType.Command) + "/" + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
+            ", Logistics: " + GetMinThreat(AttackableOpsType.Logistics) + "/" + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) +
+            ", Line: " + GetMinThreat(AttackableOpsType.Line) + "/" + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")";
+    }
+
     //returns Attackables operational type
     public virtual AttackableOpsType GetOpsType()
     {

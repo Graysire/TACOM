@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/4/2019
+//Last Edited: 12/5/2019
 
 //Represents a grouping of individuals or organizations within a faction
 public class Organization : AttackerBase
@@ -44,8 +44,7 @@ public class Organization : AttackerBase
 
     public override string ToString() //returns Organization as a string
     {
-        string toString = orgName + " (Total Threat/Weight: " + GetThreat() + "/" + GetWeight() + ", Command: " + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
-            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")\n";
+        string toString = orgName + GetSTWString() + "\n";
         for (int i = 0; i < orgComponents.Length; i++) 
         {
             toString += "\t" + orgComponents[i].ToStringTabbed(2) + "\n";
@@ -54,8 +53,7 @@ public class Organization : AttackerBase
     }
     public override string ToStringTabbed(int numTabs) //returns Organization as a string with tabs to create a visibile hierarchy
     {
-        string toString = orgName + " (Total Threat/Weight: " + GetThreat() + "/" + GetWeight() + ", Command: " + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
-            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")\n";
+        string toString = orgName + " " + GetSTWString() + "\n";
         for (int i = 0; i < orgComponents.Length; i++)
         {
             for (int a = 0; a < numTabs; a++)
@@ -79,11 +77,9 @@ public class Organization : AttackerBase
     {
         int total = 0;
         foreach (IAttackable a in orgComponents)
-        {
-            if (a.GetType().IsSubclassOf(typeof(AttackableBase)))
-            {
-                total += ((AttackableBase) a).GetThreat(ops);
-            }
+        {        
+            total += a.GetThreat(ops);
+            
         }
         return total;
     }
@@ -92,10 +88,8 @@ public class Organization : AttackerBase
         int total = 0;
         foreach (IAttackable a in orgComponents)
         {
-            if (a.GetType().IsSubclassOf(typeof(AttackableBase)))
-            {
-                total += ((AttackableBase)a).GetThreat(unit);
-            }
+            total += a.GetThreat(unit);
+
         }
         return total;
     }
@@ -108,6 +102,26 @@ public class Organization : AttackerBase
         }
         return total;
     }
+    public override int GetMinThreat(AttackableOpsType ops)
+    {
+        int total = 0;
+        foreach (IAttackable a in orgComponents)
+        {
+            total += a.GetMinThreat(ops);
+        }
+        return total;
+    }
+    public override int GetMinThreat(AttackableUnitType unit)
+    {
+        int total = 0;
+        foreach (IAttackable a in orgComponents)
+        {
+            total += a.GetMinThreat(unit);
+        }
+        return total;
+    }
+
+
     public override void Attack(IAttackable target)
     {
         for (int i = 0; i < orgComponents.Length; i++)

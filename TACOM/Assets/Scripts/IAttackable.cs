@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Grayson Hill
- * Last Updated: 12/4/19
+ * Last Updated: 12/5/19
  */
 
 //used for anything that can be attacked
@@ -27,6 +27,9 @@ public interface IAttackable
     int GetMinThreat();
     int GetMinThreat(AttackableBase.AttackableOpsType ops);
     int GetMinThreat(AttackableBase.AttackableUnitType unit);
+
+    //returns the string of MinThreat, Threat, and Weight put together
+    string GetSTWString();
     
     //void TakeDamage(int dmg);
 }

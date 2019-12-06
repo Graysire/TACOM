@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/3/2019
+//Last Edited: 12/5/2019
 
 //hub class that manages the creation of standard Characters
 public class CharFactory
@@ -27,23 +27,23 @@ public class CharFactory
         switch (type.GetCharType())
         {
             case CharType.GCF_Trooper:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1, "Trooper", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_LTrooper:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 1, "Lance Trooper", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_Corporal:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 2, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 2, "Corporal", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_LCorporal:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 2, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 2, "Lance Corporal", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_Sergeant:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 3, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 3, "Sergeant", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_LSergeant:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 3, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 3, "Lance Sergeant", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_LSergeant_Major:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 5, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 5, "Lance Sergeant Major", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_LCaptain:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 4, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 4, "Lance Captain", type.GetOpsType(), type.GetUnitType());
             case CharType.GCF_Captain:
-                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 6, type.GetOpsType(), type.GetUnitType());
+                return new Character(20, 50, 5, 100, new Weapon(20, 5, 4, 2), 6, "Captain", type.GetOpsType(), type.GetUnitType());
             default:
                 return new Character();
         }
