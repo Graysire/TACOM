@@ -44,10 +44,9 @@ public class Organization : AttackerBase
 
     public override string ToString() //returns Organization as a string
     {
-        string toString = orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
-            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ") Total Weighting: " +
-            + (GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6) + "\n";
-        for (int i = 0; i < orgComponents.Length; i++)
+        string toString = orgName + " (Total Threat/Weight: " + GetThreat() + "/" + GetWeight() + ", Command: " + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
+            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")\n";
+        for (int i = 0; i < orgComponents.Length; i++) 
         {
             toString += "\t" + orgComponents[i].ToStringTabbed(2) + "\n";
         }
@@ -55,9 +54,8 @@ public class Organization : AttackerBase
     }
     public override string ToStringTabbed(int numTabs) //returns Organization as a string with tabs to create a visibile hierarchy
     {
-        string toString = orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
-            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ") Total Weighting: " +
-            +(GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6) + "\n";
+        string toString = orgName + " (Total Threat/Weight: " + GetThreat() + "/" + GetWeight() + ", Command: " + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
+            ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")\n";
         for (int i = 0; i < orgComponents.Length; i++)
         {
             for (int a = 0; a < numTabs; a++)
@@ -138,16 +136,37 @@ public class Organization : AttackerBase
 
     public override IAttackable GetTarget()
     {
-        int totalWeight = GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6;
+        int totalWeight = GetWeight();
         //Debug.Log(orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
         //    ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ") Weighting: " + totalWeight+"\n");
         int count = -1;
         while (totalWeight > 0)
         {
             count++;
-            totalWeight -= orgComponents[count].GetThreat(AttackableOpsType.Command) + orgComponents[count].GetThreat(AttackableOpsType.Logistics) * 3 + orgComponents[count].GetThreat(AttackableOpsType.Line) * 6;
+            totalWeight -= orgComponents[count].GetWeight();
         }
         return orgComponents[count].GetTarget();
+    }
+
+    public override int GetWeight()
+    {
+        return GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6;
+    }
+
+    public override int GetWeight(AttackableOpsType ops)
+    {
+        switch (ops)
+        {
+            case AttackableOpsType.Command:
+                return GetThreat(ops);
+            case AttackableOpsType.Logistics:
+                return GetThreat(ops) * 3;
+            case AttackableOpsType.Line:
+                return GetThreat(ops) * 6;
+            default:
+                Debug.Log("GetWeight(ops) Default Case Warning");
+                return GetWeight();
+        }
     }
 }
 

@@ -23,6 +23,21 @@ public abstract class AttackableBase : IAttackable
         return 0;
     }
 
+    public virtual int GetWeight()
+    {
+        return GetThreat();
+    }
+
+    public virtual int GetWeight(AttackableOpsType ops)
+    {
+        return GetThreat(ops);
+    }
+
+    public virtual int GetWeight(AttackableUnitType unit)
+    {
+        return GetThreat(unit);
+    }
+
     public virtual int GetThreat(AttackableOpsType ops)
     {
         Debug.Log("Attackable Base ops GetThreat");
@@ -37,6 +52,18 @@ public abstract class AttackableBase : IAttackable
 
     public virtual int GetMinThreat()
     {
+        return 1;
+    }
+
+    public virtual int GetMinThreat(AttackableOpsType ops)
+    {
+        Debug.Log("Attackable Base ops GetMinThreat");
+        return 1;
+    }
+
+    public virtual int GetMinThreat(AttackableUnitType unit)
+    {
+        Debug.Log("Attackable Base unit GetMinThreat");
         return 1;
     }
 

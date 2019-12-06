@@ -35,7 +35,7 @@ public class OrgFactory
                     CharFactory.CreateChar(CharFactory.CharType.GCF_LTrooper)};
                 return new Organization("Infantry Lance Company Headquarters Squad", tempAttack, AttackableBase.AttackableOpsType.Command, AttackableBase.AttackableUnitType.Infantry);
             case OrgType.GCF_ILanceCompany:
-                //GCF Infantry Lance COmpany HQ, 4 GCF Infantry Squad
+                //GCF Infantry Lance Company HQ, 4 GCF Infantry Squad
                 tempAttack = new IAttacker[] {
                     CreateOrg(OrgType.GCF_ILanceCompanyHQ), CreateOrg(OrgType.GCF_ISquad), CreateOrg(OrgType.GCF_ISquad),
                     CreateOrg(OrgType.GCF_ISquad), CreateOrg(OrgType.GCF_ISquad) };

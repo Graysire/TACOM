@@ -47,7 +47,7 @@ public class Character : AbstractCharacter
     //returns Character as a string
     public override string ToString()
     {
-        return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth;
+        return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth + ", W: " + GetWeight();
     }
 
     //Generic Attack against an attackable target
@@ -139,5 +139,25 @@ public class Character : AbstractCharacter
         return ToString();
     }
 
+    public override int GetWeight()
+    {
+        return GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6;
+    }
+
+    public override int GetWeight(AttackableOpsType ops)
+    {
+        switch (ops)
+        {
+            case AttackableOpsType.Command:
+                return GetThreat(ops);
+            case AttackableOpsType.Logistics:
+                return GetThreat(ops) * 3;
+            case AttackableOpsType.Line:
+                return GetThreat(ops) * 6;
+            default:
+                Debug.Log("GetWeight(ops) Default Case Warning");
+                return GetWeight();
+        }
+    }
 }
 
