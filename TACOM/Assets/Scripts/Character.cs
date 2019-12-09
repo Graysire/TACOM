@@ -146,7 +146,7 @@ public class Character : AbstractCharacter
         }
     }
 
-    public override int GetMinThreat(AttackableOpsType ops)
+    public override int GetSize(AttackableOpsType ops)
     {
         if (opsType == ops)
         {
@@ -158,7 +158,7 @@ public class Character : AbstractCharacter
         }
     }
 
-    public override int GetMinThreat(AttackableUnitType unit)
+    public override int GetSize(AttackableUnitType unit)
     {
         if (unitType == unit)
         {
@@ -195,6 +195,26 @@ public class Character : AbstractCharacter
             default:
                 Debug.Log("GetWeight(ops) Default Case Warning");
                 return GetWeight();
+        }
+    }
+
+    public override bool GetIsAlive()
+    {
+        if (isAlive)
+        {
+            if (health > 0)
+            {
+                return true;
+            }
+            else
+            {
+                isAlive = false;
+                return isAlive;
+            }
+        }
+        else
+        {
+            return isAlive;
         }
     }
 }

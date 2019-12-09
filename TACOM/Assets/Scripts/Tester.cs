@@ -13,10 +13,12 @@ public class Tester : MonoBehaviour
         Organization o2 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompanyHQ);
         Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
         Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
+        Organization o5 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
         o4.ReplaceSimple();
         Debug.Log(o4);
         o4.GetTarget();
         o4.GetTarget();
+        o4.Attack(o5);
 
 
         //Character c1 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));

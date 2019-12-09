@@ -93,37 +93,38 @@ public class Organization : AttackerBase
         }
         return total;
     }
-    public override int GetMinThreat()
+    public override int GetSize()
     {
         int total = 0;
         foreach (IAttackable a in orgComponents)
         {
-            total += a.GetMinThreat();
+            total += a.GetSize();
         }
         return total;
     }
-    public override int GetMinThreat(AttackableOpsType ops)
+    public override int GetSize(AttackableOpsType ops)
     {
         int total = 0;
         foreach (IAttackable a in orgComponents)
         {
-            total += a.GetMinThreat(ops);
+            total += a.GetSize(ops);
         }
         return total;
     }
-    public override int GetMinThreat(AttackableUnitType unit)
+    public override int GetSize(AttackableUnitType unit)
     {
         int total = 0;
         foreach (IAttackable a in orgComponents)
         {
-            total += a.GetMinThreat(unit);
+            total += a.GetSize(unit);
         }
         return total;
     }
-
 
     public override void Attack(IAttackable target)
     {
+        //new Combat(this, target)
+        Debug.Log("Combat Started: " + ToString() + "\n" + target.ToString());
         for (int i = 0; i < orgComponents.Length; i++)
         {
             orgComponents[i].Attack(target.GetTarget());
@@ -150,13 +151,14 @@ public class Organization : AttackerBase
 
     public override IAttackable GetTarget()
     {
-        int totalWeight = GetWeight();
+        int totalWeight = Random.Range(0, GetWeight() - 1);
         //Debug.Log(orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
         //    ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ") Weighting: " + totalWeight+"\n");
         int count = -1;
         while (totalWeight > 0)
         {
             count++;
+            Debug.Log(totalWeight + " " + count + "/" + orgComponents.Length);
             totalWeight -= orgComponents[count].GetWeight();
         }
         return orgComponents[count].GetTarget();
@@ -180,6 +182,26 @@ public class Organization : AttackerBase
             default:
                 Debug.Log("GetWeight(ops) Default Case Warning");
                 return GetWeight();
+        }
+    }
+
+    public override bool GetIsAlive()
+    {
+        if (isAlive) //if alive, check to make sure it's still alive
+        {
+            for (int i = 0; i < orgComponents.Length; i++)
+            {
+                if (orgComponents[i].GetIsAlive()) //if any component is still alive this org is alive
+                {
+                    return true;
+                }
+            }
+            isAlive = false;
+            return isAlive;
+        }
+        else
+        {
+            return false;
         }
     }
 }

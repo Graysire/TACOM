@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Grayson Hill
- * Last Updated: 12/5/19
+ * Last Updated: 12/7/19
  */
 
 //used for anything that can be attacked
@@ -23,13 +23,15 @@ public interface IAttackable
     int GetWeight(AttackableBase.AttackableUnitType unit); //weight of specific UnitType
 
 
-    //returns the number of Attackables that don't contain other Attackables within this Attackable
-    int GetMinThreat();
-    int GetMinThreat(AttackableBase.AttackableOpsType ops);
-    int GetMinThreat(AttackableBase.AttackableUnitType unit);
+    //returns the number of individual Attackables that aren't just containers for more Attackables within this Attackable
+    int GetSize();
+    int GetSize(AttackableBase.AttackableOpsType ops);
+    int GetSize(AttackableBase.AttackableUnitType unit);
 
     //returns the string of MinThreat, Threat, and Weight put together
     string GetSTWString();
-    
+
+    //returns whether the attackable is not incapacitated
+    bool GetIsAlive();
     //void TakeDamage(int dmg);
 }

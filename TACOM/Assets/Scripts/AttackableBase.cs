@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  Grayson Hill
- Last Updated: 12/4/19
+ Last Updated: 12/7/19
      */
 
 //base implementation of the IAttackable interface
 public abstract class AttackableBase : IAttackable
 {
-    protected AttackableOpsType opsType;
-    protected AttackableUnitType unitType;
+    protected AttackableOpsType opsType; //the purpose of the attackable (i.e. command)
+    protected AttackableUnitType unitType; //the type of the attackable (i.e. infantry)
+    protected bool isAlive; //whether the attackable is incapacitated
 
     public virtual IAttackable GetTarget()
     {
@@ -50,29 +51,29 @@ public abstract class AttackableBase : IAttackable
         return 0;
     }
 
-    public virtual int GetMinThreat()
+    public virtual int GetSize()
     {
         return 1;
     }
 
-    public virtual int GetMinThreat(AttackableOpsType ops)
+    public virtual int GetSize(AttackableOpsType ops)
     {
-        Debug.Log("Attackable Base ops GetMinThreat");
+        Debug.Log("Attackable Base ops GetSize");
         return 1;
     }
 
-    public virtual int GetMinThreat(AttackableUnitType unit)
+    public virtual int GetSize(AttackableUnitType unit)
     {
-        Debug.Log("Attackable Base unit GetMinThreat");
+        Debug.Log("Attackable Base unit GetSize");
         return 1;
     }
 
     public virtual string GetSTWString()
     {
-        return "(S/T/W Total: " + GetMinThreat() + "/" + GetThreat() + "/" + GetWeight() +
-            ", Command: " + GetMinThreat(AttackableOpsType.Command) + "/" + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
-            ", Logistics: " + GetMinThreat(AttackableOpsType.Logistics) + "/" + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) +
-            ", Line: " + GetMinThreat(AttackableOpsType.Line) + "/" + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")";
+        return "(S/T/W Total: " + GetSize() + "/" + GetThreat() + "/" + GetWeight() +
+            ", Command: " + GetSize(AttackableOpsType.Command) + "/" + GetThreat(AttackableOpsType.Command) + "/" + GetWeight(AttackableOpsType.Command) +
+            ", Logistics: " + GetSize(AttackableOpsType.Logistics) + "/" + GetThreat(AttackableOpsType.Logistics) + "/" + GetWeight(AttackableOpsType.Logistics) +
+            ", Line: " + GetSize(AttackableOpsType.Line) + "/" + GetThreat(AttackableOpsType.Line) + "/" + GetWeight(AttackableOpsType.Line) + ")";
     }
 
     //returns Attackables operational type
@@ -85,6 +86,11 @@ public abstract class AttackableBase : IAttackable
     public virtual AttackableUnitType GetUnitType()
     {
         return unitType;
+    }
+
+    public virtual bool GetIsAlive()
+    {
+        return isAlive;
     }
 
     //enum used for the purpose of an attackable
