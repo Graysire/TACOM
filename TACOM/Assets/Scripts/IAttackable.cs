@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Grayson Hill
- * Last Updated: 12/7/19
+ * Last Updated: 12/9/19
  */
 
 //used for anything that can be attacked
@@ -33,5 +33,18 @@ public interface IAttackable
 
     //returns whether the attackable is not incapacitated
     bool GetIsAlive();
+    //returns whether the attackable is in combat
+    bool GetInCombat();
+    //checks whether the attackable is still alive
+    void CheckIsAlive();
+
+    //sets incombat to incombt
+    void SetInCombat(bool inCombt);
+
+    //returns the ops type
+    AttackableBase.AttackableOpsType GetOpsType();
+    //returns the unit type
+    AttackableBase.AttackableUnitType GetUnitType();
+
     //void TakeDamage(int dmg);
 }

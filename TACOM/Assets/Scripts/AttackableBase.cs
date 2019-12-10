@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  Grayson Hill
- Last Updated: 12/7/19
+ Last Updated: 12/9/19
      */
 
 //base implementation of the IAttackable interface
@@ -11,7 +11,8 @@ public abstract class AttackableBase : IAttackable
 {
     protected AttackableOpsType opsType; //the purpose of the attackable (i.e. command)
     protected AttackableUnitType unitType; //the type of the attackable (i.e. infantry)
-    protected bool isAlive; //whether the attackable is incapacitated
+    protected bool isAlive = true; //whether the attackable is incapacitated
+    protected bool inCombat = false; //whether the attackable is in combat
 
     public virtual IAttackable GetTarget()
     {
@@ -23,45 +24,37 @@ public abstract class AttackableBase : IAttackable
         Debug.Log("Attackable Base GetThreat");
         return 0;
     }
-
     public virtual int GetWeight()
     {
         return GetThreat();
     }
-
     public virtual int GetWeight(AttackableOpsType ops)
     {
         return GetThreat(ops);
     }
-
     public virtual int GetWeight(AttackableUnitType unit)
     {
         return GetThreat(unit);
     }
-
     public virtual int GetThreat(AttackableOpsType ops)
     {
         Debug.Log("Attackable Base ops GetThreat");
         return 0;
     }
-
     public virtual int GetThreat(AttackableUnitType unit)
     {
         Debug.Log("Attackable Base unit GetThreat");
         return 0;
     }
-
     public virtual int GetSize()
     {
         return 1;
     }
-
     public virtual int GetSize(AttackableOpsType ops)
     {
         Debug.Log("Attackable Base ops GetSize");
         return 1;
     }
-
     public virtual int GetSize(AttackableUnitType unit)
     {
         Debug.Log("Attackable Base unit GetSize");
@@ -91,6 +84,21 @@ public abstract class AttackableBase : IAttackable
     public virtual bool GetIsAlive()
     {
         return isAlive;
+    }
+
+    public virtual void CheckIsAlive()
+    {
+        return;
+    }
+
+    public virtual bool GetInCombat()
+    {
+        return inCombat;
+    }
+
+    public virtual void SetInCombat(bool inCombt)
+    {
+        inCombat = inCombt;
     }
 
     //enum used for the purpose of an attackable

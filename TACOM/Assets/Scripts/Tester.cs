@@ -14,11 +14,19 @@ public class Tester : MonoBehaviour
         Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
         Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
         Organization o5 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
+        Organization o6 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
         o4.ReplaceSimple();
+        o5.ReplaceSimple();
+        o1.ReplaceSimple();
+        o6.ReplaceSimple();
         Debug.Log(o4);
-        o4.GetTarget();
-        o4.GetTarget();
-        o4.Attack(o5);
+        //o4.Engage(o5);
+        for (int i = 0; i < 9999; i++)
+        {
+            o1.GetTarget();
+        }
+        o1.Engage(o6);
+
 
 
         //Character c1 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));

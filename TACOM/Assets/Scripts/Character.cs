@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/5/2019
+//Last Edited: 12/9/2019
 
 //Character represents all characters in the game with full statistics
 public class Character : AbstractCharacter
@@ -65,42 +65,43 @@ public class Character : AbstractCharacter
     //Generic Attack against an attackable target
     public override void Attack(IAttackable target)
     {
-        Debug.Log("Character attacking Non-Character");
-    }
-
-    //Attack against a Character target
-    public void Attack(Character target)
-    {
-        int usedFireRate = Random.Range(1, weapon.getMaxFireRate()); //the number of shots fired
-        //string debug = "UFR: " + usedFireRate;
-        for (int i = 0; i < Mathf.Ceil((float)usedFireRate / weapon.getBurstNumber()); i++) //roll an attack for each (shots fired/burst number rounded up)
+        if (target.GetType() == typeof(Character))
         {
-            //roll 1d100 + skill - target defense - recoil * shots fire - 1
-            int roll = Random.Range(1, 101) + rangedSkill - target.rangedDefense - weapon.getRecoil() * (usedFireRate - 1);
-            //debug += ", ROLL: " + roll;
-            if (roll > 0) //if hit the target
+            Character temp = (Character)target;
+            int usedFireRate = Random.Range(1, weapon.getMaxFireRate()); //the number of shots fired
+                                                                         //string debug = "UFR: " + usedFireRate;
+            for (int i = 0; i < Mathf.Ceil((float)usedFireRate / weapon.getBurstNumber()); i++) //roll an attack for each (shots fired/burst number rounded up)
             {
-                int damageMod;
-                if (roll > weapon.getDamage() * usedFireRate) //if roll is greater than maximum potential extra damage, deal maximum extra damage
+                //roll 1d100 + skill - target defense - recoil * shots fire - 1
+                int roll = Random.Range(1, 101) + rangedSkill - temp.rangedDefense - weapon.getRecoil() * (usedFireRate - 1);
+                //debug += ", ROLL: " + roll;
+                if (roll > 0) //if hit the target
                 {
-                    damageMod = weapon.getDamage() * usedFireRate;
-                    //debug += ", MaxDmg: " + damageMod;
-                }
-                else //otherwise the extra damage is equal to the roll
-                {
-                    damageMod = roll;
-                    //debug += ", Dmg: " + damageMod;
-                }
-                int damageResult = roll + damageMod - usedFireRate * target.armor; //final damage is roll + damage modifer - target's armor * shots fired
-                //debug += ", TOT:" + damageResult;
-                if (damageResult > 0) //if any damage is dealt
-                {
-                    target.TakeDamage(damageResult); //deal damage
+                    int damageMod;
+                    if (roll > weapon.getDamage() * usedFireRate) //if roll is greater than maximum potential extra damage, deal maximum extra damage
+                    {
+                        damageMod = weapon.getDamage() * usedFireRate;
+                        //debug += ", MaxDmg: " + damageMod;
+                    }
+                    else //otherwise the extra damage is equal to the roll
+                    {
+                        damageMod = roll;
+                        //debug += ", Dmg: " + damageMod;
+                    }
+                    int damageResult = roll + damageMod - usedFireRate * temp.armor; //final damage is roll + damage modifer - target's armor * shots fired
+                                                                                     //debug += ", TOT:" + damageResult;
+                    if (damageResult > 0) //if any damage is dealt
+                    {
+                        temp.TakeDamage(damageResult); //deal damage
+                    }
                 }
             }
+            //Debug.Log(debug);
         }
-        //Debug.Log(debug);
-
+        else
+        {
+            Debug.Log("Character attaking non-Character");
+        }
     }
 
     //Character reduces their health by dmg
@@ -198,23 +199,23 @@ public class Character : AbstractCharacter
         }
     }
 
-    public override bool GetIsAlive()
+    public override void CheckIsAlive()
     {
-        if (isAlive)
+        if (isAlive) //if alive, check if alive
         {
-            if (health > 0)
+            if (health > 0) //if health >0 the Character is still alive
             {
-                return true;
+                return;
             }
-            else
+            else //otherwise its dead
             {
+                Debug.Log(ToString() + " Slain");
                 isAlive = false;
-                return isAlive;
             }
         }
         else
         {
-            return isAlive;
+            return;
         }
     }
 }

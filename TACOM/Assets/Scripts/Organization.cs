@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/5/2019
+//Last Edited: 12/9/2019
 
 //Represents a grouping of individuals or organizations within a faction
 public class Organization : AttackerBase
@@ -123,11 +123,19 @@ public class Organization : AttackerBase
 
     public override void Attack(IAttackable target)
     {
-        //new Combat(this, target)
-        Debug.Log("Combat Started: " + ToString() + "\n" + target.ToString());
         for (int i = 0; i < orgComponents.Length; i++)
         {
-            orgComponents[i].Attack(target.GetTarget());
+            //If a component is a Line Organization that is not in combat and is alive
+            if (orgComponents[i].GetType() == typeof(Organization) && orgComponents[i].GetOpsType() == AttackableOpsType.Line && !orgComponents[i].GetInCombat() && orgComponents[i].GetIsAlive())
+            {
+                orgComponents[i].Engage(target.GetTarget());
+            } //else if a component is Alive
+            else if (orgComponents[i].GetIsAlive())
+            {
+                IAttackable temp = target.GetTarget();
+                Debug.Log(orgComponents[i].ToString() + "\n\t" + temp.ToString());
+                orgComponents[i].Attack(temp);
+            }
         }
     }
 
@@ -155,13 +163,13 @@ public class Organization : AttackerBase
         //Debug.Log(orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
         //    ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ") Weighting: " + totalWeight+"\n");
         int count = -1;
-        while (totalWeight > 0)
+        while (totalWeight >= 0)
         {
             count++;
-            Debug.Log(totalWeight + " " + count + "/" + orgComponents.Length);
+            //Debug.Log(totalWeight + " " + count + "/" + (orgComponents.Length-1));
             totalWeight -= orgComponents[count].GetWeight();
         }
-        return orgComponents[count].GetTarget();
+        return orgComponents[count];
     }
 
     public override int GetWeight()
@@ -185,23 +193,23 @@ public class Organization : AttackerBase
         }
     }
 
-    public override bool GetIsAlive()
+    public override void CheckIsAlive()
     {
         if (isAlive) //if alive, check to make sure it's still alive
         {
             for (int i = 0; i < orgComponents.Length; i++)
             {
+                orgComponents[i].CheckIsAlive();
                 if (orgComponents[i].GetIsAlive()) //if any component is still alive this org is alive
                 {
-                    return true;
+                    return;
                 }
             }
             isAlive = false;
-            return isAlive;
         }
-        else
+        else //if its not alive nothing changes
         {
-            return false;
+            return;
         }
     }
 }

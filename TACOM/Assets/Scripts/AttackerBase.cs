@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  * Grayson Hill
- * Last Updated 11/27/19
+ * Last Updated 12/9/19
  * */
 
 //base class provides default implementation for the IAttacker Interface
@@ -23,5 +23,12 @@ public abstract class AttackerBase : AttackableBase, IAttacker
         }
         toString += ToString();
         return toString;
+    }
+
+    public virtual void Engage(IAttackable target)
+    {
+        inCombat = true;
+        target.SetInCombat(true);
+        new Combat(this, target);
     }
 }
