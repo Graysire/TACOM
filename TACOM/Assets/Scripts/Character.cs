@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/9/2019
+//Last Edited: 12/10/2019
 
 //Character represents all characters in the game with full statistics
 public class Character : AbstractCharacter
@@ -58,7 +58,16 @@ public class Character : AbstractCharacter
         {
             temp += "\t";
         }
-        return temp + opsType + " Weight:" + GetWeight();
+        temp += opsType + " Weight:" + GetWeight();
+        if (!isAlive)
+        {
+            temp += " DECEASED";
+        }
+        else
+        {
+            temp += " " + health + "/" + maxHealth;
+        }
+        return temp;
         //return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth + ", " + opsType + " W:" + GetWeight();
     }
 
@@ -115,17 +124,25 @@ public class Character : AbstractCharacter
     {
         return this;
     }
-    
+
     //returns threat level
     public override int GetThreat()
     {
-        return threat;
+        if (isAlive)
+        {
+            return threat;
+
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     //returns threat level if opType matches ops
     public override int GetThreat(AttackableOpsType ops)
     {
-        if (opsType == ops)
+        if (opsType == ops && isAlive)
         {
             return threat;
         }
@@ -180,22 +197,36 @@ public class Character : AbstractCharacter
 
     public override int GetWeight()
     {
-        return GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6;
+        if (isAlive)
+        {
+            return GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     public override int GetWeight(AttackableOpsType ops)
     {
-        switch (ops)
+        if (isAlive)
         {
-            case AttackableOpsType.Command:
-                return GetThreat(ops);
-            case AttackableOpsType.Logistics:
-                return GetThreat(ops) * 3;
-            case AttackableOpsType.Line:
-                return GetThreat(ops) * 6;
-            default:
-                Debug.Log("GetWeight(ops) Default Case Warning");
-                return GetWeight();
+            switch (ops)
+            {
+                case AttackableOpsType.Command:
+                    return GetThreat(ops);
+                case AttackableOpsType.Logistics:
+                    return GetThreat(ops) * 3;
+                case AttackableOpsType.Line:
+                    return GetThreat(ops) * 6;
+                default:
+                    Debug.Log("GetWeight(ops) Default Case Warning");
+                    return GetWeight();
+            }
+        }
+        else
+        {
+            return 0;
         }
     }
 

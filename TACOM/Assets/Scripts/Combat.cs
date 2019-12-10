@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Grayson Hill
- * Last Edited: 12/9/19
+ * Last Edited: 12/10/19
 */
 //represents a combat where an attacker is attacking an attackable
 public class Combat
@@ -33,8 +33,10 @@ public class Combat
     //goes through combat of a single round
     public void FightRound()
     {
+        Debug.Log("COMBAT ATTACKER:" + attacker.ToString());
+        Debug.Log("COMBAT DEFENDER:" + defender.ToString());
         attacker.Attack(defender); //the attacker attacks
-        if(defender.GetType() == typeof(IAttacker)) //if the defender is capable of attacking it attacks back
+        if(defender.GetType().GetInterface("IAttacker") == typeof(IAttacker)) //if the defender is capable of attacking it attacks back
         {
             ((IAttacker)defender).Attack(attacker);
         }
@@ -48,6 +50,8 @@ public class Combat
             defender.SetInCombat(false);
             TickManager.onTick -= FightRound;
             Debug.Log("Combat Ended");
+            Debug.Log("COMBAT ATTACKER:" + attacker.ToString());
+            Debug.Log("COMBAT DEFENDER:" + defender.ToString());
         }
         
 

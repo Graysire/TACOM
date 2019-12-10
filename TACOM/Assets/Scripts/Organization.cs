@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/9/2019
+//Last Edited: 12/10/2019
 
 //Represents a grouping of individuals or organizations within a faction
 public class Organization : AttackerBase
@@ -44,7 +44,12 @@ public class Organization : AttackerBase
 
     public override string ToString() //returns Organization as a string
     {
-        string toString = orgName + GetSTWString() + "\n";
+        string toString = opsType + " " + orgName + GetSTWString() + " ";
+        if (!isAlive)
+        {
+            toString += "DECEASED";
+        }
+        toString += "\n";
         for (int i = 0; i < orgComponents.Length; i++) 
         {
             toString += "\t" + orgComponents[i].ToStringTabbed(2) + "\n";
@@ -53,7 +58,12 @@ public class Organization : AttackerBase
     }
     public override string ToStringTabbed(int numTabs) //returns Organization as a string with tabs to create a visibile hierarchy
     {
-        string toString = orgName + " " + GetSTWString() + "\n";
+        string toString = opsType + " " + orgName + " " + GetSTWString() + " ";
+        if (!isAlive)
+        {
+            toString += "DECEASED";
+        }
+        toString += "\n";
         for (int i = 0; i < orgComponents.Length; i++)
         {
             for (int a = 0; a < numTabs; a++)
@@ -130,10 +140,10 @@ public class Organization : AttackerBase
             {
                 orgComponents[i].Engage(target.GetTarget());
             } //else if a component is Alive
-            else if (orgComponents[i].GetIsAlive())
+            else if (orgComponents[i].GetType() != typeof(Organization) && orgComponents[i].GetIsAlive())
             {
                 IAttackable temp = target.GetTarget();
-                Debug.Log(orgComponents[i].ToString() + "\n\t" + temp.ToString());
+                //Debug.Log(orgComponents[i].ToString() + "\n\t" + temp.ToString());
                 orgComponents[i].Attack(temp);
             }
         }
@@ -163,11 +173,17 @@ public class Organization : AttackerBase
         //Debug.Log(orgName + " (Total: " + GetThreat() + ", Command: " + GetThreat(AttackableOpsType.Command) +
         //    ", Logistics: " + GetThreat(AttackableOpsType.Logistics) + ", Line: " + GetThreat(AttackableOpsType.Line) + ") Weighting: " + totalWeight+"\n");
         int count = -1;
-        while (totalWeight >= 0)
+        while (totalWeight > 0)
         {
             count++;
             //Debug.Log(totalWeight + " " + count + "/" + (orgComponents.Length-1));
+            //Debug.Log(orgComponents[count]);
             totalWeight -= orgComponents[count].GetWeight();
+        }
+        //Debug.Log(totalWeight + " " + count + "/" + (orgComponents.Length-1));
+        if (count < 0)
+        {
+            count = 0;
         }
         return orgComponents[count];
     }
@@ -197,15 +213,23 @@ public class Organization : AttackerBase
     {
         if (isAlive) //if alive, check to make sure it's still alive
         {
+            bool hasAlive = false;
             for (int i = 0; i < orgComponents.Length; i++)
             {
                 orgComponents[i].CheckIsAlive();
-                if (orgComponents[i].GetIsAlive()) //if any component is still alive this org is alive
+                if (orgComponents[i].GetIsAlive() && orgComponents[i].GetType() != typeof(Character)) //if any component is still alive this org is alive
                 {
                     return;
                 }
+                else if (orgComponents[i].GetIsAlive())
+                {
+                    hasAlive = true;
+                }
             }
-            isAlive = false;
+            if (!hasAlive)
+            {
+                isAlive = false;
+            }
         }
         else //if its not alive nothing changes
         {

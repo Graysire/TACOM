@@ -22,7 +22,6 @@ public interface IAttackable
     int GetWeight(AttackableBase.AttackableOpsType ops); //weight of specific OpsType
     int GetWeight(AttackableBase.AttackableUnitType unit); //weight of specific UnitType
 
-
     //returns the number of individual Attackables that aren't just containers for more Attackables within this Attackable
     int GetSize();
     int GetSize(AttackableBase.AttackableOpsType ops);

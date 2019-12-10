@@ -26,15 +26,36 @@ public abstract class AttackableBase : IAttackable
     }
     public virtual int GetWeight()
     {
-        return GetThreat();
+        if (isAlive)
+        {
+            return GetThreat();
+        }
+        else
+        {
+            return 0;
+        }
     }
     public virtual int GetWeight(AttackableOpsType ops)
     {
-        return GetThreat(ops);
+        if (isAlive)
+        {
+            return GetThreat(ops);
+        }
+        else
+        {
+            return 0;
+        }
     }
     public virtual int GetWeight(AttackableUnitType unit)
     {
-        return GetThreat(unit);
+        if (isAlive)
+        {
+            return GetThreat(unit);
+        }
+        else
+        {
+            return 0;
+        }
     }
     public virtual int GetThreat(AttackableOpsType ops)
     {

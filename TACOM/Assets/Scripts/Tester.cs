@@ -21,10 +21,6 @@ public class Tester : MonoBehaviour
         o6.ReplaceSimple();
         Debug.Log(o4);
         //o4.Engage(o5);
-        for (int i = 0; i < 9999; i++)
-        {
-            o1.GetTarget();
-        }
         o1.Engage(o6);
 
 
