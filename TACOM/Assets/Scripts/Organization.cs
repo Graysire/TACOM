@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Grayson Hill
-//Last Edited: 12/10/2019
+//Last Edited: 12/180/2019
 
 //Represents a grouping of individuals or organizations within a faction
 public class Organization : AttackerBase
@@ -44,12 +44,15 @@ public class Organization : AttackerBase
 
     public override string ToString() //returns Organization as a string
     {
-        string toString = opsType + " " + orgName + GetSTWString() + " ";
+        //operation type organization name (Size/Threat/Weight)
+        string toString = opsType + " " + orgName + GetSTWString();
+        //if dead, display that
         if (!isAlive)
         {
-            toString += "DECEASED";
+            toString += " DECEASED";
         }
-        toString += "\n";
+        toString += "\n"; //new line for formatting
+        //display all components
         for (int i = 0; i < orgComponents.Length; i++) 
         {
             toString += "\t" + orgComponents[i].ToStringTabbed(2) + "\n";
@@ -58,14 +61,18 @@ public class Organization : AttackerBase
     }
     public override string ToStringTabbed(int numTabs) //returns Organization as a string with tabs to create a visibile hierarchy
     {
+        //operation type organization name (Size/Threat/Weight)
         string toString = opsType + " " + orgName + " " + GetSTWString() + " ";
+        //if dead, display that
         if (!isAlive)
         {
             toString += "DECEASED";
         }
-        toString += "\n";
+        toString += "\n"; //new line for formatting
+        //display all components
         for (int i = 0; i < orgComponents.Length; i++)
         {
+            //tab in components for formatting
             for (int a = 0; a < numTabs; a++)
             {
                 toString += "\t";
@@ -77,6 +84,7 @@ public class Organization : AttackerBase
     public override int GetThreat()
     {
         int total = 0;
+        //threat is the sum of all components' threats
         foreach (IAttackable a in orgComponents)
         {
             total += a.GetThreat();
@@ -86,6 +94,7 @@ public class Organization : AttackerBase
     public override int GetThreat(AttackableOpsType ops)
     {
         int total = 0;
+        //threat is the sum of all components' threats
         foreach (IAttackable a in orgComponents)
         {        
             total += a.GetThreat(ops);
@@ -96,6 +105,7 @@ public class Organization : AttackerBase
     public override int GetThreat(AttackableUnitType unit)
     {
         int total = 0;
+        //threat is the sum of all components' threats
         foreach (IAttackable a in orgComponents)
         {
             total += a.GetThreat(unit);
@@ -106,6 +116,7 @@ public class Organization : AttackerBase
     public override int GetSize()
     {
         int total = 0;
+        //size is sum of all components' sizes
         foreach (IAttackable a in orgComponents)
         {
             total += a.GetSize();
@@ -115,6 +126,7 @@ public class Organization : AttackerBase
     public override int GetSize(AttackableOpsType ops)
     {
         int total = 0;
+        //size is sum of all components sizes
         foreach (IAttackable a in orgComponents)
         {
             total += a.GetSize(ops);
@@ -124,6 +136,7 @@ public class Organization : AttackerBase
     public override int GetSize(AttackableUnitType unit)
     {
         int total = 0;
+        //size is sum of all components sizes
         foreach (IAttackable a in orgComponents)
         {
             total += a.GetSize(unit);
@@ -138,13 +151,15 @@ public class Organization : AttackerBase
             //If a component is a Line Organization that is not in combat and is alive
             if (orgComponents[i].GetType() == typeof(Organization) && orgComponents[i].GetOpsType() == AttackableOpsType.Line && !orgComponents[i].GetInCombat() && orgComponents[i].GetIsAlive())
             {
+                //engage the target in combat
                 orgComponents[i].Engage(target.GetTarget());
-            } //else if a component is Alive
+            } 
+            //else if a component is Alive
             else if (orgComponents[i].GetType() != typeof(Organization) && orgComponents[i].GetIsAlive())
             {
-                IAttackable temp = target.GetTarget();
+                //attack the target
                 //Debug.Log(orgComponents[i].ToString() + "\n\t" + temp.ToString());
-                orgComponents[i].Attack(temp);
+                orgComponents[i].Attack(target.GetTarget());
             }
         }
     }
@@ -152,6 +167,7 @@ public class Organization : AttackerBase
     //replaces all SimpleCharacters with their Character versions
     public void ReplaceSimple()
     {
+        //for each component, if SimpleCharacter replace it, if Organization call ReplaceSimple()
         for (int i = 0; i < orgComponents.Length; i++)
         {
             if (orgComponents[i].GetType() == typeof(SimpleCharacter))
@@ -217,11 +233,11 @@ public class Organization : AttackerBase
             for (int i = 0; i < orgComponents.Length; i++)
             {
                 orgComponents[i].CheckIsAlive();
-                if (orgComponents[i].GetIsAlive() && orgComponents[i].GetType() != typeof(Character)) //if any component is still alive this org is alive
-                {
-                    return;
-                }
-                else if (orgComponents[i].GetIsAlive())
+                //if (orgComponents[i].GetIsAlive() && orgComponents[i].GetType() != typeof(Character)) //if any component is still alive this org is alive
+                //{
+                //    return;
+                //}
+                if (orgComponents[i].GetIsAlive())
                 {
                     hasAlive = true;
                 }
