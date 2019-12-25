@@ -4,7 +4,7 @@ using UnityEngine;
 
 /*
  * Grayson Hill
- * Last Updated: 12/9/19
+ * Last Updated: 12/24/19
  */
 
 //used for anything that can be attacked
@@ -39,6 +39,8 @@ public interface IAttackable
 
     //sets incombat to incombt
     void SetInCombat(bool inCombt);
+
+    void HandleAttack(IAttacker attacker);
 
     //returns the ops type
     AttackableBase.AttackableOpsType GetOpsType();

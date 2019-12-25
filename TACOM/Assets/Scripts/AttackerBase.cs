@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  * Grayson Hill
- * Last Updated 12/9/19
+ * Last Updated 12/24/19
  * */
 
 //base class provides default implementation for the IAttacker Interface
@@ -11,7 +11,16 @@ public abstract class AttackerBase : AttackableBase, IAttacker
 {
     public virtual void Attack(IAttackable target)
     {
-        Debug.Log("AttackableBase attacked " + target);
+        target.HandleAttack(this);
+    }
+
+    public virtual void Attack(Organization target)
+    {
+        Debug.Log("Attacking Organization");
+    }
+    public virtual void Attack(Character target)
+    {
+        Debug.Log("Attacking Character");
     }
 
     public virtual string ToStringTabbed(int numTabs)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  Grayson Hill
- Last Updated: 12/9/19
+ Last Updated: 12/24/19
      */
 
 //base implementation of the IAttackable interface
@@ -120,6 +120,11 @@ public abstract class AttackableBase : IAttackable
     public virtual void SetInCombat(bool inCombt)
     {
         inCombat = inCombt;
+    }
+
+    public virtual void HandleAttack(IAttacker attacker)
+    {
+        attacker.Attack(this);
     }
 
     //enum used for the purpose of an attackable
