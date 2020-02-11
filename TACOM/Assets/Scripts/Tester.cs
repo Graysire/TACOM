@@ -9,21 +9,23 @@ public class Tester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Organization o1 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
-        Organization o2 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompanyHQ);
-        Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
-        Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
-        Organization o5 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
-        Organization o6 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
-        o4.ReplaceSimple();
-        o5.ReplaceSimple();
-        o1.ReplaceSimple();
-        o6.ReplaceSimple();
-        Debug.Log(o4);
-        //o4.Engage(o5);
-        o1.Engage(o6);
-
-
+        //Organization o1 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
+        //Organization o2 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompanyHQ);
+        //Organization o3 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ILanceCompany);
+        //Organization o4 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
+        //Organization o5 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ICompany);
+        //Organization o6 = OrgFactory.CreateOrg(OrgFactory.OrgType.GCF_ISquad);
+        //o4.ReplaceSimple();
+        //o5.ReplaceSimple();
+        //o1.ReplaceSimple();
+        //o6.ReplaceSimple();
+        //Debug.Log(o4);
+        ////o4.Engage(o5);
+        //o1.Engage(o6);
+        Character c = new Character();
+        Character c2 = new Character();
+        Ability a = new Ability(new Effect("health", -20));
+        c.useAbility(a, c2);
 
         //Character c1 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));
         //Debug.Log(c1);

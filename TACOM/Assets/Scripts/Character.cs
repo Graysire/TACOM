@@ -2,252 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Grayson Hill
-//Last Edited: 12/10/2019
-
-//Character represents all characters in the game with full statistics
-public class Character : AbstractCharacter
+//represents a character in the game
+public class Character : MonoBehaviour
 {
-    private static int displayTabs = 4; //number of tabs used to align display in the toString method
+    //dictionary that maps attributes represented as strings to their integer values i.e. "health" -> 100
+    Dictionary<string, int> attributes = new Dictionary<string, int>();
+    //list of all abilities a character can use
+    [SerializeField]
+    List<Ability> abilities = new List<Ability>();
 
-    private int rangedSkill; //Character's accuracy in ranged combat
-    private int rangedDefense; //Character's ability to dodge ranged attacks
-    private int armor; //Character's damage reduction
-    private int maxHealth; //Character's maximum health
-    private int health; //Character's current health
-    private int threat; //how threatening a character is
-    private string rank; //a character's rank
-    private Weapon weapon; //Character's weapon
-
-    //Default Constructor
     public Character()
     {
-        rangedSkill = 0;
-        rangedDefense = 0;
-        armor = 0;
-        maxHealth = 0;
-        health = 0;
-        threat = 0;
-        rank = "Infantry";
-        weapon = new Weapon();
-        opsType = AttackableOpsType.Line;
-        unitType = AttackableUnitType.Infantry;
+        attributes.Add("health", 100);
     }
 
-    //Constructor giving ranged skill, ranged defense, armor, health, and weapon
-    public Character(int rSkill, int rDef, int armr, int hp, Weapon wep, int threat, string rnk, AttackableOpsType ops = AttackableOpsType.Line, AttackableUnitType unit = AttackableUnitType.Infantry)
+    // Start is called before the first frame update
+    void Start()
     {
-        rangedSkill = rSkill;
-        rangedDefense = rDef;
-        armor = armr;
-        maxHealth = hp;
-        health = hp;
-        weapon = wep;
-        this.threat = threat;
-        rank = rnk;
-        opsType = ops;
-        unitType = unit;
+        //attributes.Add("health", 100);
     }
 
-    //returns Character as a string
-    public override string ToString()
+    // Update is called once per frame
+    void Update()
     {
-        int numTabs = (int) Mathf.Ceil((rank.Length * 0.1f));
-        string temp = rank;
-        for (int i = 0; i < displayTabs - numTabs; i++)
+        if (attributes["health"] < 100)
         {
-            temp += "\t";
-        }
-        temp += opsType + " Weight:" + GetWeight();
-        if (!isAlive)
-        {
-            temp += " DECEASED";
-        }
-        else
-        {
-            temp += " " + health + "/" + maxHealth;
-        }
-        return temp;
-        //return "RS = " + rangedSkill + ", RD = " + rangedDefense + ", " + "A: " + armor + ", HP: " + health + "/" + maxHealth + ", " + opsType + " W:" + GetWeight();
-    }
-
-    //Generic Attack against an attackable target
-    public override void Attack(IAttackable target)
-    {
-        if (target.GetType() == typeof(Character))
-        {
-            Character temp = (Character)target;
-            int usedFireRate = Random.Range(1, weapon.getMaxFireRate()); //the number of shots fired
-                                                                         //string debug = "UFR: " + usedFireRate;
-            for (int i = 0; i < Mathf.Ceil((float)usedFireRate / weapon.getBurstNumber()); i++) //roll an attack for each (shots fired/burst number rounded up)
-            {
-                //roll 1d100 + skill - target defense - recoil * shots fire - 1
-                int roll = Random.Range(1, 101) + rangedSkill - temp.rangedDefense - weapon.getRecoil() * (usedFireRate - 1);
-                //debug += ", ROLL: " + roll;
-                if (roll > 0) //if hit the target
-                {
-                    int damageMod;
-                    if (roll > weapon.getDamage() * usedFireRate) //if roll is greater than maximum potential extra damage, deal maximum extra damage
-                    {
-                        damageMod = weapon.getDamage() * usedFireRate;
-                        //debug += ", MaxDmg: " + damageMod;
-                    }
-                    else //otherwise the extra damage is equal to the roll
-                    {
-                        damageMod = roll;
-                        //debug += ", Dmg: " + damageMod;
-                    }
-                    int damageResult = roll + damageMod - usedFireRate * temp.armor; //final damage is roll + damage modifer - target's armor * shots fired
-                                                                                     //debug += ", TOT:" + damageResult;
-                    if (damageResult > 0) //if any damage is dealt
-                    {
-                        temp.TakeDamage(damageResult); //deal damage
-                    }
-                }
-            }
-            //Debug.Log(debug);
-        }
-        else
-        {
-            Debug.Log("Character attaking non-Character");
+            Debug.Log(100 - attributes["health"] + " damage taken");
+            attributes["health"] = 100;
         }
     }
 
-    //Character reduces their health by dmg
-    public void TakeDamage(int dmg)
+    public void useAbility(Ability abl, Character target)
     {
-        health -= dmg;
+        Debug.Log("use");
+        abl.applyEffects(target);
     }
 
-    //returns self
-    public override IAttackable GetTarget()
+    public void handleEffect(string att, int val)
     {
-        return this;
-    }
-
-    //returns threat level
-    public override int GetThreat()
-    {
-        if (isAlive)
+        Debug.Log("handle");
+        attributes[att] += val;
+        if (attributes["health"] < 100)
         {
-            return threat;
-
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    //returns threat level if opType matches ops
-    public override int GetThreat(AttackableOpsType ops)
-    {
-        if (opsType == ops && isAlive)
-        {
-            return threat;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public override int GetThreat(AttackableUnitType unit)
-    {
-        if (unitType == unit)
-        {
-            return threat;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public override int GetSize(AttackableOpsType ops)
-    {
-        if (opsType == ops)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public override int GetSize(AttackableUnitType unit)
-    {
-        if (unitType == unit)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-
-
-    public override string ToStringTabbed(int numTabs)
-    {
-        return ToString();
-    }
-
-    public override int GetWeight()
-    {
-        if (isAlive)
-        {
-            return GetThreat(AttackableOpsType.Command) + GetThreat(AttackableOpsType.Logistics) * 3 + GetThreat(AttackableOpsType.Line) * 6;
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public override int GetWeight(AttackableOpsType ops)
-    {
-        if (isAlive)
-        {
-            switch (ops)
-            {
-                case AttackableOpsType.Command:
-                    return GetThreat(ops);
-                case AttackableOpsType.Logistics:
-                    return GetThreat(ops) * 3;
-                case AttackableOpsType.Line:
-                    return GetThreat(ops) * 6;
-                default:
-                    Debug.Log("GetWeight(ops) Default Case Warning");
-                    return GetWeight();
-            }
-        }
-        else
-        {
-            return 0;
-        }
-    }
-
-    public override void CheckIsAlive()
-    {
-        if (isAlive) //if alive, check if alive
-        {
-            if (health > 0) //if health >0 the Character is still alive
-            {
-                return;
-            }
-            else //otherwise its dead
-            {
-                Debug.Log(ToString() + " Slain");
-                isAlive = false;
-            }
-        }
-        else
-        {
-            return;
+            Debug.Log(100 - attributes["health"] + " damage taken");
+            attributes["health"] = 100;
         }
     }
 }
-
