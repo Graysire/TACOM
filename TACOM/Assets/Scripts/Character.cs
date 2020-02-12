@@ -38,10 +38,10 @@ public class Character : MonoBehaviour
         abl.applyEffects(target);
     }
 
-    public void handleEffect(string att, int val)
+    public void handleEffect(ImmediateEffect eff)
     {
         Debug.Log("handle");
-        attributes[att] += val;
+        attributes[eff.getAttribute()] += eff.getStrength();
         if (attributes["health"] < 100)
         {
             Debug.Log(100 - attributes["health"] + " damage taken");

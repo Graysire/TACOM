@@ -7,22 +7,22 @@ public class Ability
 {
     [SerializeField]
     //list of all effects that the ability will apply when used
-    List<Effect> effects = new List<Effect>();
+    List<ImmediateEffect> effects = new List<ImmediateEffect>();
 
     public Ability()
     { }
 
-    public Ability(Effect eff)
+    public Ability(ImmediateEffect eff)
     {
         effects.Add(eff);
     }
 
     public void applyEffects(Character target)
     {
-        foreach (Effect eff in effects)
+        foreach (ImmediateEffect eff in effects)
         {
             Debug.Log("apply");
-            eff.doEffect(target);
+            target.handleEffect(eff);
         }
     }
 }
