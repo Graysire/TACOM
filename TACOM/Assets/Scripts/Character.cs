@@ -53,6 +53,6 @@ public class Character : MonoBehaviour
     //invokes the OnTick event
     public void TickCharacter()
     {
-        OnTick?.Invoke(this);
+        OnTick(this);
     }
 }
