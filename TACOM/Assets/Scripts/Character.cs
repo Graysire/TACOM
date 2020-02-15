@@ -11,6 +11,11 @@ public class Character : MonoBehaviour
     [SerializeField]
     List<Ability> abilities = new List<Ability>();
 
+    //delegate that takes in a Character
+    delegate void Tick(Character target);
+    //event called every end of turn
+    event Tick OnTick;
+
     public Character()
     {
         attributes.Add("health", 100);
@@ -33,15 +38,21 @@ public class Character : MonoBehaviour
     }
 
     //uses abl on target, applying the effects of abl to the target
-    public void useAbility(Ability abl, Character target)
+    public void UseAbility(Ability abl, Character target)
     {
         Debug.Log("use");
-        abl.applyEffects(target);
+        abl.ApplyEffects(target);
     }
 
     //increases an attribute att by str
-    public void changeAttribute(string att, int str)
+    public void ChangeAttribute(string att, int str)
     {
         attributes[att] += str;
+    }
+
+    //invokes the OnTick event
+    public void TickCharacter()
+    {
+        OnTick(this);
     }
 }

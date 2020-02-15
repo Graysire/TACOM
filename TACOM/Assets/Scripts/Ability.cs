@@ -17,12 +17,12 @@ public class Ability
         effects.Add(eff);
     }
 
-    public void applyEffects(Character target)
+    public void ApplyEffects(Character target)
     {
         foreach (ImmediateEffect eff in effects)
         {
             Debug.Log("apply");
-            eff.applyEffect(target);
+            eff.ApplyEffect(target);
         }
     }
 }

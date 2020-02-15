@@ -15,10 +15,9 @@ public class GridTester : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit hitInfo;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
             {
                 PlaceCubeNear(hitInfo.point);
                 Debug.Log("test");

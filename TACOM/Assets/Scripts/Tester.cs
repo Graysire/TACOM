@@ -25,7 +25,7 @@ public class Tester : MonoBehaviour
         Character c = new Character();
         Character c2 = new Character();
         Ability a = new Ability(new ImmediateEffect("health", -20));
-        c.useAbility(a, c2);
+        c.UseAbility(a, c2);
 
         //Character c1 = CharFactory.CreateChar(new SimpleCharacter(CharFactory.CharType.GCF_Trooper));
         //Debug.Log(c1);

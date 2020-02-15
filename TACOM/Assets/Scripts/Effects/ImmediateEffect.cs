@@ -25,21 +25,21 @@ public class ImmediateEffect
     }
 
     //returns the attribute this Effect affects
-    public string getAttribute()
+    public string GetAttribute()
     {
         return attribute;
     }
 
     //returns the strength of this Effect
-    public int getStrength()
+    public int GetStrength()
     {
         return strength;
     }
 
     //applies the modification to the target
-    public virtual void applyEffect(Character target)
+    public virtual void ApplyEffect(Character target)
     {
-        target.changeAttribute(attribute, strength);
+        target.ChangeAttribute(attribute, strength);
     }
 
 }
