@@ -32,20 +32,16 @@ public class Character : MonoBehaviour
         }
     }
 
+    //uses abl on target, applying the effects of abl to the target
     public void useAbility(Ability abl, Character target)
     {
         Debug.Log("use");
         abl.applyEffects(target);
     }
 
-    public void handleEffect(ImmediateEffect eff)
+    //increases an attribute att by str
+    public void changeAttribute(string att, int str)
     {
-        Debug.Log("handle");
-        attributes[eff.getAttribute()] += eff.getStrength();
-        if (attributes["health"] < 100)
-        {
-            Debug.Log(100 - attributes["health"] + " damage taken");
-            attributes["health"] = 100;
-        }
+        attributes[att] += str;
     }
 }

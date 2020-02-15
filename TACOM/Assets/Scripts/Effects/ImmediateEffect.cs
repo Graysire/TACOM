@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//represents any event that modifies a characters attributes
+//represents an event that applies an immediate change to a character
 public class ImmediateEffect
 {
     //the name of the attribute to be affected
@@ -34,6 +34,12 @@ public class ImmediateEffect
     public int getStrength()
     {
         return strength;
+    }
+
+    //applies the modification to the target
+    public virtual void applyEffect(Character target)
+    {
+        target.changeAttribute(attribute, strength);
     }
 
 }

@@ -22,7 +22,7 @@ public class Ability
         foreach (ImmediateEffect eff in effects)
         {
             Debug.Log("apply");
-            target.handleEffect(eff);
+            eff.applyEffect(target);
         }
     }
 }
