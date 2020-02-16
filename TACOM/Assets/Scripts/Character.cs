@@ -8,8 +8,9 @@ public class Character : MonoBehaviour
     //dictionary that maps attributes represented as strings to their integer values i.e. "health" -> 100
     Dictionary<string, int> attributes = new Dictionary<string, int>();
     //list of all abilities a character can use
-    [SerializeField]
     List<Ability> abilities = new List<Ability>();
+    //list of all effects affecting a character
+    List<RemovableEffect> activeEffects = new List<RemovableEffect>();
 
     //delegate that takes in a Character
     delegate void Tick(Character target);
@@ -40,7 +41,7 @@ public class Character : MonoBehaviour
     //uses abl on target, applying the effects of abl to the target
     public void UseAbility(Ability abl, Character target)
     {
-        Debug.Log("use");
+        //Debug.Log("use");
         abl.ApplyEffects(target);
     }
 
@@ -48,11 +49,25 @@ public class Character : MonoBehaviour
     public void ChangeAttribute(string att, int str)
     {
         attributes[att] += str;
+        Debug.Log((attributes[att] - str) + " -> " + attributes[att]);
     }
 
     //invokes the OnTick event
     public void TickCharacter()
     {
         OnTick?.Invoke(this);
+    }
+
+    //adds an effect to the list of active effects
+    public void AddEffect(RemovableEffect eff)
+    {
+        activeEffects.Add(eff);
+    }
+
+    //removes an effect from the list of active effects
+    public void RemoveEffect(RemovableEffect eff)
+    {
+        activeEffects.Remove(eff);
+        eff.RemoveEffect(this);
     }
 }

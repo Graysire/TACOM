@@ -6,9 +6,9 @@ using UnityEngine;
 public class ImmediateEffect
 {
     //the name of the attribute to be affected
-    string attribute;
+    protected string attribute;
     //the numerical value the attribute will be changed by
-    int strength;
+    protected int strength;
 
     //Default Constructor, defaults to affecting health with a strength of 0
     public ImmediateEffect()

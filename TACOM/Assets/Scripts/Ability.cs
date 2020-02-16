@@ -21,7 +21,7 @@ public class Ability
     {
         foreach (ImmediateEffect eff in effects)
         {
-            Debug.Log("apply");
+            //Debug.Log("apply");
             eff.ApplyEffect(target);
         }
     }
