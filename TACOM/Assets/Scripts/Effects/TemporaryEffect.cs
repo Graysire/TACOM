@@ -6,7 +6,7 @@ using UnityEngine;
 public class TemporaryEffect : RemovableEffect
 {
     //how many ticks the effect lasts
-    int duration;
+    protected int duration;
 
     //Default Constructor
     public TemporaryEffect() : base()
