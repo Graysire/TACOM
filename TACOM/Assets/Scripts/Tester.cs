@@ -17,9 +17,16 @@ public class Tester : MonoBehaviour
 
         //tests Removable Effects
         RemovableEffect e = new RemovableEffect("health", -40);
-        Ability b = new Ability(e);
-        c.UseAbility(b, c2);
+        Ability a2 = new Ability(e);
+        c.UseAbility(a2, c2);
         c2.RemoveEffect(e);
+
+        //tests Temporary Effects
+        TemporaryEffect e2 = new TemporaryEffect("health", -60, 2);
+        Ability a3 = new Ability(e2);
+        c.UseAbility(a3, c2);
+        c2.TickCharacter();
+        c2.TickCharacter();
 
     }
 

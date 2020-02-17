@@ -13,9 +13,9 @@ public class Character : MonoBehaviour
     List<RemovableEffect> activeEffects = new List<RemovableEffect>();
 
     //delegate that takes in a Character
-    delegate void Tick(Character target);
+    public delegate void Tick(Character target);
     //event called every end of turn
-    event Tick OnTick;
+    public event Tick OnTick;
 
     public Character()
     {
@@ -70,4 +70,5 @@ public class Character : MonoBehaviour
         activeEffects.Remove(eff);
         eff.RemoveEffect(this);
     }
+
 }
