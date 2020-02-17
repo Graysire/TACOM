@@ -41,6 +41,16 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         reverseOnRemove = reverse;
     }
 
+    //override, only reverses effect is reverseOnRemove is true
+    public override void RemoveEffect(Character target)
+    {
+        target.OnTick -= TickEffect;
+        if (reverseOnRemove)
+        {
+            target.ChangeAttribute(attribute, strength * -1);
+        }
+    }
+
     //every tick countsdown the duration, at 0 removes the effect, at period applies Effects
     public override void TickEffect(Character target)
     {
