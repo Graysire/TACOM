@@ -21,18 +21,6 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         period = 1;
     }
 
-    //Constructor with inputs, att for attribute and value for strength
-    public PeriodicTemporaryEffect(string att, int value) : base(att, value)
-    {
-        period = 1;
-    }
-
-    //Constructor with inputs, att for attribute, value for strength, durat for duration
-    public PeriodicTemporaryEffect(string att, int value, int durat) : base(att, value, durat)
-    {
-        period = 1;
-    }
-
     //Constructor with inputs, att for attribute, value for strength, durat for duration, period for period, eff for effects, reverse for reverseOnRemove
     public PeriodicTemporaryEffect(string att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse) : base(att, value, durat)
     {
@@ -41,14 +29,21 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         reverseOnRemove = reverse;
     }
 
+    //override, applies all subeffects and adds TickEffect
+    public override void ApplyEffect(Character target)
+    {
+        foreach (ImmediateEffect eff in effects)
+        {
+            eff.ApplyEffect(target);
+        }
+        timesApplied++;
+        target.OnTick += TickEffect;
+    }
+
     //override, only reverses effect is reverseOnRemove is true
     public override void RemoveEffect(Character target)
     {
         target.OnTick -= TickEffect;
-        if (reverseOnRemove)
-        {
-            target.ChangeAttribute(attribute, strength * -1);
-        }
     }
 
     //every tick countsdown the duration, at 0 removes the effect, at period applies Effects
