@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //represents a character in the game
-public class Character : MonoBehaviour
+public class Character
 {
     //dictionary that maps attributes represented as strings to their integer values i.e. "health" -> 100
     Dictionary<string, int> attributes = new Dictionary<string, int>();
