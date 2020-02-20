@@ -9,12 +9,20 @@ public class Ability
     //list of all effects that the ability will apply when used
     List<ImmediateEffect> effects = new List<ImmediateEffect>();
 
+    //default constructor
     public Ability()
     { }
 
+    //Constructor for a Single Effect Ability
     public Ability(ImmediateEffect eff)
     {
         effects.Add(eff);
+    }
+
+    //Constructor for Multiple Effect Ability
+    public Ability(ImmediateEffect[] eff)
+    {
+        effects.AddRange(eff);
     }
 
     public void ApplyEffects(Character target)
