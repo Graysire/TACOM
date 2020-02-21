@@ -12,14 +12,33 @@ public class Character
     //list of all effects affecting a character
     List<RemovableEffect> activeEffects = new List<RemovableEffect>();
 
+    //the display name of the character
+    string charName;
+    //the next ID assigned to uniquely track a character
+    static int nextID = 1;
+    //the unique ID used to track this character
+    int charID;
+
     //delegate that takes in a Character
     public delegate void Tick(Character target);
     //event called every end of turn
     public event Tick OnTick;
 
+    //default constructor
     public Character()
     {
         attributes.Add("health", 100);
+        charID = nextID;
+        nextID++;
+    }
+
+    //construcotr with custom name
+    public Character(string name)
+    {
+        this.charName = name;
+        attributes.Add("health", 100);
+        charID = nextID;
+        nextID++;
     }
 
     // Start is called before the first frame update
