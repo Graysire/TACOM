@@ -56,7 +56,7 @@ public class PathGrid : MonoBehaviour
         }
         else
         {
-            return nodeGrid[cellLocation.x, cellLocation.y];
+            return nodeGrid[cellLocation.y, cellLocation.x];
         }
     }
     //returns a list of all nodes adjacent to this one
