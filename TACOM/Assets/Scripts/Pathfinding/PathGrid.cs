@@ -6,13 +6,19 @@ using UnityEngine;
 public class PathGrid : MonoBehaviour
 {
     //the grid of all pathing nodes
-    public PathNode[,] nodeGrid;
+    [SerializeField]
+    PathNode[,] nodeGrid;
     //the size of the grid(x will expand up-left, y will expand up-right
     //0,0 is the bottomost point
-    public Vector2Int gridSize;
+    [SerializeField]
+    Vector2Int gridSize;
 
     //the grid of tilemaps this pathing grid is attached to
-    public Grid tileGrid;
+    [SerializeField]
+    Grid tileGrid;
+
+    //list of nodes forming a path from one node to another
+    public List<PathNode> finalPath = new List<PathNode>();
 
     void Start()
     {
@@ -35,25 +41,52 @@ public class PathGrid : MonoBehaviour
         }
     }
 
-
-
     void Update()
     {
-        //debug that displays tile coordinates of left click
-        if (Input.GetMouseButtonDown(0))
-        {//converts the location of the mouse to a tile's cell position
-            Vector3Int mouseLocation = tileGrid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            //if this position exceeds the bounds of the grid, not the tile is out of bounds
-            if (mouseLocation.x >= gridSize.x || mouseLocation.y >= gridSize.y || mouseLocation.x < 0 || mouseLocation.y < 0)
-            {
-                Debug.Log("Tile Out of Bounds");
-            }
-            //else print the location of the tile
-            else
-            {
-                Debug.Log("Tile At: " + nodeGrid[mouseLocation.x, mouseLocation.y].gridX + "," + nodeGrid[mouseLocation.x, mouseLocation.y].gridY);
-            }
+        
+    }
+
+    //gets the pathfinding node that corresponds to a given point in world space
+    public PathNode WorldToNode(Vector3 worldPos)
+    {
+        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos);
+        if (cellLocation.x >= gridSize.x || cellLocation.x < 0 || cellLocation.y >= gridSize.y || cellLocation.y < 0)
+        {
+            return null;
         }
+        else
+        {
+            return nodeGrid[cellLocation.x, cellLocation.y];
+        }
+    }
+    //returns a list of all nodes adjacent to this one
+    public List<PathNode> GetAdjacentNodes(PathNode center)
+    {
+        //create the list of nodes to be returned
+        List<PathNode> adjacentNodes = new List<PathNode>();
+
+        //check if the top left node is out of bounds, if not, add it
+        if (center.posX + 1 >= 0 && center.posX + 1 < gridSize.x)
+        {
+            adjacentNodes.Add(nodeGrid[center.posY, center.posX + 1]);
+        }
+        //check if the bottom left node is out of bounds, if not, add it
+        if (center.posX - 1 >= 0 && center.posX - 1 < gridSize.x)
+        {
+            adjacentNodes.Add(nodeGrid[center.posY, center.posX - 1]);
+        }
+        //check if the top right node is out of bounds, if not, add it
+        if (center.posY + 1 >= 0 && center.posY + 1 < gridSize.y)
+        {
+            adjacentNodes.Add(nodeGrid[center.posY + 1, center.posX]);
+        }
+        //check if the bottom left node is out of bounds, if not, add it
+        if (center.posY - 1 >= 0 && center.posY - 1 < gridSize.y)
+        {
+            adjacentNodes.Add(nodeGrid[center.posY - 1, center.posX]);
+        }
+
+        return adjacentNodes;
     }
 
     void OnDrawGizmos()
@@ -65,6 +98,14 @@ public class PathGrid : MonoBehaviour
             {
                 for (int y = 0; y < gridSize.y; y++)
                 {
+                    if (finalPath.Contains(nodeGrid[x, y]))
+                    {
+                        Gizmos.color = Color.red;
+                    }
+                    else 
+                    {
+                        Gizmos.color = Color.white;
+                    }
                     Gizmos.DrawSphere(tileGrid.GetCellCenterWorld(new Vector3Int(y, x, 0)), 0.25f);
                 }
             }

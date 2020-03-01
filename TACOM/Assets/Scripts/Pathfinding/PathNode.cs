@@ -6,12 +6,17 @@ using UnityEngine;
 public class PathNode
 {
     //the x and y positions of this node in the grid (discounting grid size and actual world space coordinates)
-    public int gridX;
-    public int gridY;
+    public readonly int posX;
+    public readonly int posY;
     //whether this node is obstructed
     public bool isObstructed;
 
+    //the pathing node preceding this node when calculating a path
+    public PathNode prevNode;
+
+    //gCost is the distance from the start of the path to this node
     public int gCost;
+    //hCost is the distance from the end of the path to this node
     public int hCost;
     //the total cost of moving to this node
     public int FCost { get { return gCost + hCost; } }
@@ -20,7 +25,8 @@ public class PathNode
     public PathNode(bool isObstructed, int gridX, int gridY)
     {
         this.isObstructed = isObstructed;
-        this.gridX = gridX;
-        this.gridY = gridY;
+        posX = gridX;
+        posY = gridY;
     }
+
 }
