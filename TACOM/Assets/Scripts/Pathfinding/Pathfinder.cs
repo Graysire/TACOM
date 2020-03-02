@@ -123,8 +123,12 @@ public class Pathfinder : MonoBehaviour
                     {
                         //the adjacent node's distance from the start node along this path is this node's distance + 1
                         adjacentNode.gCost = currentNode.gCost + 1;
-                        //calculate the adjacent node's distance from the target
-                        adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
+
+                        //calculate the adjacent node's distance from the target using manhatten distance
+                        //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
+                        //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
+                        adjacentNode.hCost = (int) Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
+
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
 
