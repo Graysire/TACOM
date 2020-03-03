@@ -41,11 +41,6 @@ public class PathGrid : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        
-    }
-
     //gets the pathfinding node that corresponds to a given point in world space
     public PathNode WorldToNode(Vector3 worldPos)
     {
