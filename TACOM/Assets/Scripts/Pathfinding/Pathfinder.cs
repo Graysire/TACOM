@@ -112,6 +112,8 @@ public class Pathfinder : MonoBehaviour
                     finalPath.Add(currentNode);
                     currentNode = currentNode.prevNode;
                 }
+                //add the starting node for debug purposes
+                finalPath.Add(currentNode);
 
                 //reverse the final path so that it goes from start to end, rather than end to start
                 finalPath.Reverse();

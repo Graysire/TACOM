@@ -102,6 +102,10 @@ public class PathGrid : MonoBehaviour
                     {
                         Gizmos.color = Color.blue;
                     }
+                    else if (finalPath.Count > 0 && finalPath[0] == nodeGrid[x, y])
+                    {
+                        Gizmos.color = Color.black;
+                    }
                     else if (finalPath.Contains(nodeGrid[x, y]))
                     {
                         Gizmos.color = Color.red;
