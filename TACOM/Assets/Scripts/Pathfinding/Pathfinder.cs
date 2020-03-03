@@ -30,10 +30,24 @@ public class Pathfinder : MonoBehaviour
             debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
         //debug to find a path between two points
-        if (Input.GetMouseButtonDown(2))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             FindPath(debugStart, debugTarget);
         }
+        //debug to toggle point obstruction
+        if (Input.GetKeyDown(KeyCode.O))
+        { 
+            PathNode p = grid.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (p != null)
+            {
+                p.isObstructed = !p.isObstructed;
+            }
+            else
+            {
+                Debug.Log("Target Point does not exist");
+            }
+        }
+
     }
     //Finds the shortest path between two points, if one exists and puts the pathh into the grid
     void FindPath(Vector3 startPos, Vector3 targetPos)
@@ -143,7 +157,7 @@ public class Pathfinder : MonoBehaviour
 
         }
 
-
+        Debug.Log("No possible path to reach target");
 
     }
 }
