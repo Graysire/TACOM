@@ -20,7 +20,7 @@ public class PathGrid : MonoBehaviour
     //list of nodes forming a path from one node to another
     public List<PathNode> finalPath = new List<PathNode>();
 
-    void Start()
+    private void Awake()
     {
         //on start create the pathfinding grid
         CreateGrid();
@@ -54,6 +54,14 @@ public class PathGrid : MonoBehaviour
             return nodeGrid[cellLocation.y, cellLocation.x];
         }
     }
+
+    public Vector3 NodeToWorld(PathNode node)
+    {
+        return tileGrid.CellToWorld(new Vector3Int(node.posX, node.posY, 0)) + new Vector3(0, tileGrid.cellSize.y /2,0);
+    }
+
+
+
     //returns a list of all nodes adjacent to this one
     public List<PathNode> GetAdjacentNodes(PathNode center)
     {

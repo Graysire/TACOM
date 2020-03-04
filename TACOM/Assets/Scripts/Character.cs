@@ -8,12 +8,12 @@ public class Character
     //dictionary that maps attributes represented as strings to their integer values i.e. "health" -> 100
     Dictionary<string, int> attributes = new Dictionary<string, int>();
     //list of all abilities a character can use
-    List<Ability> abilities = new List<Ability>();
+    public List<Ability> abilities = new List<Ability>();
     //list of all effects affecting a character
     List<RemovableEffect> activeEffects = new List<RemovableEffect>();
 
     //the display name of the character
-    string charName;
+    string charName = "World";
     //the next ID assigned to uniquely track a character
     static int nextID = 1;
     //the unique ID used to track this character
@@ -32,30 +32,33 @@ public class Character
         nextID++;
     }
 
-    //construcotr with custom name
+    //constructor with custom name
     public Character(string name)
     {
         this.charName = name;
         attributes.Add("health", 100);
+        abilities.Add(new Ability(new ImmediateEffect("health", -30)));
+        ImmediateEffect[] arr = { new ImmediateEffect("health", -20) };
+        abilities.Add(new Ability(new PeriodicTemporaryEffect("health", -20, 2, 1, arr, false)));
         charID = nextID;
         nextID++;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //attributes.Add("health", 100);
-    }
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    //attributes.Add("health", 100);
+    //}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (attributes["health"] < 100)
-        {
-            Debug.Log(100 - attributes["health"] + " damage taken");
-            attributes["health"] = 100;
-        }
-    }
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    if (attributes["health"] < 100)
+    //    {
+    //        Debug.Log(100 - attributes["health"] + " damage taken");
+    //        attributes["health"] = 100;
+    //    }
+    //}
 
     //uses abl on target, applying the effects of abl to the target
     public void UseAbility(Ability abl, Character target)
@@ -68,7 +71,11 @@ public class Character
     public void ChangeAttribute(string att, int str)
     {
         attributes[att] += str;
-        Debug.Log((attributes[att] - str) + " -> " + attributes[att]);
+        Debug.Log(charName + " " + (attributes[att] - str) + " -> " + attributes[att]);
+        if (attributes[att] <= 0)
+        {
+            Debug.Log(charName + " has been slain");
+        }
     }
 
     //invokes the OnTick event
@@ -88,6 +95,11 @@ public class Character
     {
         activeEffects.Remove(eff);
         eff.RemoveEffect(this);
+    }
+
+    public int GetAttribute(string att)
+    {
+        return attributes[att];
     }
 
 }

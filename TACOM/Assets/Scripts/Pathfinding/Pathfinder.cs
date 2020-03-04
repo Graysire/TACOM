@@ -7,8 +7,10 @@ public class Pathfinder : MonoBehaviour
     PathGrid grid;
 
     //Vector3 used to debug pathfinding
-    Vector3 debugStart;
-    Vector3 debugTarget;
+    //Vector3 debugStart;
+    //Vector3 debugTarget;
+    List<GameObject> debugObstructions = new List<GameObject>();
+    public GameObject debugObstruction;
 
     //On Awake gets the Pathfinding Grid it will be using
     void Awake()
@@ -19,21 +21,21 @@ public class Pathfinder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //debug that sets the start location of a path
-        if (Input.GetMouseButtonDown(0))
-        {
-            debugStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-        //debug that sets the target location of a path
-        if (Input.GetMouseButtonDown(1))
-        { 
-            debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
+        ////debug that sets the start location of a path
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    debugStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //}
+        ////debug that sets the target location of a path
+        //if (Input.GetMouseButtonDown(1))
+        //{ 
+        //    debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //}
         //debug to find a path between two points
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            FindPath(debugStart, debugTarget);
-        }
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    FindPath(debugStart, debugTarget);
+        //}
         //debug to toggle point obstruction
         if (Input.GetKeyDown(KeyCode.O))
         { 
@@ -41,6 +43,27 @@ public class Pathfinder : MonoBehaviour
             if (p != null)
             {
                 p.isObstructed = !p.isObstructed;
+                if (p.isObstructed)
+                {
+                    //if the tile is now obstructed add the debug object to show its obstruction
+                    GameObject ob = Instantiate(debugObstruction, grid.NodeToWorld(p), new Quaternion());
+                    debugObstructions.Add(ob);
+                }
+                else
+                {
+                    //otherwise remove the obstruction at that point
+                    Vector3 loc = grid.NodeToWorld(p);
+                    for (int i = 0; i < debugObstructions.Count; i++)
+                    {
+                        if (debugObstructions[i].transform.position == loc)
+                        {
+                           
+                            Destroy(debugObstructions[i]);
+                            debugObstructions.RemoveAt(i);
+                            return;
+                        }
+                    }
+                }
             }
             else
             {
@@ -50,7 +73,7 @@ public class Pathfinder : MonoBehaviour
 
     }
     //Finds the shortest path between two points, if one exists and puts the pathh into the grid
-    void FindPath(Vector3 startPos, Vector3 targetPos)
+    public void FindPath(Vector3 startPos, Vector3 targetPos)
     {
         //convert the given positions into pathfinding nodes
         PathNode startNode = grid.WorldToNode(startPos);
@@ -120,6 +143,8 @@ public class Pathfinder : MonoBehaviour
 
                 //send the final apth to the grid
                 grid.finalPath = finalPath;
+                startNode.isObstructed = false;
+                targetNode.isObstructed = true;
                 return;
             }
 
@@ -160,6 +185,6 @@ public class Pathfinder : MonoBehaviour
         }
 
         Debug.Log("No possible path to reach target");
-
+        return;
     }
 }
