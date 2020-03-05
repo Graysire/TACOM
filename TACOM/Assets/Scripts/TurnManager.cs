@@ -46,4 +46,19 @@ public class TurnManager : MonoBehaviour
         Debug.Log(character.cName + " Turn Added");
         turnList.Add(character);
     }
+    public void RemoveTurn(CharacterManager character)
+    {
+        Debug.Log(character.cName + " Turn Removed");
+        for (int i = 0; i < turnList.Count; i++)
+        {
+            if (turnList[i] == character)
+            {
+                turnList.RemoveAt(i);
+                if (i < currentTurn)
+                {
+                    currentTurn--;
+                }
+            }
+        }
+    }
 }

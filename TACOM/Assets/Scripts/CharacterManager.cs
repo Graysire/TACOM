@@ -75,6 +75,7 @@ public class CharacterManager : MonoBehaviour
         //if the character is slain, destroy this object
         if (character.GetAttribute("health") <= 0)
         {
+            GameObject.Find("TurnManager").GetComponent<TurnManager>().RemoveTurn(this);
             GameObject.Destroy(this.gameObject);
         }
     }
