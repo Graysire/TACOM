@@ -88,6 +88,7 @@ public class CharacterManager : MonoBehaviour
         //if a path exists move to it
         if (grid.finalPath.Count != 0)
         {
+            hasMoved = true;
             //store the final node in case the coroutine needs to end early
             PathNode finalNode = grid.finalPath[grid.finalPath.Count - 1];
             for (int i = 1; i < grid.finalPath.Count; i++)
@@ -107,7 +108,6 @@ public class CharacterManager : MonoBehaviour
             }
             //set the position to that of the final node in case movement was skipped by ending turn
             transform.position = grid.NodeToWorld(finalNode);
-            hasMoved = true;
         }
         else
         {
