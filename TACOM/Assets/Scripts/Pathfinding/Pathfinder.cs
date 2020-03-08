@@ -126,6 +126,8 @@ public class Pathfinder : MonoBehaviour
             //if the current node is the target
             if (currentNode == targetNode)
             {
+                startNode.isObstructed = false;
+                targetNode.isObstructed = true;
                 //create a list to contain the final path
                 List<PathNode> finalPath = new List<PathNode>();
                 //go backwards from the current node until reaching the starting node
@@ -140,11 +142,9 @@ public class Pathfinder : MonoBehaviour
 
                 //reverse the final path so that it goes from start to end, rather than end to start
                 finalPath.Reverse();
-
                 //send the final apth to the grid
                 grid.finalPath = finalPath;
-                startNode.isObstructed = false;
-                targetNode.isObstructed = true;
+
                 return;
             }
 

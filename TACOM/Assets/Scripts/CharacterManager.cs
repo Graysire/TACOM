@@ -6,17 +6,17 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     //the character this script controls
-    public Character character;
+    Character character;
     //the pathfinding algorithm used for this character
-    public Pathfinder pathfinder;
+    Pathfinder pathfinder;
     //the pathfinding grid used for this character
-    public PathGrid grid;
+    PathGrid grid;
 
     //name of the character this controller contains
     public string cName = "World";
 
     //time between each movement when moving tile by tile
-    public float timeDelay = 1f;
+    public float timeDelay = 0.25f;
 
     //whether or not this character's turn is active
     bool turnIsActive = false;
