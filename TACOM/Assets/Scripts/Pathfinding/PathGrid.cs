@@ -6,12 +6,12 @@ using UnityEngine;
 public class PathGrid : MonoBehaviour
 {
     //the grid of all pathing nodes
-    [SerializeField]
     PathNode[,] nodeGrid;
     //the size of the grid(x will expand up-left, y will expand up-right
     //0,0 is the bottomost point
     [SerializeField]
     Vector2Int gridSize;
+    Pathfinder pathfinder;
 
     //the grid of tilemaps this pathing grid is attached to
     [SerializeField]
@@ -24,6 +24,10 @@ public class PathGrid : MonoBehaviour
     {
         //on start create the pathfinding grid
         CreateGrid();
+        //get the grid
+        tileGrid = GameObject.Find("Grid").GetComponent<Grid>();
+        //get the local pathfinder
+        pathfinder = GetComponent<Pathfinder>();
     }
 
     //creates the pathfinding grid
@@ -59,6 +63,13 @@ public class PathGrid : MonoBehaviour
     {
         return tileGrid.CellToWorld(new Vector3Int(node.posX, node.posY, 0)) + new Vector3(0, tileGrid.cellSize.y /2,0);
     }
+
+    public List<PathNode> getFinalPath(Vector3 startPos, Vector3 targetPos)
+    {
+        pathfinder.FindPath(startPos, targetPos);
+        return finalPath;
+    }
+
 
 
 

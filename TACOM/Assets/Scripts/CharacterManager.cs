@@ -7,10 +7,8 @@ public class CharacterManager : MonoBehaviour
 {
     //the character this script controls
     Character character;
-    //the pathfinding algorithm used for this character
-    Pathfinder pathfinder;
     //the pathfinding grid used for this character
-    PathGrid grid;
+    PathGrid pathGrid;
 
     //name of the character this controller contains
     public string cName = "World";
@@ -32,15 +30,13 @@ public class CharacterManager : MonoBehaviour
     private void Start()
     {
         //set starting position to obstructed
-        grid.WorldToNode(transform.position).isObstructed = true;
+        pathGrid.WorldToNode(transform.position).isObstructed = true;
     }
 
     private void Awake()
     {
-        //gets the scene's pathfinder
-        pathfinder = GameObject.Find("PathManager").GetComponent<Pathfinder>();
         //gets the scene's pathgrid
-        grid = GameObject.Find("PathManager").GetComponent<PathGrid>();
+        pathGrid = GameObject.Find("PathManager").GetComponent<PathGrid>();
         //adds this character to the turn list
         GameObject.Find("TurnManager").GetComponent<TurnManager>().AddTurn(this);
 
@@ -78,7 +74,7 @@ public class CharacterManager : MonoBehaviour
             //remove turn from the turn list
             GameObject.Find("TurnManager").GetComponent<TurnManager>().RemoveTurn(this);
             //unobstruct the pathing node at the current position
-            grid.WorldToNode(transform.position).isObstructed = false;
+            pathGrid.WorldToNode(transform.position).isObstructed = false;
             //destroy self
             GameObject.Destroy(this.gameObject);
         }
@@ -88,20 +84,20 @@ public class CharacterManager : MonoBehaviour
     IEnumerator MoveToPoint(Vector3 target)
     {
         //find a path
-        pathfinder.FindPath(transform.position, target);
+        pathGrid.getFinalPath(transform.position, target);
         //if a path exists move to it
-        if (grid.finalPath.Count != 0)
+        if (pathGrid.finalPath.Count != 0)
         {
             hasMoved = true;
             //store the final node in case the coroutine needs to end early
-            PathNode finalNode = grid.finalPath[grid.finalPath.Count - 1];
-            for (int i = 1; i < grid.finalPath.Count; i++)
+            PathNode finalNode = pathGrid.finalPath[pathGrid.finalPath.Count - 1];
+            for (int i = 1; i < pathGrid.finalPath.Count; i++)
             {
                 //if we are not ending turn
                 if (!isEndingTurn)
                 {
                     //move to next point and wait for the timeDelay
-                    transform.position = grid.NodeToWorld(grid.finalPath[i]);
+                    transform.position = pathGrid.NodeToWorld(pathGrid.finalPath[i]);
                     yield return new WaitForSeconds(timeDelay);
                 }
                 else
@@ -111,7 +107,7 @@ public class CharacterManager : MonoBehaviour
                 }
             }
             //set the position to that of the final node in case movement was skipped by ending turn
-            transform.position = grid.NodeToWorld(finalNode);
+            transform.position = pathGrid.NodeToWorld(finalNode);
         }
         else
         {
@@ -129,7 +125,7 @@ public class CharacterManager : MonoBehaviour
             character.TickCharacter();
             hasMoved = false;
             hasAttacked = false;
-            grid.finalPath = new List<PathNode>();
+            pathGrid.finalPath = new List<PathNode>();
             Debug.Log(cName + "'s turn has ended");
         }
         else
