@@ -11,7 +11,7 @@ public class RemovableEffect : ImmediateEffect
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public RemovableEffect(string att, int value) : base(att,value)
+    public RemovableEffect(CharacterAttributes att, int value) : base(att,value)
     {
 
     }

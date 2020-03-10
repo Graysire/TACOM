@@ -15,7 +15,7 @@ public class TemporaryEffect : RemovableEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration
-    public TemporaryEffect(string att, int value, int durat) : base(att, value)
+    public TemporaryEffect(CharacterAttributes att, int value, int durat) : base(att, value)
     {
         duration = durat;
     }

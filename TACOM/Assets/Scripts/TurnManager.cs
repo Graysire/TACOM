@@ -21,16 +21,24 @@ public class TurnManager : MonoBehaviour
         //if hitting enter, end turn, deselect current character, select next character
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            turnList[currentTurn].ToggleActiveTurn();
-            if (currentTurn + 1 == turnList.Count)
+            //check that turns actually exist in the turn list
+            if (turnList.Count > 0)
             {
-                currentTurn = 0;
+                turnList[currentTurn].ToggleActiveTurn();
+                if (currentTurn + 1 == turnList.Count)
+                {
+                    currentTurn = 0;
+                }
+                else
+                {
+                    currentTurn++;
+                }
+                turnList[currentTurn].ToggleActiveTurn();
             }
             else
             {
-                currentTurn++;
+                Debug.Log("No turns in the turn list");
             }
-            turnList[currentTurn].ToggleActiveTurn();
         }
 
         if (currentTurn < 0)

@@ -22,7 +22,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration, period for period, eff for effects, reverse for reverseOnRemove
-    public PeriodicTemporaryEffect(string att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse) : base(att, value, durat)
+    public PeriodicTemporaryEffect(CharacterAttributes att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse) : base(att, value, durat)
     {
         this.period = period;
         effects = eff;

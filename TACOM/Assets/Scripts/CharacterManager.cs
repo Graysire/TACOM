@@ -73,9 +73,13 @@ public class CharacterManager : MonoBehaviour
         }
 
         //if the character is slain, destroy this object
-        if (character.GetAttribute("health") <= 0)
+        if (character.GetAttribute(CharacterAttributes.Health) <= 0)
         {
+            //remove turn from the turn list
             GameObject.Find("TurnManager").GetComponent<TurnManager>().RemoveTurn(this);
+            //unobstruct the pathing node at the current position
+            grid.WorldToNode(transform.position).isObstructed = false;
+            //destroy self
             GameObject.Destroy(this.gameObject);
         }
     }
@@ -111,7 +115,7 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Invalid Path");
+            Debug.Log("No path exists to target point");
         }
     }
 

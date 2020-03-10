@@ -5,8 +5,8 @@ using UnityEngine;
 //represents a character in the game
 public class Character
 {
-    //dictionary that maps attributes represented as strings to their integer values i.e. "health" -> 100
-    Dictionary<string, int> attributes = new Dictionary<string, int>();
+    //Array of all attribute values for a character accessible by the attributes' enum
+    int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length];
     //list of all abilities a character can use
     public List<Ability> abilities = new List<Ability>();
     //list of all effects affecting a character
@@ -27,19 +27,21 @@ public class Character
     //default constructor
     public Character()
     {
-        attributes.Add("health", 100);
         charID = nextID;
         nextID++;
+
+        
+
     }
 
     //constructor with custom name
     public Character(string name)
     {
         this.charName = name;
-        attributes.Add("health", 100);
-        abilities.Add(new Ability(new ImmediateEffect("health", -30)));
-        ImmediateEffect[] arr = { new ImmediateEffect("health", -20) };
-        abilities.Add(new Ability(new PeriodicTemporaryEffect("health", -20, 2, 1, arr, false)));
+        attributes[(int)CharacterAttributes.Health] = 100;
+        abilities.Add(new Ability(new ImmediateEffect(CharacterAttributes.Health, -30)));
+        ImmediateEffect[] arr = { new ImmediateEffect(CharacterAttributes.Health, -20) };
+        abilities.Add(new Ability(new PeriodicTemporaryEffect(CharacterAttributes.Health, -20, 2, 1, arr, false)));
         charID = nextID;
         nextID++;
     }
@@ -68,11 +70,11 @@ public class Character
     }
 
     //increases an attribute att by str
-    public void ChangeAttribute(string att, int str)
+    public void ChangeAttribute(CharacterAttributes att, int str)
     {
-        attributes[att] += str;
-        Debug.Log(charName + " " + (attributes[att] - str) + " -> " + attributes[att]);
-        if (attributes[att] <= 0)
+        attributes[(int) att] += str;
+        Debug.Log(charName + " " + (attributes[(int)att] - str) + " -> " + attributes[(int)att]);
+        if (attributes[(int)CharacterAttributes.Health] <= 0)
         {
             Debug.Log(charName + " has been slain");
         }
@@ -97,9 +99,18 @@ public class Character
         eff.RemoveEffect(this);
     }
 
-    public int GetAttribute(string att)
+    //returns the value of a given attribute
+    public int GetAttribute(CharacterAttributes att)
     {
-        return attributes[att];
+        //casts the given attribute to an int and uses that 
+        //as the location of the value in the attributes array
+        return attributes[(int) att];
     }
 
+}
+
+public enum CharacterAttributes
+{
+    Strength, Agility, Toughness, Perception, Willpower, Presence,
+    Health
 }

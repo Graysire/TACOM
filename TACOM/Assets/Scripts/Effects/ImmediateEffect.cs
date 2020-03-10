@@ -6,26 +6,26 @@ using UnityEngine;
 public class ImmediateEffect
 {
     //the name of the attribute to be affected
-    protected string attribute;
+    protected CharacterAttributes attribute;
     //the numerical value the attribute will be changed by
     protected int strength;
 
     //Default Constructor, defaults to affecting health with a strength of 0
     public ImmediateEffect()
     {
-        attribute = "health";
+        attribute = CharacterAttributes.Health;
         strength = 0;
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public ImmediateEffect(string att,int value)
+    public ImmediateEffect(CharacterAttributes att,int value)
     {
         attribute = att;
         strength = value;
     }
 
     //returns the attribute this Effect affects
-    public string GetAttribute()
+    public CharacterAttributes GetAttribute()
     {
         return attribute;
     }
