@@ -15,15 +15,15 @@ public class TemporaryEffect : RemovableEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration
-    public TemporaryEffect(CharacterAttributes att, int value, int durat) : base(att, value)
+    public TemporaryEffect(string name, CharacterAttributes att, int value, int durat) : base(name, att, value)
     {
         duration = durat;
     }
 
     //override, adds this effect to the character's active effects and to the OnTick event
-    public override void ApplyEffect(CharacterTargetInfo targetInfo)
+    public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        base.ApplyEffect(targetInfo);
+        base.ApplyEffect(ref targetInfo);
         targetInfo.target.OnTick += TickEffect;
     }
 
@@ -38,9 +38,14 @@ public class TemporaryEffect : RemovableEffect
     public virtual void TickEffect(CharacterTargetInfo targetInfo)
     {
         duration--;
+        targetInfo.logMessage += name + " ticked, " + duration + " ticks remaining";
+        Debug.Log(targetInfo.logMessage);
         if (duration <= 0)
         {
             targetInfo.target.RemoveEffect(this);
+            //emoveEffect(targetInfo);
         }
+        
+        
     }
 }

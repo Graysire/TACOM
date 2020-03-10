@@ -11,7 +11,7 @@ public class RemovableEffect : ImmediateEffect
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public RemovableEffect(CharacterAttributes att, int value) : base(att,value)
+    public RemovableEffect(string name, CharacterAttributes att, int value) : base(name, att,value)
     {
 
     }
@@ -19,13 +19,17 @@ public class RemovableEffect : ImmediateEffect
     //removes the effect from the character
     public virtual void RemoveEffect(CharacterTargetInfo targetInfo)
     {
+        targetInfo.logMessage += name + " removed, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (strength * -1);
+        //targetInfo.logMessage += "\n" + name + " deals " + strength + " to " + targetInfo.target.GetName();
         targetInfo.target.ChangeAttribute(attribute, strength * -1);
+        targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
+        Debug.Log(targetInfo.logMessage);
     }
 
     //override, adds this effect to the character's active effects
-    public override void ApplyEffect(CharacterTargetInfo targetInfo)
+    public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        base.ApplyEffect(targetInfo);
+        base.ApplyEffect(ref targetInfo);
         targetInfo.target.AddEffect(this);
     }
 

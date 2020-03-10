@@ -22,7 +22,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration, period for period, eff for effects, reverse for reverseOnRemove
-    public PeriodicTemporaryEffect(CharacterAttributes att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse) : base(att, value, durat)
+    public PeriodicTemporaryEffect(string name, CharacterAttributes att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse) : base(name, att, value, durat)
     {
         this.period = period;
         effects = eff;
@@ -30,11 +30,11 @@ public class PeriodicTemporaryEffect : TemporaryEffect
     }
 
     //override, applies all subeffects and adds TickEffect
-    public override void ApplyEffect(CharacterTargetInfo targetInfo)
+    public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
         foreach (ImmediateEffect eff in effects)
         {
-            eff.ApplyEffect(targetInfo);
+            eff.ApplyEffect(ref targetInfo);
         }
         timesApplied++;
         targetInfo.target.OnTick += TickEffect;
@@ -48,19 +48,23 @@ public class PeriodicTemporaryEffect : TemporaryEffect
 
     //every tick countsdown the duration, at 0 removes the effect, at period applies Effects
     public override void TickEffect(CharacterTargetInfo targetInfo)
-    {
+    { 
         duration--;
+        targetInfo.logMessage += name + " ticked, " + duration + " ticks remaining";
         //check if effects should be applied ,if so apply each effect
         if (duration % period == 0)
         {
+            targetInfo.logMessage += ", applying effects";
             foreach (ImmediateEffect eff in effects)
             {
-                eff.ApplyEffect(targetInfo);
+                eff.ApplyEffect(ref targetInfo);
             }
             timesApplied++;
         }
+        Debug.Log(targetInfo.logMessage);
         if (duration <= 0)
         {
+            targetInfo.logMessage = name + " removed";
             targetInfo.target.RemoveEffect(this);
             if (reverseOnRemove) //if it should be reversed on removal
             {
@@ -69,11 +73,12 @@ public class PeriodicTemporaryEffect : TemporaryEffect
                     foreach (ImmediateEffect eff in effects) //for each effect
                     {
                         //apply the reverse of the effect
-                        ImmediateEffect efTemp = new ImmediateEffect(eff.GetAttribute(), eff.GetStrength() * -1);
-                        efTemp.ApplyEffect(targetInfo);
+                        ImmediateEffect efTemp = new ImmediateEffect(name + " Remover", eff.GetAttribute(), eff.GetStrength() * -1);
+                        efTemp.ApplyEffect(ref targetInfo);
                     }
                 }
             }
+            Debug.Log(targetInfo.logMessage);
         }
     }
 }

@@ -39,9 +39,9 @@ public class Character
     {
         this.charName = name;
         attributes[(int)CharacterAttributes.Health] = 100;
-        abilities.Add(new Ability(new ImmediateEffect(CharacterAttributes.Health, -30)));
-        ImmediateEffect[] arr = { new ImmediateEffect(CharacterAttributes.Health, -20) };
-        abilities.Add(new Ability(new PeriodicTemporaryEffect(CharacterAttributes.Health, -20, 2, 1, arr, false)));
+        abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, -30)));
+        ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, -20) };
+        abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, -20, 2, 1, arr, false)));
         charID = nextID;
         nextID++;
     }
@@ -73,7 +73,7 @@ public class Character
     public void ChangeAttribute(CharacterAttributes att, int str)
     {
         attributes[(int) att] += str;
-        Debug.Log(charName + " " + (attributes[(int)att] - str) + " -> " + attributes[(int)att]);
+        //Debug.Log(charName + " " + (attributes[(int)att] - str) + " -> " + attributes[(int)att]);
         if (attributes[(int)CharacterAttributes.Health] <= 0)
         {
             Debug.Log(charName + " has been slain");
@@ -105,6 +105,12 @@ public class Character
         //casts the given attribute to an int and uses that 
         //as the location of the value in the attributes array
         return attributes[(int) att];
+    }
+
+    //reyturns the character's name
+    public string GetName()
+    {
+        return charName;
     }
 
 }
