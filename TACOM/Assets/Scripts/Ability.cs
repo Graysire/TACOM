@@ -25,12 +25,12 @@ public class Ability
         effects.AddRange(eff);
     }
 
-    public void ApplyEffects(Character target)
+    public void ApplyEffects(CharacterTargetInfo targetInfo)
     {
         foreach (ImmediateEffect eff in effects)
         {
             //Debug.Log("apply");
-            eff.ApplyEffect(target);
+            eff.ApplyEffect(targetInfo);
         }
     }
 }

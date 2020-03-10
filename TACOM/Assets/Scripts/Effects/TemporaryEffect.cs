@@ -21,26 +21,26 @@ public class TemporaryEffect : RemovableEffect
     }
 
     //override, adds this effect to the character's active effects and to the OnTick event
-    public override void ApplyEffect(Character target)
+    public override void ApplyEffect(CharacterTargetInfo targetInfo)
     {
-        base.ApplyEffect(target);
-        target.OnTick += TickEffect;
+        base.ApplyEffect(targetInfo);
+        targetInfo.target.OnTick += TickEffect;
     }
 
     //override removes the effect and removes self from the OnTick event
-    public override void RemoveEffect(Character target)
+    public override void RemoveEffect(CharacterTargetInfo targetInfo)
     {
-        base.RemoveEffect(target);
-        target.OnTick -= TickEffect;
+        base.RemoveEffect(targetInfo);
+        targetInfo.target.OnTick -= TickEffect;
     }
 
     //every tick countsdown the duration, at 0 removes the effect
-    public virtual void TickEffect(Character target)
+    public virtual void TickEffect(CharacterTargetInfo targetInfo)
     {
         duration--;
         if (duration <= 0)
         {
-            target.RemoveEffect(this);
+            targetInfo.target.RemoveEffect(this);
         }
     }
 }

@@ -37,9 +37,9 @@ public class ImmediateEffect
     }
 
     //applies the modification to the target
-    public virtual void ApplyEffect(Character target)
+    public virtual void ApplyEffect(CharacterTargetInfo targetInfo)
     {
-        target.ChangeAttribute(attribute, strength);
+        targetInfo.target.ChangeAttribute(attribute, strength);
     }
 
 }

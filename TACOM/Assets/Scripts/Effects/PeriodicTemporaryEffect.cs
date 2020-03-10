@@ -30,24 +30,24 @@ public class PeriodicTemporaryEffect : TemporaryEffect
     }
 
     //override, applies all subeffects and adds TickEffect
-    public override void ApplyEffect(Character target)
+    public override void ApplyEffect(CharacterTargetInfo targetInfo)
     {
         foreach (ImmediateEffect eff in effects)
         {
-            eff.ApplyEffect(target);
+            eff.ApplyEffect(targetInfo);
         }
         timesApplied++;
-        target.OnTick += TickEffect;
+        targetInfo.target.OnTick += TickEffect;
     }
 
     //override, only reverses effect is reverseOnRemove is true
-    public override void RemoveEffect(Character target)
+    public override void RemoveEffect(CharacterTargetInfo targetInfo)
     {
-        target.OnTick -= TickEffect;
+        targetInfo.target.OnTick -= TickEffect;
     }
 
     //every tick countsdown the duration, at 0 removes the effect, at period applies Effects
-    public override void TickEffect(Character target)
+    public override void TickEffect(CharacterTargetInfo targetInfo)
     {
         duration--;
         //check if effects should be applied ,if so apply each effect
@@ -55,13 +55,13 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         {
             foreach (ImmediateEffect eff in effects)
             {
-                eff.ApplyEffect(target);
+                eff.ApplyEffect(targetInfo);
             }
             timesApplied++;
         }
         if (duration <= 0)
         {
-            target.RemoveEffect(this);
+            targetInfo.target.RemoveEffect(this);
             if (reverseOnRemove) //if it should be reversed on removal
             {
                 for (int i = 0; i < timesApplied; i++) //for each time applied
@@ -70,7 +70,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
                     {
                         //apply the reverse of the effect
                         ImmediateEffect efTemp = new ImmediateEffect(eff.GetAttribute(), eff.GetStrength() * -1);
-                        efTemp.ApplyEffect(target);
+                        efTemp.ApplyEffect(targetInfo);
                     }
                 }
             }

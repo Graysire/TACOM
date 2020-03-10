@@ -17,16 +17,16 @@ public class RemovableEffect : ImmediateEffect
     }
 
     //removes the effect from the character
-    public virtual void RemoveEffect(Character target)
+    public virtual void RemoveEffect(CharacterTargetInfo targetInfo)
     {
-        target.ChangeAttribute(attribute, strength * -1);
+        targetInfo.target.ChangeAttribute(attribute, strength * -1);
     }
 
     //override, adds this effect to the character's active effects
-    public override void ApplyEffect(Character target)
+    public override void ApplyEffect(CharacterTargetInfo targetInfo)
     {
-        base.ApplyEffect(target);
-        target.AddEffect(this);
+        base.ApplyEffect(targetInfo);
+        targetInfo.target.AddEffect(this);
     }
 
     //override, two RemoveableEffects are equal if their strength and attribute are the same

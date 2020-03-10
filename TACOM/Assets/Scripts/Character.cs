@@ -20,7 +20,7 @@ public class Character
     int charID;
 
     //delegate that takes in a Character
-    public delegate void Tick(Character target);
+    public delegate void Tick(CharacterTargetInfo target);
     //event called every end of turn
     public event Tick OnTick;
 
@@ -63,10 +63,10 @@ public class Character
     //}
 
     //uses abl on target, applying the effects of abl to the target
-    public void UseAbility(Ability abl, Character target)
+    public void UseAbility(Ability abl, CharacterTargetInfo targetInfo)
     {
         //Debug.Log("use");
-        abl.ApplyEffects(target);
+        abl.ApplyEffects(targetInfo);
     }
 
     //increases an attribute att by str
@@ -83,7 +83,7 @@ public class Character
     //invokes the OnTick event
     public void TickCharacter()
     {
-        OnTick?.Invoke(this);
+        OnTick?.Invoke(new CharacterTargetInfo(this,this));
     }
 
     //adds an effect to the list of active effects
@@ -96,7 +96,7 @@ public class Character
     public void RemoveEffect(RemovableEffect eff)
     {
         activeEffects.Remove(eff);
-        eff.RemoveEffect(this);
+        eff.RemoveEffect(new CharacterTargetInfo(this,this));
     }
 
     //returns the value of a given attribute
@@ -109,8 +109,24 @@ public class Character
 
 }
 
+//enumeration of all attributes a character has
 public enum CharacterAttributes
 {
     Strength, Agility, Toughness, Perception, Willpower, Presence,
     Health
+}
+
+//struct containing data relating to Characters targeting other Characters
+public struct CharacterTargetInfo
+{
+    public Character source;
+    public Character target;
+    public string logMessage;
+
+    public CharacterTargetInfo(Character src, Character targ)
+    {
+        source = src;
+        target = targ;
+        logMessage = "";
+    }
 }
