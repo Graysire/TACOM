@@ -64,7 +64,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         Debug.Log(targetInfo.logMessage);
         if (duration <= 0)
         {
-            targetInfo.logMessage = name + " removed";
+            targetInfo.logMessage = name + " removed from " + targetInfo.target.GetName();
             targetInfo.target.RemoveEffect(this);
             if (reverseOnRemove) //if it should be reversed on removal
             {

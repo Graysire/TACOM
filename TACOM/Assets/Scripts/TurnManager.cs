@@ -62,7 +62,7 @@ public class TurnManager : MonoBehaviour
             if (turnList[i] == character)
             {
                 turnList.RemoveAt(i);
-                if (i < currentTurn)
+                if (i <= currentTurn)
                 {
                     currentTurn--;
                 }
