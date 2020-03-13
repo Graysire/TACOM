@@ -47,7 +47,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
     }
 
     //override, applies all subeffects and adds TickEffect
-    public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
+    public override int ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
         PeriodicTemporaryEffect temp = new PeriodicTemporaryEffect(this);
         targetInfo.target.AddEffect(temp);
@@ -57,6 +57,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         }
         temp.timesApplied++;
         targetInfo.target.OnTick += temp.TickEffect;
+        return 0;
     }
 
     //override, only reverses effect is reverseOnRemove is true

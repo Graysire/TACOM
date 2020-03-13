@@ -63,8 +63,8 @@ public class ImmediateEffect
         return isDamage;
     }
 
-    //applies the modification to the target
-    public virtual void ApplyEffect(ref CharacterTargetInfo targetInfo)
+    //applies this effect to the target, modifying target attribute by power 
+    public virtual int ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
         //initial finalPower is the base power - the target's armor if this effect is affected by armor
         int finalPower = power - (isAffectedByArmor?targetInfo.target.GetAttribute(CharacterAttributes.Armor):0);
@@ -85,6 +85,8 @@ public class ImmediateEffect
         targetInfo.target.ChangeAttribute(attribute, isDamage?-1 *finalPower:finalPower);
         targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
         //Debug.Log(targetInfo.logMessage);
+
+        return finalPower;
     }
 
 }

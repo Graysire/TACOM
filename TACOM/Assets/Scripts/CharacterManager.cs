@@ -11,7 +11,7 @@ public class CharacterManager : MonoBehaviour
     //the pathfinding grid used for this character
     PathGrid pathGrid;
 
-    public int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length];
+    public int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length - 1];
 
     //name of the character this controller contains
     public string cName = "World";
@@ -64,6 +64,12 @@ public class CharacterManager : MonoBehaviour
         {
             //if the 2 key is pressed attack with ability two
             character.UseAbility(character.abilities[1], new CharacterTargetInfo(character, target.character));
+            hasAttacked = true;
+        }
+        else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //if the 3 key is pressed attack with ability three
+            character.UseAbility(character.abilities[2], new CharacterTargetInfo(character, target.character));
             hasAttacked = true;
         }
         //if the character has not mvoed yet and the right mouse buttonis clicked, move

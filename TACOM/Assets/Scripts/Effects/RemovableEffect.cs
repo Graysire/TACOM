@@ -39,27 +39,16 @@ public class RemovableEffect : ImmediateEffect
     }
 
     //override, adds this effect to the character's active effects
-    public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
+    public override int ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        //initial finalPower is the base power - the target's armor if this effect is affected by armor
-        int finalPower = power - (isAffectedByArmor ? targetInfo.target.GetAttribute(CharacterAttributes.Armor) : 0);
-        for (int i = 0; i < numDice; i++)
-        {
-            finalPower += Random.Range(1, diceSides + 1);
-        }
-        //ensures finalPower is never negative
-        if (finalPower < 0)
-        {
-            finalPower = 0;
-        }
+        int finalPower = base.ApplyEffect(ref targetInfo);
+        AddCopy(ref targetInfo, finalPower);
+        return finalPower;
+    }
 
-        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage ? -1 * finalPower : finalPower) +
-            "(" + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor ? "-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor) : "") + ")";
-
-        //if isDamage, change the target attribute by -1* finalPower, otherwise change it by finalPower
-        targetInfo.target.ChangeAttribute(attribute, isDamage ? -1 * finalPower : finalPower);
-        targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
-
+    //adds a copy of this effect to the target with a powerApplied of finalPower
+    protected virtual void AddCopy(ref CharacterTargetInfo targetInfo, int finalPower)
+    {
         RemovableEffect temp = new RemovableEffect(this)
         {
             powerApplied = finalPower

@@ -27,39 +27,16 @@ public class TemporaryEffect : RemovableEffect
         attribute = other.attribute;
         power = other.power;
         duration = other.duration;
-        Debug.Log("Copy");
     }
 
-    //override, adds this effect to the character's active effects and to the OnTick event
-    public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
+    //adds a copy of this effect to the target with a powerApplied of finalPower
+    protected override void AddCopy(ref CharacterTargetInfo targetInfo, int finalPower)
     {
-        //initial finalPower is the base power - the target's armor if this effect is affected by armor
-        int finalPower = power - (isAffectedByArmor ? targetInfo.target.GetAttribute(CharacterAttributes.Armor) : 0);
-        for (int i = 0; i < numDice; i++)
-        {
-            finalPower += Random.Range(1, diceSides + 1);
-        }
-        //ensures finalPower is never negative
-        if (finalPower < 0)
-        {
-            finalPower = 0;
-        }
-
-        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage ? -1 * finalPower : finalPower) +
-            "(" + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor ? "-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor) : "") + ")";
-
-        targetInfo.target.ChangeAttribute(attribute, isDamage ? -1 * finalPower : finalPower);
-        targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
-
-        //copy this effect
         TemporaryEffect temp = new TemporaryEffect(this)
         {
             powerApplied = finalPower
         };
-
-        //add the effect's copy to the target's active effects
         targetInfo.target.AddEffect(temp);
-        //add the copy to the target's OnTick
         targetInfo.target.OnTick += temp.TickEffect;
     }
 
