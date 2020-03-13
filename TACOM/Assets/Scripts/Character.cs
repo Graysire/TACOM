@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //represents a character in the game
-[System.Serializable]
+//[System.Serializable]
 public class Character
 {
     //Array of all attribute values for a character accessible by the attributes' enum
-    [SerializeField]
+    //[SerializeField]
     int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length];
     //list of all abilities a character can use
     public List<Ability> abilities = new List<Ability>();
@@ -34,32 +34,20 @@ public class Character
     }
 
     //constructor with custom name
-    public Character(string name)
+    public Character(string name, int[] att)
     {
         this.charName = name;
-        attributes[(int)CharacterAttributes.Health] = 100;
+        for (int i = 0; i < att.Length; i++)
+        {
+            attributes[i] = att[i];
+        }
+        //attributes[(int)CharacterAttributes.Health] = 100;
         abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, 30), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
         ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, 20) };
         abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, 20, 2, 1, arr, false), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
         charID = nextID;
         nextID++;
     }
-
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //    //attributes.Add("health", 100);
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    if (attributes["health"] < 100)
-    //    {
-    //        Debug.Log(100 - attributes["health"] + " damage taken");
-    //        attributes["health"] = 100;
-    //    }
-    //}
 
     //uses abl on target, applying the effects of abl to the target
     public void UseAbility(Ability abl, CharacterTargetInfo targetInfo)
@@ -104,6 +92,11 @@ public class Character
         //casts the given attribute to an int and uses that 
         //as the location of the value in the attributes array
         return attributes[(int) att];
+    }
+
+    public int[] GetAttributes()
+    {
+        return attributes;
     }
 
     //reyturns the character's name

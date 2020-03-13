@@ -9,9 +9,10 @@ public class Tester : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int[] att = { 9, 9, 9, 9, 9, 9, 18, 11 };
         //tests Immediate Effects
-        Character c = new Character("Test Character 1");
-        Character c2 = new Character("Test Character 2");
+        Character c = new Character("Test Character 1", att);
+        Character c2 = new Character("Test Character 2", att);
         ImmediateEffect e = new ImmediateEffect("TestImmediateEffect-20",CharacterAttributes.Health, 20);
         Ability a = new Ability("TestAbilityImmediate",e, CharacterAttributes.Perception, CharacterAttributes.Defense);
         c.UseAbility(a, new CharacterTargetInfo(c,c2));

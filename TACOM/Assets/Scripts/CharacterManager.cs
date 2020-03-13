@@ -11,6 +11,8 @@ public class CharacterManager : MonoBehaviour
     //the pathfinding grid used for this character
     PathGrid pathGrid;
 
+    public int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length];
+
     //name of the character this controller contains
     public string cName = "World";
 
@@ -42,7 +44,8 @@ public class CharacterManager : MonoBehaviour
         GameObject.Find("TurnManager").GetComponent<TurnManager>().AddTurn(this);
 
 
-        character = new Character(cName);
+        character = new Character(cName, attributes);
+        attributes = character.GetAttributes();
         
     }
 
