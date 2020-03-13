@@ -23,7 +23,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration, period for period, eff for effects, reverse for reverseOnRemove
     public PeriodicTemporaryEffect(string name, CharacterAttributes att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse, bool isDmg = true, bool affectedByArmor = true, int num = 0, int sides = 0) 
-        : base(name, att, value, durat, isDmg, affectedByArmor, num,sides)
+        : base(name, att, value, CharacterAttributes.Zero, durat, 0f, isDmg, affectedByArmor, num,sides)
     {
         this.period = period;
         effects = eff;
@@ -86,14 +86,14 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         {
             targetInfo.logMessage = name + " removed";
             targetInfo.target.RemoveEffect(this);
-            if (reverseOnRemove) //if it should be reversed on removal
+            if (reverseOnRemove) //if it should be reversed on removal, if the sub effects have a non-Zero powBonus, this may not fully reverse the effect
             {
                 for (int i = 0; i < timesApplied; i++) //for each time applied
                 {
                     foreach (ImmediateEffect eff in effects) //for each effect
                     {
                         //apply the reverse of the effect
-                        ImmediateEffect efTemp = new ImmediateEffect(name + " Remover", eff.GetAttribute(), eff.GetPower(), !eff.GetIsDamage());
+                        ImmediateEffect efTemp = new ImmediateEffect(name + " Remover", eff.GetAttribute(), eff.GetPower(), CharacterAttributes.Zero, 0f, !eff.GetIsDamage());
                         efTemp.ApplyEffect(ref targetInfo);
                     }
                 }

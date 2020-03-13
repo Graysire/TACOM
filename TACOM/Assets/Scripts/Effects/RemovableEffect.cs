@@ -13,8 +13,8 @@ public class RemovableEffect : ImmediateEffect
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public RemovableEffect(string name, CharacterAttributes att, int value, bool isDmg = true, bool affectedByArmor = true, int num = 0, int sides = 0) 
-        : base(name, att,value, isDmg, affectedByArmor, num,sides)
+    public RemovableEffect(string name, CharacterAttributes att, int value, CharacterAttributes powBonus, float powBonusMultiplier = 0.5f, bool isDmg = true, bool affectedByArmor = true, int num = 0, int sides = 0) 
+        : base(name, att,value, powBonus, powBonusMultiplier, isDmg, affectedByArmor, num,sides)
     {
 
     }

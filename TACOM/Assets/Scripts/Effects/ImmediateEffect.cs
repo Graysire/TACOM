@@ -12,6 +12,9 @@ public class ImmediateEffect
 
     //Source character's attribute that provide a bonus to the power
     CharacterAttributes powerBonus;
+    //multiplier to powerBonus
+    float powerBonusMultiplier;
+
     //number of dice rolled to determine the final power ofthe Effect
     protected int numDice;
     //number ofsides each die has
@@ -34,11 +37,13 @@ public class ImmediateEffect
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public ImmediateEffect(string name, CharacterAttributes att, int value, bool isDmg = true, bool affectedByArmor = true, int num = 1, int sides = 10)
+    public ImmediateEffect(string name, CharacterAttributes att, int value, CharacterAttributes powBonus, float powBonusMultiplier = 0.5f, bool isDmg = true, bool affectedByArmor = true, int num = 1, int sides = 10)
     {
         this.name = name;
         attribute = att;
         power = value;
+        powerBonus = powBonus;
+        powerBonusMultiplier = powBonusMultiplier;
         numDice = num;
         diceSides = sides;
         isDamage = isDmg;
@@ -67,7 +72,7 @@ public class ImmediateEffect
     public virtual int ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
         //initial finalPower is the base power - the target's armor if this effect is affected by armor
-        int finalPower = power - (isAffectedByArmor?targetInfo.target.GetAttribute(CharacterAttributes.Armor):0);
+        int finalPower = power + (int) (targetInfo.source.GetAttribute(powerBonus) * powerBonusMultiplier) - (isAffectedByArmor?targetInfo.target.GetAttribute(CharacterAttributes.Armor):0);
         for (int i = 0; i < numDice; i++)
         {
             finalPower += Random.Range(1, diceSides + 1);
@@ -86,7 +91,7 @@ public class ImmediateEffect
         }
 
         targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage?-1 * finalPower:finalPower) + 
-            "(rolled " + rolledPower + " on " + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
+            "(rolled " + rolledPower + " on " + numDice + "d" + diceSides + "+" + (power + (int) (targetInfo.source.GetAttribute(powerBonus) * 0.5f)) + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
         
         //if isDamage, change the target attribute by -1* finalPower, otherwise change it by finalPower
         targetInfo.target.ChangeAttribute(attribute, isDamage?-1 *finalPower:finalPower);

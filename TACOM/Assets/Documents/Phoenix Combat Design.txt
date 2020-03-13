@@ -15,3 +15,5 @@ Calculated Attributes
 An Attack is generally 2d10+stat vs. a target's Defense
 Damage dealt to a character is typically reduced by their Armor
 Damage dealt to a character's Health in excess of their Endurance has the excess damage doubled.
+
+The System is based on 2d10 (where 11 is average)

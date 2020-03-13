@@ -43,10 +43,10 @@ public class Character
         }
         attributes[attributes.Length - 1] = 0;
         //attributes[(int)CharacterAttributes.Health] = 100;
-        abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, 3), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
-        ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, 2, affectedByArmor: false, sides: 5) };
+        abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, 3, CharacterAttributes.Perception), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
+        ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, 2, CharacterAttributes.Zero, affectedByArmor: false, sides: 5) };
         abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, 2, 2, 1, arr, false), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
-        abilities.Add(new Ability("Default Strength Buff", new TemporaryEffect("Default Strength Buff Effect", CharacterAttributes.Strength, 10, 2, false, false, 1, 20), CharacterAttributes.Strength, CharacterAttributes.Zero, 0, 0, 0));
+        //abilities.Add(new Ability("Default Strength Buff", new TemporaryEffect("Default Strength Buff Effect", CharacterAttributes.Strength, 10, 2, false, false, 1, 20), CharacterAttributes.Strength, CharacterAttributes.Zero, 0, 0, 0));
         charID = nextID;
         nextID++;
     }

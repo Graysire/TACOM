@@ -15,7 +15,8 @@ public class TemporaryEffect : RemovableEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration
-    public TemporaryEffect(string name, CharacterAttributes att, int value, int durat, bool isDmg = true, bool affectedByArmor = true,int num = 0, int sides = 0) : base(name, att, value, isDmg, affectedByArmor, num, sides)
+    public TemporaryEffect(string name, CharacterAttributes att, int value, CharacterAttributes powBonus, int durat, float powBonusMultiplier = 0.5f, bool isDmg = true, bool affectedByArmor = true,int num = 0, int sides = 0) 
+        : base(name, att, value, powBonus, powBonusMultiplier, isDmg, affectedByArmor, num, sides)
     {
         duration = durat;
     }

@@ -7,12 +7,12 @@ public class TurnManager : MonoBehaviour
 {
     //the list of all character controllers in the scene
     List<CharacterManager> turnList = new List<CharacterManager>();
-    int currentTurn = -1; 
+    int currentTurn = 0; 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        turnList[0].ToggleActiveTurn();
     }
 
     // Update is called once per frame
@@ -39,12 +39,6 @@ public class TurnManager : MonoBehaviour
             {
                 Debug.Log("No turns in the turn list");
             }
-        }
-
-        if (currentTurn < 0)
-        {
-            currentTurn = 0;
-            turnList[0].ToggleActiveTurn();
         }
     }
 

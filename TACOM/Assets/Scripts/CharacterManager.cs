@@ -66,12 +66,12 @@ public class CharacterManager : MonoBehaviour
             character.UseAbility(character.abilities[1], new CharacterTargetInfo(character, target.character));
             hasAttacked = true;
         }
-        else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //if the 3 key is pressed attack with ability three
-            character.UseAbility(character.abilities[2], new CharacterTargetInfo(character, target.character));
-            hasAttacked = true;
-        }
+        //else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    //if the 3 key is pressed attack with ability three
+        //    character.UseAbility(character.abilities[2], new CharacterTargetInfo(character, target.character));
+        //    hasAttacked = true;
+        //}
         //if the character has not mvoed yet and the right mouse buttonis clicked, move
         else if (turnIsActive && !hasMoved && Input.GetMouseButtonDown(1))
         {
