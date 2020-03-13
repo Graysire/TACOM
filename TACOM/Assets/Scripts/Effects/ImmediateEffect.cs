@@ -19,6 +19,8 @@ public class ImmediateEffect
 
     //if true, power is subtracted from attribute, otherwise damage is added
     protected bool isDamage;
+    //if true, armor is subtracted from power before damage is added
+    protected bool isAffectedByArmor;
 
     //the name of the effect
     protected string name;
@@ -32,7 +34,7 @@ public class ImmediateEffect
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public ImmediateEffect(string name, CharacterAttributes att, int value, bool isDmg = true, int num = 1, int sides = 10)
+    public ImmediateEffect(string name, CharacterAttributes att, int value, bool isDmg = true, bool affectedByArmor = true, int num = 1, int sides = 10)
     {
         this.name = name;
         attribute = att;
@@ -40,6 +42,7 @@ public class ImmediateEffect
         numDice = num;
         diceSides = sides;
         isDamage = isDmg;
+        isAffectedByArmor = affectedByArmor;
     }
 
     //returns the attribute this Effect affects
@@ -63,14 +66,20 @@ public class ImmediateEffect
     //applies the modification to the target
     public virtual void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        int finalPower = power;
+        //initial finalPower is the base power - the target's armor if this effect is affected by armor
+        int finalPower = power - (isAffectedByArmor?targetInfo.target.GetAttribute(CharacterAttributes.Armor):0);
         for (int i = 0; i < numDice; i++)
         {
             finalPower += Random.Range(1, diceSides + 1);
         }
+        //ensures finalPower is never negative
+        if (finalPower < 0)
+        {
+            finalPower = 0;
+        }
 
         targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage?-1 * finalPower:finalPower) + 
-            "(" + numDice + "d" + diceSides + "+" + power + ")";
+            "(" + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
         
         //if isDamage, change the target attribute by -1* finalPower, otherwise change it by finalPower
         targetInfo.target.ChangeAttribute(attribute, isDamage?-1 *finalPower:finalPower);

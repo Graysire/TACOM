@@ -22,8 +22,8 @@ public class PeriodicTemporaryEffect : TemporaryEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration, period for period, eff for effects, reverse for reverseOnRemove
-    public PeriodicTemporaryEffect(string name, CharacterAttributes att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse, bool isDmg = true, int num = 0, int sides = 0) 
-        : base(name, att, value, durat, isDmg,num,sides)
+    public PeriodicTemporaryEffect(string name, CharacterAttributes att, int value, int durat, int period, ImmediateEffect[] eff, bool reverse, bool isDmg = true, bool affectedByArmor = true, int num = 0, int sides = 0) 
+        : base(name, att, value, durat, isDmg, affectedByArmor, num,sides)
     {
         this.period = period;
         effects = eff;

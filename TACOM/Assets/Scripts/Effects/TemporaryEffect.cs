@@ -15,7 +15,7 @@ public class TemporaryEffect : RemovableEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration
-    public TemporaryEffect(string name, CharacterAttributes att, int value, int durat, bool isDmg = true, int num = 0, int sides = 0) : base(name, att, value, isDmg, num, sides)
+    public TemporaryEffect(string name, CharacterAttributes att, int value, int durat, bool isDmg = true, bool affectedByArmor = true,int num = 0, int sides = 0) : base(name, att, value, isDmg, affectedByArmor, num, sides)
     {
         duration = durat;
     }
@@ -33,16 +33,21 @@ public class TemporaryEffect : RemovableEffect
     //override, adds this effect to the character's active effects and to the OnTick event
     public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        int finalPower = power;
+        //initial finalPower is the base power - the target's armor if this effect is affected by armor
+        int finalPower = power - (isAffectedByArmor ? targetInfo.target.GetAttribute(CharacterAttributes.Armor) : 0);
         for (int i = 0; i < numDice; i++)
         {
             finalPower += Random.Range(1, diceSides + 1);
         }
+        //ensures finalPower is never negative
+        if (finalPower < 0)
+        {
+            finalPower = 0;
+        }
 
-
-        //copied from ImmediateEffect's ApplyEffect, base cannot be used due to need to copy this Effect
         targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage ? -1 * finalPower : finalPower) +
-            "(" + numDice + "d" + diceSides + "+" + power + ")";
+            "(" + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor ? "-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor) : "") + ")";
+
         targetInfo.target.ChangeAttribute(attribute, isDamage ? -1 * finalPower : finalPower);
         targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
 

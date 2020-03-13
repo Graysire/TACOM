@@ -43,7 +43,7 @@ public class Character
         }
         //attributes[(int)CharacterAttributes.Health] = 100;
         abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, 30), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
-        ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, 20) };
+        ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, 20, affectedByArmor: false) };
         abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, 20, 2, 1, arr, false), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
         charID = nextID;
         nextID++;
@@ -110,7 +110,7 @@ public class Character
 //enumeration of all attributes a character has
 public enum CharacterAttributes
 {
-    Strength, Agility, Endurance, Perception, Willpower, Presence,
+    Strength, Agility, Endurance, Perception, Willpower, Presence, Armor,
     Health, Defense
 }
 
