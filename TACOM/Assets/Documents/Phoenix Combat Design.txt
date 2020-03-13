@@ -1,0 +1,17 @@
+Main Attributes
+	Strength
+	Agility
+	Endurance
+	Perception
+	Willpower
+	Presence
+Secondary Attributes
+	Armor
+
+Calculated Attributes
+	Health
+	Defense
+
+An Attack is generally 2d10+stat vs. a target's Defense
+Damage dealt to a character is typically reduced by their Armor
+Damage dealt to a character's Health in excess of their Endurance has the excess damage doubled.
