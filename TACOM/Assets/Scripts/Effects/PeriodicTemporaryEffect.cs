@@ -29,15 +29,33 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         reverseOnRemove = reverse;
     }
 
+    //Copy Constructor
+    public PeriodicTemporaryEffect(PeriodicTemporaryEffect other)
+    {
+        name = other.name;
+        attribute = other.attribute;
+        power = other.power;
+        duration = other.duration;
+        period = other.period;
+        effects = new ImmediateEffect[other.effects.Length];
+        for(int i = 0; i < effects.Length; i++)
+        {
+            effects[i] = other.effects[i];
+        }
+        reverseOnRemove = other.reverseOnRemove;
+    }
+
     //override, applies all subeffects and adds TickEffect
     public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        foreach (ImmediateEffect eff in effects)
+        PeriodicTemporaryEffect temp = new PeriodicTemporaryEffect(this);
+        targetInfo.target.AddEffect(temp);
+        foreach (ImmediateEffect eff in temp.effects)
         {
             eff.ApplyEffect(ref targetInfo);
         }
-        timesApplied++;
-        targetInfo.target.OnTick += TickEffect;
+        temp.timesApplied++;
+        targetInfo.target.OnTick += temp.TickEffect;
     }
 
     //override, only reverses effect is reverseOnRemove is true
@@ -64,7 +82,7 @@ public class PeriodicTemporaryEffect : TemporaryEffect
         Debug.Log(targetInfo.logMessage);
         if (duration <= 0)
         {
-            targetInfo.logMessage = name + " removed from " + targetInfo.target.GetName();
+            targetInfo.logMessage = name + " removed";
             targetInfo.target.RemoveEffect(this);
             if (reverseOnRemove) //if it should be reversed on removal
             {

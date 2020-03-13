@@ -8,7 +8,7 @@ public class ImmediateEffect
     //the name of the attribute to be affected
     protected CharacterAttributes attribute;
     //the numerical value the attribute will be changed by
-    protected int strength;
+    protected int power;
 
     //the name of the effect
     protected string name;
@@ -18,7 +18,7 @@ public class ImmediateEffect
     {
         name = "WorldEffect";
         attribute = CharacterAttributes.Health;
-        strength = 0;
+        power = 0;
     }
 
     //Constructor with inputs, att for attribute and value for strength
@@ -26,7 +26,7 @@ public class ImmediateEffect
     {
         this.name = name;
         attribute = att;
-        strength = value;
+        power = value;
     }
 
     //returns the attribute this Effect affects
@@ -38,15 +38,15 @@ public class ImmediateEffect
     //returns the strength of this Effect
     public int GetStrength()
     {
-        return strength;
+        return power;
     }
 
     //applies the modification to the target
     public virtual void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + strength;
+        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + power;
             
-        targetInfo.target.ChangeAttribute(attribute, strength);
+        targetInfo.target.ChangeAttribute(attribute, power);
         targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
         //Debug.Log(targetInfo.logMessage);
     }

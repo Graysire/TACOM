@@ -20,11 +20,31 @@ public class TemporaryEffect : RemovableEffect
         duration = durat;
     }
 
+    //copy constructor
+    public TemporaryEffect(TemporaryEffect other)
+    {
+        name = other.name;
+        attribute = other.attribute;
+        power = other.power;
+        duration = other.duration;
+        Debug.Log("Copy");
+    }
+
     //override, adds this effect to the character's active effects and to the OnTick event
     public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        base.ApplyEffect(ref targetInfo);
-        targetInfo.target.OnTick += TickEffect;
+        //copied from ImmediateEffect's ApplyEffect, base cannot be used due to need to copy this Effect
+        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + power;
+        targetInfo.target.ChangeAttribute(attribute, power);
+        targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
+
+        //copy this effect
+        TemporaryEffect temp = new TemporaryEffect(this);
+
+        //add the effect's copy to the target's active effects
+        targetInfo.target.AddEffect(temp);
+        //add the copy to the target's OnTick
+        targetInfo.target.OnTick += temp.TickEffect;
     }
 
     //override removes the effect and removes self from the OnTick event

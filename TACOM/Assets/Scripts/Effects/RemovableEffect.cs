@@ -16,12 +16,21 @@ public class RemovableEffect : ImmediateEffect
 
     }
 
+    //Copy constructor
+    public RemovableEffect(RemovableEffect other)
+    {
+        name = other.name;
+        attribute = other.attribute;
+        power = other.power;
+    }
+
+
     //removes the effect from the character
     public virtual void RemoveEffect(CharacterTargetInfo targetInfo)
     {
-        targetInfo.logMessage += name + " removed, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (strength * -1);
+        targetInfo.logMessage += name + " removed, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (power * -1);
         //targetInfo.logMessage += "\n" + name + " deals " + strength + " to " + targetInfo.target.GetName();
-        targetInfo.target.ChangeAttribute(attribute, strength * -1);
+        targetInfo.target.ChangeAttribute(attribute, power * -1);
         targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
         Debug.Log(targetInfo.logMessage);
     }
@@ -30,7 +39,7 @@ public class RemovableEffect : ImmediateEffect
     public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
         base.ApplyEffect(ref targetInfo);
-        targetInfo.target.AddEffect(this);
+        targetInfo.target.AddEffect(new RemovableEffect(this));
     }
 
     //override, two RemoveableEffects are equal if their strength and attribute are the same
@@ -38,7 +47,7 @@ public class RemovableEffect : ImmediateEffect
     {
         if (obj.GetType() == typeof(RemovableEffect))
         {
-            if (((RemovableEffect)obj).strength == this.strength && ((RemovableEffect)obj).attribute == this.attribute)
+            if (((RemovableEffect)obj).power == this.power && ((RemovableEffect)obj).attribute == this.attribute)
             {
                 return true;
             }
