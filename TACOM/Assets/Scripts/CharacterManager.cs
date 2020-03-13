@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterManager : MonoBehaviour
 {
     //the character this script controls
+    [SerializeField]
     Character character;
     //the pathfinding grid used for this character
     PathGrid pathGrid;

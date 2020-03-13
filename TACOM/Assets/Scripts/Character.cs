@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 //represents a character in the game
+[Serializable]
 public class Character
 {
     //Array of all attribute values for a character accessible by the attributes' enum
+    [SerializeField]
     int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length];
     //list of all abilities a character can use
     public List<Ability> abilities = new List<Ability>();
@@ -39,9 +42,9 @@ public class Character
     {
         this.charName = name;
         attributes[(int)CharacterAttributes.Health] = 100;
-        abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, -30)));
+        abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, -30), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
         ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, -20) };
-        abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, -20, 2, 1, arr, false)));
+        abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, -20, 2, 1, arr, false), CharacterAttributes.Perception, CharacterAttributes.Defense, 2, 10));
         charID = nextID;
         nextID++;
     }
@@ -118,8 +121,8 @@ public class Character
 //enumeration of all attributes a character has
 public enum CharacterAttributes
 {
-    Strength, Agility, Toughness, Perception, Willpower, Presence,
-    Health
+    Strength, Agility, Endurance, Perception, Willpower, Presence,
+    Health, Defense
 }
 
 //struct containing data relating to Characters targeting other Characters
