@@ -51,7 +51,7 @@ public class Ability
         //roll the dice
         for (int i = 0; i < numDice; i++)
         {
-            diceRoll += Random.Range(1, 11);
+            diceRoll += Random.Range(1, diceSides + 1);
         }
         int targetNumber = targetInfo.target.GetAttribute(targetAttribute) + baseDifficulty;
 

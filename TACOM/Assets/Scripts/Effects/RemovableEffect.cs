@@ -5,13 +5,15 @@ using UnityEngine;
 //Effect that stays on a character and cna be removed to reverse its changes
 public class RemovableEffect : ImmediateEffect
 {
+    protected int powerApplied;
+
     //Default Constructor
     public RemovableEffect() :base()
     {
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public RemovableEffect(string name, CharacterAttributes att, int value) : base(name, att,value)
+    public RemovableEffect(string name, CharacterAttributes att, int value, bool isDmg = true, int num = 0, int sides = 0) : base(name, att,value, isDmg,num,sides)
     {
 
     }
@@ -28,9 +30,9 @@ public class RemovableEffect : ImmediateEffect
     //removes the effect from the character
     public virtual void RemoveEffect(CharacterTargetInfo targetInfo)
     {
-        targetInfo.logMessage += name + " removed, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (power * -1);
+        targetInfo.logMessage += name + " removed, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage?powerApplied:powerApplied * -1);
         //targetInfo.logMessage += "\n" + name + " deals " + strength + " to " + targetInfo.target.GetName();
-        targetInfo.target.ChangeAttribute(attribute, power * -1);
+        targetInfo.target.ChangeAttribute(attribute, isDamage ? powerApplied : powerApplied * -1);
         targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
         Debug.Log(targetInfo.logMessage);
     }
@@ -38,8 +40,24 @@ public class RemovableEffect : ImmediateEffect
     //override, adds this effect to the character's active effects
     public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
-        base.ApplyEffect(ref targetInfo);
-        targetInfo.target.AddEffect(new RemovableEffect(this));
+        int finalPower = power;
+        for (int i = 0; i < numDice; i++)
+        {
+            finalPower += Random.Range(1, diceSides + 1);
+        }
+
+        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage ? -1 * finalPower : finalPower) +
+            "(" + numDice + "d" + diceSides + "+" + power + ")";
+
+        //if isDamage, change the target attribute by -1* finalPower, otherwise change it by finalPower
+        targetInfo.target.ChangeAttribute(attribute, isDamage ? -1 * finalPower : finalPower);
+        targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
+
+        RemovableEffect temp = new RemovableEffect(this)
+        {
+            powerApplied = finalPower
+        };
+        targetInfo.target.AddEffect(temp);
     }
 
     //override, two RemoveableEffects are equal if their strength and attribute are the same

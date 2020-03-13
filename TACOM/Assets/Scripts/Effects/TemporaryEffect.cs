@@ -15,7 +15,7 @@ public class TemporaryEffect : RemovableEffect
     }
 
     //Constructor with inputs, att for attribute, value for strength, durat for duration
-    public TemporaryEffect(string name, CharacterAttributes att, int value, int durat) : base(name, att, value)
+    public TemporaryEffect(string name, CharacterAttributes att, int value, int durat, bool isDmg = true, int num = 0, int sides = 0) : base(name, att, value, isDmg, num, sides)
     {
         duration = durat;
     }
@@ -33,13 +33,24 @@ public class TemporaryEffect : RemovableEffect
     //override, adds this effect to the character's active effects and to the OnTick event
     public override void ApplyEffect(ref CharacterTargetInfo targetInfo)
     {
+        int finalPower = power;
+        for (int i = 0; i < numDice; i++)
+        {
+            finalPower += Random.Range(1, diceSides + 1);
+        }
+
+
         //copied from ImmediateEffect's ApplyEffect, base cannot be used due to need to copy this Effect
-        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + power;
-        targetInfo.target.ChangeAttribute(attribute, power);
+        targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage ? -1 * finalPower : finalPower) +
+            "(" + numDice + "d" + diceSides + "+" + power + ")";
+        targetInfo.target.ChangeAttribute(attribute, isDamage ? -1 * finalPower : finalPower);
         targetInfo.logMessage += "(now: " + targetInfo.target.GetAttribute(attribute) + ")";
 
         //copy this effect
-        TemporaryEffect temp = new TemporaryEffect(this);
+        TemporaryEffect temp = new TemporaryEffect(this)
+        {
+            powerApplied = finalPower
+        };
 
         //add the effect's copy to the target's active effects
         targetInfo.target.AddEffect(temp);
