@@ -77,9 +77,16 @@ public class ImmediateEffect
         {
             finalPower = 0;
         }
+        int rolledPower = finalPower;
+
+        //doubles all damage dealt in excess of Endurance, assuming isDamage and target attribute is Health
+        if (isDamage && attribute == CharacterAttributes.Health && finalPower > targetInfo.target.GetAttribute(CharacterAttributes.Endurance))
+        {
+            finalPower += finalPower - targetInfo.target.GetAttribute(CharacterAttributes.Endurance);
+        }
 
         targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage?-1 * finalPower:finalPower) + 
-            "(" + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
+            "(rolled " + rolledPower + " on " + numDice + "d" + diceSides + "+" + power + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
         
         //if isDamage, change the target attribute by -1* finalPower, otherwise change it by finalPower
         targetInfo.target.ChangeAttribute(attribute, isDamage?-1 *finalPower:finalPower);
