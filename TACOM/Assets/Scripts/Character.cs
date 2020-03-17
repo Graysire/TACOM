@@ -113,7 +113,7 @@ public class Character
 public enum CharacterAttributes
 {
     Strength, Agility, Endurance, Perception, Willpower, Presence, Armor,
-    Health, Defense,
+    Health, Defense, Speed,
 
     //the last attribute of a character, always set to 0
     Zero

@@ -94,7 +94,7 @@ public class CharacterManager : MonoBehaviour
     IEnumerator MoveToPoint(Vector3 target)
     {
         //find a path
-        pathGrid.getFinalPath(transform.position, target);
+        pathGrid.getFinalPath(transform.position, target, character.GetAttribute(CharacterAttributes.Speed));
         //if a path exists move to it
         if (pathGrid.finalPath.Count != 0)
         {
@@ -121,7 +121,7 @@ public class CharacterManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No path exists to target point");
+            Debug.Log("No path exists to target point or point is out of range");
         }
     }
 

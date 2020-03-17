@@ -64,9 +64,10 @@ public class PathGrid : MonoBehaviour
         return tileGrid.CellToWorld(new Vector3Int(node.posX, node.posY, 0)) + new Vector3(0, tileGrid.cellSize.y /2,0);
     }
 
-    public List<PathNode> getFinalPath(Vector3 startPos, Vector3 targetPos)
+    //returns a list of pathing nodes creating the path between two points with a max length
+    public List<PathNode> getFinalPath(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
-        pathfinder.FindPath(startPos, targetPos);
+        pathfinder.FindPath(startPos, targetPos, maxLength);
         return finalPath;
     }
 
