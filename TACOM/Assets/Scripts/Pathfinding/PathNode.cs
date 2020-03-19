@@ -8,8 +8,10 @@ public class PathNode
     //the x and y positions of this node in the grid (discounting grid size and actual world space coordinates)
     public readonly int posX;
     public readonly int posY;
-    //whether this node is obstructed
-    public bool isObstructed;
+    //whether this node is obstructed for movement
+    public bool isMoveObstructed;
+    //whether this node is obstructed for line of sight
+    public bool isSightObstructed;
 
     //the pathing node preceding this node when calculating a path
     public PathNode prevNode;
@@ -24,7 +26,7 @@ public class PathNode
     //Constructor for the pathfinding node
     public PathNode(bool isObstructed, int gridX, int gridY)
     {
-        this.isObstructed = isObstructed;
+        this.isMoveObstructed = isObstructed;
         posX = gridX;
         posY = gridY;
     }

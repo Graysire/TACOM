@@ -125,7 +125,7 @@ public class PathGrid : MonoBehaviour
                     {
                         Gizmos.color = Color.red;
                     }
-                    else if (nodeGrid[x, y].isObstructed)
+                    else if (nodeGrid[x, y].isMoveObstructed)
                     {
                         Gizmos.color = Color.magenta;
                     }

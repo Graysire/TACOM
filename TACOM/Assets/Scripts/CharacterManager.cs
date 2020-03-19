@@ -33,7 +33,7 @@ public class CharacterManager : MonoBehaviour
     private void Start()
     {
         //set starting position to obstructed
-        pathGrid.WorldToNode(transform.position).isObstructed = true;
+        pathGrid.WorldToNode(transform.position).isMoveObstructed = true;
     }
 
     private void Awake()
@@ -84,7 +84,7 @@ public class CharacterManager : MonoBehaviour
             //remove turn from the turn list
             GameObject.Find("TurnManager").GetComponent<TurnManager>().RemoveTurn(this);
             //unobstruct the pathing node at the current position
-            pathGrid.WorldToNode(transform.position).isObstructed = false;
+            pathGrid.WorldToNode(transform.position).isMoveObstructed = false;
             //destroy self
             GameObject.Destroy(this.gameObject);
         }
