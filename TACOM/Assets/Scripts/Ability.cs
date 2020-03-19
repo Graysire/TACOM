@@ -18,6 +18,10 @@ public class Ability
     int diceSides;
     //base difficulty of the roll, added to the target attribute
     int baseDifficulty;
+    //range of theability measured in number of tiles
+    int range;
+    //whether or not the ability requires an unobstructed path to the target
+    bool requiresLineOfSight;
 
     //the name of the ability
     string name;
@@ -27,7 +31,7 @@ public class Ability
     { }
 
     //Constructor for a Single Effect Ability
-    public Ability(string name, ImmediateEffect eff, CharacterAttributes atk, CharacterAttributes tar, int num = 2, int sides = 10, int baseDif = 11)
+    public Ability(string name, ImmediateEffect eff, CharacterAttributes atk, CharacterAttributes tar, int range, int num = 2, int sides = 10, int baseDif = 11, bool lineOfSight = true)
     {
         this.name = name;
         effects.Add(eff);
@@ -36,6 +40,7 @@ public class Ability
         numDice = num;
         diceSides = sides;
         baseDifficulty = baseDif;
+        this.range = range;
     }
 
     //Constructor for Multiple Effect Ability
