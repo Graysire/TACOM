@@ -10,7 +10,7 @@ public class Character
     //[SerializeField]
     int[] attributes = new int[System.Enum.GetValues(typeof(CharacterAttributes)).Length];
     //list of all abilities a character can use
-    public List<Ability> abilities = new List<Ability>();
+    List<Ability> abilities = new List<Ability>();
     //list of all effects affecting a character
     List<RemovableEffect> activeEffects = new List<RemovableEffect>();
 
@@ -96,12 +96,19 @@ public class Character
         return attributes[(int) att];
     }
 
+    //returns the array of all the character's attributes
     public int[] GetAttributes()
     {
         return attributes;
     }
 
-    //reyturns the character's name
+    //returns the list of the character's abilities
+    public List<Ability> GetAbilities()
+    {
+        return abilities;
+    }
+
+    //returns the character's name
     public string GetName()
     {
         return charName;

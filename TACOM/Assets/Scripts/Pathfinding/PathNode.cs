@@ -24,9 +24,10 @@ public class PathNode
     public int FCost { get { return gCost + hCost; } }
 
     //Constructor for the pathfinding node
-    public PathNode(bool isObstructed, int gridX, int gridY)
+    public PathNode(bool isObstructed, int gridX, int gridY, bool isSightObstructed)
     {
         this.isMoveObstructed = isObstructed;
+        this.isSightObstructed = isSightObstructed;
         posX = gridX;
         posY = gridY;
     }

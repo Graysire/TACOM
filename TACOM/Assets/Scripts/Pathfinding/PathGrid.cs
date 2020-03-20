@@ -40,7 +40,7 @@ public class PathGrid : MonoBehaviour
             for (int x = 0; x < gridSize.x; x++)
             {
                 //fills every space on the node grid with a node, defaulting to non-obstructed and with a simple x and y value
-                nodeGrid[y, x] = new PathNode(false, x, y);
+                nodeGrid[y, x] = new PathNode(false, x, y, false);
             }
         }
     }
@@ -69,6 +69,21 @@ public class PathGrid : MonoBehaviour
     {
         pathfinder.FindPath(startPos, targetPos, maxLength);
         return finalPath;
+    }
+
+    //returns whether the target position is in line of sight from the start position
+    public bool CheckLineOfSight(Vector3 startPos, Vector3 targetPos, int maxLength)
+    {
+        List<PathNode> sightPath = pathfinder.FindSightPath(startPos, targetPos, maxLength);
+        //finalPath = sightPath;
+        if (sightPath != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 
