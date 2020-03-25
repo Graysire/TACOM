@@ -107,6 +107,9 @@ public class Pathfinder : MonoBehaviour
         //set of pathing nodes that have been checked
         HashSet<PathNode> ClosedList = new HashSet<PathNode>();
 
+        //reset gCost of the starting node
+        startNode.gCost = 0;
+
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
 
@@ -115,7 +118,8 @@ public class Pathfinder : MonoBehaviour
         {
             //start by looking at the first node
             PathNode currentNode = OpenList[0];
-            //comapre to every other node
+            Debug.Log(currentNode.posX + " " + currentNode.posY);
+            //compare to every other node
             for (int i = 0; i < OpenList.Count; i++)
             {
                 //if the total cost of a node is lower, or the total cost is equal but node is closer to the target
@@ -171,6 +175,7 @@ public class Pathfinder : MonoBehaviour
                     {
                         //the adjacent node's distance from the start node along this path is this node's distance + 1
                         adjacentNode.gCost = currentNode.gCost + 1;
+                        Debug.Log("gPing: " + adjacentNode.gCost);
                         //calculate the adjacent node's distance from the target using manhatten distance
                         //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
                         //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
@@ -222,6 +227,9 @@ public class Pathfinder : MonoBehaviour
         List<PathNode> OpenList = new List<PathNode>();
         //set of pathing nodes that have been checked
         HashSet<PathNode> ClosedList = new HashSet<PathNode>();
+
+        //reset gCost of the starting node
+        startNode.gCost = 0;
 
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
