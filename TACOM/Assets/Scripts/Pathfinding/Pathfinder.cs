@@ -118,7 +118,6 @@ public class Pathfinder : MonoBehaviour
         {
             //start by looking at the first node
             PathNode currentNode = OpenList[0];
-            Debug.Log(currentNode.posX + " " + currentNode.posY);
             //compare to every other node
             for (int i = 0; i < OpenList.Count; i++)
             {
@@ -175,7 +174,6 @@ public class Pathfinder : MonoBehaviour
                     {
                         //the adjacent node's distance from the start node along this path is this node's distance + 1
                         adjacentNode.gCost = currentNode.gCost + 1;
-                        Debug.Log("gPing: " + adjacentNode.gCost);
                         //calculate the adjacent node's distance from the target using manhatten distance
                         //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
                         //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
@@ -228,12 +226,13 @@ public class Pathfinder : MonoBehaviour
         //set of pathing nodes that have been checked
         HashSet<PathNode> ClosedList = new HashSet<PathNode>();
 
-        //reset gCost of the starting node
+        //reset gCost and hCost of the starting node
         startNode.gCost = 0;
+        startNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
 
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
-   
+
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
         {
@@ -244,12 +243,13 @@ public class Pathfinder : MonoBehaviour
             for (int i = 0; i < OpenList.Count; i++)
             {
                 //if the total cost of a node is lower, or the total cost is equal but node is closer to the target
-                if (OpenList[i].FCost < currentNode.FCost || currentNode.FCost == OpenList[i].FCost && OpenList[i].hCost < currentNode.hCost)
+                if (/*OpenList[i].FCost < currentNode.FCost || currentNode.FCost == OpenList[i].FCost &&*/ OpenList[i].hCost < currentNode.hCost)
                 {
                     //that node becomes the new current node
                     currentNode = OpenList[i];
                 }
             }
+            Debug.Log(currentNode.posX + " " + currentNode.posY + " F" + currentNode.FCost + " G" + currentNode.gCost + " H" + currentNode.hCost + " isSightBlock " + currentNode.isSightObstructed);
             //remove node from the unchecked nodes
             OpenList.Remove(currentNode);
             //add the node to the checked nodes
@@ -295,22 +295,28 @@ public class Pathfinder : MonoBehaviour
                         //calculate the adjacent node's distance from the target using manhatten distance
                         //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
                         //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
-                        adjacentNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
+                        adjacentNode.hCost = Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
                         //if the unchecked nodes list does not contain the adjacent node and the adjacent node is not too far from the start, add it
-                        if (!OpenList.Contains(adjacentNode) && adjacentNode.gCost <= maxLength /*&& adjacentNode.hCost < currentNode.hCost*/)
+
+                        //costs
+                        //Debug.Log(adjacentNode.hCost + " vs " + currentNode.hCost);
+
+                        if (!OpenList.Contains(adjacentNode) && adjacentNode.gCost <= maxLength && adjacentNode.hCost < currentNode.hCost)
                         {
+                            //Debug.Log("SightPing");
                             //if not sight obstructed add the node to the open list
                             if (!adjacentNode.isSightObstructed)
                             {
+                                //Debug.Log("SightPingNoObstruct");
                                 OpenList.Add(adjacentNode);
                             }
                             //otherwise return because sight is blocked
                             else
                             {
                                 Debug.Log("Line of Sight blocked");
-                                return null;
+                                //return null;
                             }
                         }
                     }

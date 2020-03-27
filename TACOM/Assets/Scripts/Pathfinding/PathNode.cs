@@ -19,9 +19,9 @@ public class PathNode
     //gCost is the distance from the start of the path to this node
     public int gCost;
     //hCost is the distance from the end of the path to this node
-    public int hCost;
+    public float hCost;
     //the total cost of moving to this node
-    public int FCost { get { return gCost + hCost; } }
+    public int FCost { get { return gCost +(int) Mathf.Round(hCost); } }
 
     //Constructor for the pathfinding node
     public PathNode(bool isObstructed, int gridX, int gridY, bool isSightObstructed)
