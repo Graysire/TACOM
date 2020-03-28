@@ -147,22 +147,22 @@ public class PathGrid : MonoBehaviour
         //check if the top left node is out of bounds, if not, add it
         if (center.posX + 1 >= 0 && center.posX + 1 < gridSize.x)
         {
-            adjacentNodes.Add(nodeGrid[center.posY, center.posX + 1]);
+            adjacentNodes.Add(nodeGrid[center.posX + 1, center.posY]);
         }
         //check if the bottom left node is out of bounds, if not, add it
         if (center.posX - 1 >= 0 && center.posX - 1 < gridSize.x)
         {
-            adjacentNodes.Add(nodeGrid[center.posY, center.posX - 1]);
+            adjacentNodes.Add(nodeGrid[center.posX - 1, center.posY]);
         }
         //check if the top right node is out of bounds, if not, add it
         if (center.posY + 1 >= 0 && center.posY + 1 < gridSize.y)
         {
-            adjacentNodes.Add(nodeGrid[center.posY + 1, center.posX]);
+            adjacentNodes.Add(nodeGrid[center.posX, center.posY + 1]);
         }
         //check if the bottom left node is out of bounds, if not, add it
         if (center.posY - 1 >= 0 && center.posY - 1 < gridSize.y)
         {
-            adjacentNodes.Add(nodeGrid[center.posY - 1, center.posX]);
+            adjacentNodes.Add(nodeGrid[center.posX, center.posY - 1]);
         }
 
         return adjacentNodes;
