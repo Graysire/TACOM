@@ -16,7 +16,7 @@ public class Pathfinder
     }
 
 
-    //Finds the shortest path between two points, if one exists and puts the pathh into the grid
+    //Finds the shortest path between two points, if one exists and puts the path into the grid
     public void FindPath(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
         //convert the given positions into pathfinding nodes
@@ -137,8 +137,8 @@ public class Pathfinder
         return;
     }
 
-    //Finds the shortest path between two points, if one exists and puts the pathh into the grid
-    public void FindSightPath(Vector3 startPos, Vector3 targetPos, int maxLength)
+    //Returns true if the straight line between two points is unobstructed, false otherwise
+    public bool FindSightPath(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
         //convert the given positions into pathfinding nodes
         PathNode startNode = grid.WorldToNode(startPos);
@@ -147,23 +147,23 @@ public class Pathfinder
         if (startNode == null)
         {
             Debug.Log("Starting Tile Out of Bounds");
-            return;
+            return false;
         }
         else if (targetNode == null)
         {
             Debug.Log("Target Tile Out of Bounds");
-            return;
+            return false;
         }
         else if (startNode == targetNode)
         {
             Debug.Log("Starting Tile and Target Tile are identical");
-            return;
+            return true;
         }
         //checks if the target tile is farther than the max length of the path
         else if ((int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f)) > maxLength)
         {
-            Debug.Log("Target Tile out of movement range");
-            return;
+            Debug.Log("Target Tile out of sight/ability range");
+            return false;
         }
 
         //list of pathing nodes that have not been checked yet
@@ -173,6 +173,9 @@ public class Pathfinder
 
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
+
+        //resets gCost of startNode to 0
+        startNode.gCost = 0;
 
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
@@ -197,8 +200,7 @@ public class Pathfinder
             //if the current node is the target
             if (currentNode == targetNode)
             {
-                startNode.isMoveObstructed = false;
-                targetNode.isMoveObstructed = true;
+
                 //create a list to contain the final path
                 List<PathNode> finalPath = new List<PathNode>();
                 //go backwards from the current node until reaching the starting node
@@ -216,7 +218,7 @@ public class Pathfinder
                 //send the final apth to the grid
                 grid.finalPath = finalPath;
 
-                return;
+                return true;
             }
 
             //look at each adjacent node
@@ -242,7 +244,7 @@ public class Pathfinder
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
                         //if the unchecked nodes list does not contain the adjacent node and the adjacent node is not too far from the start, add it
-                        if (!OpenList.Contains(adjacentNode) && adjacentNode.gCost <= maxLength && adjacentNode.hCost < currentNode.hCost)
+                        if (!OpenList.Contains(adjacentNode) && adjacentNode.gCost <= maxLength)
                         {
                             OpenList.Add(adjacentNode);
                         }
@@ -252,6 +254,6 @@ public class Pathfinder
         }
 
         Debug.Log("No possible path to reach target");
-        return;
+        return false;
     }
 }

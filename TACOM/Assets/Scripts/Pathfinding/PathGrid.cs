@@ -37,10 +37,11 @@ public class PathGrid : MonoBehaviour
     void Update()
     {
         ////debug that sets the start location of a path
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    debugStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
+        if (Input.GetMouseButtonDown(0))
+        {
+            PathNode c = WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log(c.posX + " " + c.posY);
+        }
         ////debug that sets the target location of a path
         //if (Input.GetMouseButtonDown(1))
         //{ 
@@ -93,13 +94,13 @@ public class PathGrid : MonoBehaviour
     void CreateGrid()
     {
         //instantiates the array of nodes
-        nodeGrid = new PathNode[gridSize.y, gridSize.x];
+        nodeGrid = new PathNode[gridSize.x, gridSize.y];
         for (int y = 0; y < gridSize.y; y++)
         {
             for (int x = 0; x < gridSize.x; x++)
             {
                 //fills every space on the node grid with a node, defaulting to non-obstructed and with a simple x and y value
-                nodeGrid[y, x] = new PathNode(false, x, y);
+                nodeGrid[x, y] = new PathNode(false, x, y);
             }
         }
     }
@@ -114,7 +115,7 @@ public class PathGrid : MonoBehaviour
         }
         else
         {
-            return nodeGrid[cellLocation.y, cellLocation.x];
+            return nodeGrid[cellLocation.x, cellLocation.y];
         }
     }
 
@@ -133,7 +134,7 @@ public class PathGrid : MonoBehaviour
     //returns whether or not a line of sight path can be created between two targets
     public bool checkLineOfSight(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
-        return true;
+        return pathfinder.FindSightPath(startPos, targetPos, maxLength);
     }
 
 
@@ -196,7 +197,7 @@ public class PathGrid : MonoBehaviour
                     {
                         Gizmos.color = Color.white;
                     }
-                    Gizmos.DrawSphere(tileGrid.GetCellCenterWorld(new Vector3Int(y, x, 0)), 0.25f);
+                    Gizmos.DrawSphere(tileGrid.GetCellCenterWorld(new Vector3Int(x, y, 0)), 0.25f);
                 }
             }
         }
