@@ -53,6 +53,9 @@ public class Pathfinder
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
 
+        //reset gCost of the starting Node
+        startNode.gCost = 0;
+
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
         {
