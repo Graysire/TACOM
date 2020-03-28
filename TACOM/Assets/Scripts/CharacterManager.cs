@@ -56,15 +56,29 @@ public class CharacterManager : MonoBehaviour
         //if it is this character's turn, they have not attack, they have a target and the 1 key is pressed
         if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //attack with ability 1
-            character.UseAbility(character.abilities[0], new CharacterTargetInfo(character, target.character));
-            hasAttacked = true;
+            if (!character.GetAbilities()[0].GetLineOfSight() || pathGrid.checkLineOfSight(this.transform.position, target.transform.position, character.GetAbilities()[0].GetRange()))
+            {
+                //attack with ability 1
+                character.UseAbility(character.GetAbilities()[0], new CharacterTargetInfo(character, target.character));
+                hasAttacked = true;
+            }
+            else
+            {
+                Debug.Log("No LoS");
+            }
         }
         else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha2))
         {
-            //if the 2 key is pressed attack with ability two
-            character.UseAbility(character.abilities[1], new CharacterTargetInfo(character, target.character));
-            hasAttacked = true;
+            if (!character.GetAbilities()[1].GetLineOfSight() || pathGrid.checkLineOfSight(this.transform.position, target.transform.position, character.GetAbilities()[1].GetRange()))
+            {
+                //if the 2 key is pressed attack with ability two
+                character.UseAbility(character.GetAbilities()[1], new CharacterTargetInfo(character, target.character));
+                hasAttacked = true;
+            }
+            else
+            {
+                Debug.Log("No LoS");
+            }
         }
         //else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha3))
         //{

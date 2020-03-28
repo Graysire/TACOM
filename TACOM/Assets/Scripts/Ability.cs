@@ -41,6 +41,7 @@ public class Ability
         diceSides = sides;
         baseDifficulty = baseDif;
         this.range = range;
+        requiresLineOfSight = lineOfSight;
     }
 
     //Constructor for Multiple Effect Ability
@@ -79,5 +80,17 @@ public class Ability
             targetInfo.logMessage += ", missing";
         }
         Debug.Log(targetInfo.logMessage);
+    }
+
+    //returns the range of the ability
+    public int GetRange()
+    {
+        return range;
+    }
+
+    //returns whether the ability requires line of sight
+    public bool GetLineOfSight()
+    {
+        return requiresLineOfSight;
     }
 }

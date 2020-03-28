@@ -58,6 +58,7 @@ public class PathGrid : MonoBehaviour
             if (p != null)
             {
                 p.isMoveObstructed = !p.isMoveObstructed;
+                p.isSightObstructed = !p.isSightObstructed;
                 if (p.isMoveObstructed)
                 {
                     //if the tile is now obstructed add the debug object to show its obstruction
@@ -129,7 +130,11 @@ public class PathGrid : MonoBehaviour
         return finalPath;
     }
 
-
+    //returns whether or not a line of sight path can be created between two targets
+    public bool checkLineOfSight(Vector3 startPos, Vector3 targetPos, int maxLength)
+    {
+        return true;
+    }
 
 
     //returns a list of all nodes adjacent to this one
