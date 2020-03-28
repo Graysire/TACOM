@@ -28,6 +28,8 @@ public class CharacterManager : MonoBehaviour
     bool hasMoved = false;
     bool hasAttacked = false;
 
+    bool isMoving = false;
+
     static CharacterManager target;
 
     private void Start()
@@ -56,8 +58,7 @@ public class CharacterManager : MonoBehaviour
         //if it is this character's turn, they have not attack, they have a target and the 1 key is pressed
         if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //if the ability doesn't require line of sight, or the character has line ofsight to the target
-            if (!character.GetAbilities()[0].GetLineOfSight() || pathGrid.CheckLineOfSight(transform.position, target.transform.position, character.GetAbilities()[0].GetRange()))
+            if (!character.GetAbilities()[0].GetLineOfSight() || pathGrid.checkLineOfSight(this.transform.position, target.transform.position, character.GetAbilities()[0].GetRange()))
             {
                 //attack with ability 1
                 character.UseAbility(character.GetAbilities()[0], new CharacterTargetInfo(character, target.character));
@@ -65,22 +66,20 @@ public class CharacterManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("No Line of Sight");
+                Debug.Log("No LoS");
             }
         }
-        //if the 2 key is pressed attack with ability two
         else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha2))
         {
-            //if the ability doesn't require line of sight, or the character has line ofsight to the target
-            if (!character.GetAbilities()[1].GetLineOfSight() || pathGrid.CheckLineOfSight(transform.position, target.transform.position, character.GetAbilities()[1].GetRange()))
+            if (!character.GetAbilities()[1].GetLineOfSight() || pathGrid.checkLineOfSight(this.transform.position, target.transform.position, character.GetAbilities()[1].GetRange()))
             {
-                //attack with ability 1
+                //if the 2 key is pressed attack with ability two
                 character.UseAbility(character.GetAbilities()[1], new CharacterTargetInfo(character, target.character));
                 hasAttacked = true;
             }
             else
             {
-                Debug.Log("No Line of Sight");
+                Debug.Log("No LoS");
             }
         }
         //else if (turnIsActive && target != null && !hasAttacked && Input.GetKeyDown(KeyCode.Alpha3))
@@ -90,7 +89,7 @@ public class CharacterManager : MonoBehaviour
         //    hasAttacked = true;
         //}
         //if the character has not mvoed yet and the right mouse buttonis clicked, move
-        else if (turnIsActive && !hasMoved && Input.GetMouseButtonDown(1))
+        else if (turnIsActive && !hasMoved && Input.GetMouseButtonDown(1) && !isMoving)
         {
             StartCoroutine(MoveToPoint(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
@@ -109,12 +108,13 @@ public class CharacterManager : MonoBehaviour
 
     //move from the current point ot the target point
     IEnumerator MoveToPoint(Vector3 target)
-    {
+    {   
         //find a path
         pathGrid.getFinalPath(transform.position, target, character.GetAttribute(CharacterAttributes.Speed));
         //if a path exists move to it
         if (pathGrid.finalPath.Count != 0)
         {
+            isMoving = true;
             hasMoved = true;
             //store the final node in case the coroutine needs to end early
             PathNode finalNode = pathGrid.finalPath[pathGrid.finalPath.Count - 1];
@@ -135,6 +135,7 @@ public class CharacterManager : MonoBehaviour
             }
             //set the position to that of the final node in case movement was skipped by ending turn
             transform.position = pathGrid.NodeToWorld(finalNode);
+            isMoving = false;
         }
         else
         {

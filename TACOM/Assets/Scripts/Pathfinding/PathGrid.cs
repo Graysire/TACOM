@@ -13,6 +13,9 @@ public class PathGrid : MonoBehaviour
     Vector2Int gridSize;
     Pathfinder pathfinder;
 
+    List<GameObject> debugObstructions = new List<GameObject>();
+    public GameObject debugObstruction;
+
     //the grid of tilemaps this pathing grid is attached to
     [SerializeField]
     Grid tileGrid;
@@ -27,20 +30,77 @@ public class PathGrid : MonoBehaviour
         //get the grid
         tileGrid = GameObject.Find("Grid").GetComponent<Grid>();
         //get the local pathfinder
-        pathfinder = GetComponent<Pathfinder>();
+        pathfinder = new Pathfinder(this);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        ////debug that sets the start location of a path
+        if (Input.GetMouseButtonDown(0))
+        {
+            PathNode c = WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log(c.posX + " " + c.posY);
+        }
+        ////debug that sets the target location of a path
+        //if (Input.GetMouseButtonDown(1))
+        //{ 
+        //    debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //}
+        //debug to find a path between two points
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    FindPath(debugStart, debugTarget);
+        //}
+        //debug to toggle point obstruction
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            PathNode p = WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (p != null)
+            {
+                p.isMoveObstructed = !p.isMoveObstructed;
+                p.isSightObstructed = !p.isSightObstructed;
+                if (p.isMoveObstructed)
+                {
+                    //if the tile is now obstructed add the debug object to show its obstruction
+                    GameObject ob = Instantiate(debugObstruction, NodeToWorld(p), new Quaternion());
+                    debugObstructions.Add(ob);
+                }
+                else
+                {
+                    //otherwise remove the obstruction at that point
+                    Vector3 loc = NodeToWorld(p);
+                    for (int i = 0; i < debugObstructions.Count; i++)
+                    {
+                        if (debugObstructions[i].transform.position == loc)
+                        {
+
+                            Destroy(debugObstructions[i]);
+                            debugObstructions.RemoveAt(i);
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("Target Point does not exist");
+            }
+        }
+
     }
 
     //creates the pathfinding grid
     void CreateGrid()
     {
         //instantiates the array of nodes
-        nodeGrid = new PathNode[gridSize.y, gridSize.x];
+        nodeGrid = new PathNode[gridSize.x, gridSize.y];
         for (int y = 0; y < gridSize.y; y++)
         {
             for (int x = 0; x < gridSize.x; x++)
             {
                 //fills every space on the node grid with a node, defaulting to non-obstructed and with a simple x and y value
-                nodeGrid[y, x] = new PathNode(false, x, y, false);
+                nodeGrid[x, y] = new PathNode(false, x, y);
             }
         }
     }
@@ -55,7 +115,7 @@ public class PathGrid : MonoBehaviour
         }
         else
         {
-            return nodeGrid[cellLocation.y, cellLocation.x];
+            return nodeGrid[cellLocation.x, cellLocation.y];
         }
     }
 
@@ -71,22 +131,11 @@ public class PathGrid : MonoBehaviour
         return finalPath;
     }
 
-    //returns whether the target position is in line of sight from the start position
-    public bool CheckLineOfSight(Vector3 startPos, Vector3 targetPos, int maxLength)
+    //returns whether or not a line of sight path can be created between two targets
+    public bool checkLineOfSight(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
-        List<PathNode> sightPath = pathfinder.FindSightPath(startPos, targetPos, maxLength);
-        //finalPath = sightPath;
-        if (sightPath != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return pathfinder.FindSightPath(startPos, targetPos, maxLength);
     }
-
-
 
 
     //returns a list of all nodes adjacent to this one
@@ -98,22 +147,22 @@ public class PathGrid : MonoBehaviour
         //check if the top left node is out of bounds, if not, add it
         if (center.posX + 1 >= 0 && center.posX + 1 < gridSize.x)
         {
-            adjacentNodes.Add(nodeGrid[center.posY, center.posX + 1]);
+            adjacentNodes.Add(nodeGrid[center.posX + 1, center.posY]);
         }
         //check if the bottom left node is out of bounds, if not, add it
         if (center.posX - 1 >= 0 && center.posX - 1 < gridSize.x)
         {
-            adjacentNodes.Add(nodeGrid[center.posY, center.posX - 1]);
+            adjacentNodes.Add(nodeGrid[center.posX - 1, center.posY]);
         }
         //check if the top right node is out of bounds, if not, add it
         if (center.posY + 1 >= 0 && center.posY + 1 < gridSize.y)
         {
-            adjacentNodes.Add(nodeGrid[center.posY + 1, center.posX]);
+            adjacentNodes.Add(nodeGrid[center.posX, center.posY + 1]);
         }
         //check if the bottom left node is out of bounds, if not, add it
         if (center.posY - 1 >= 0 && center.posY - 1 < gridSize.y)
         {
-            adjacentNodes.Add(nodeGrid[center.posY - 1, center.posX]);
+            adjacentNodes.Add(nodeGrid[center.posX, center.posY - 1]);
         }
 
         return adjacentNodes;
@@ -148,7 +197,7 @@ public class PathGrid : MonoBehaviour
                     {
                         Gizmos.color = Color.white;
                     }
-                    Gizmos.DrawSphere(tileGrid.GetCellCenterWorld(new Vector3Int(y, x, 0)), 0.25f);
+                    Gizmos.DrawSphere(tileGrid.GetCellCenterWorld(new Vector3Int(x, y, 0)), 0.25f);
                 }
             }
         }

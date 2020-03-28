@@ -21,13 +21,12 @@ public class PathNode
     //hCost is the distance from the end of the path to this node
     public float hCost;
     //the total cost of moving to this node
-    public int FCost { get { return gCost +(int) Mathf.Round(hCost); } }
+    public int FCost { get { return gCost + (int) hCost; } }
 
     //Constructor for the pathfinding node
-    public PathNode(bool isObstructed, int gridX, int gridY, bool isSightObstructed)
+    public PathNode(bool isObstructed, int gridX, int gridY)
     {
         this.isMoveObstructed = isObstructed;
-        this.isSightObstructed = isSightObstructed;
         posX = gridX;
         posY = gridY;
     }

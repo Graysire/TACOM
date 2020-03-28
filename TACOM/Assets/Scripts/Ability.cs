@@ -88,7 +88,7 @@ public class Ability
         return range;
     }
 
-    //returns whether anyone requires line of sight
+    //returns whether the ability requires line of sight
     public bool GetLineOfSight()
     {
         return requiresLineOfSight;

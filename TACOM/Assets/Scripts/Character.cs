@@ -96,13 +96,13 @@ public class Character
         return attributes[(int) att];
     }
 
-    //returns the array of all the character's attributes
+    //returns an array of all the character's attributes
     public int[] GetAttributes()
     {
         return attributes;
     }
 
-    //returns the list of the character's abilities
+    //returns a list of the character's abilities
     public List<Ability> GetAbilities()
     {
         return abilities;

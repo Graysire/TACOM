@@ -178,9 +178,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c0498db326c9c459bbd6eae70a8a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributes: 09000000090000000900000009000000090000000900000009000000640000000900000004000000
+  attributes: 0900000009000000090000000900000009000000090000000900000064000000090000003c000000
   cName: Kayla
-  timeDelay: 1
+  timeDelay: 0.1
 --- !u!212 &88665453
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -299,7 +299,6 @@ GameObject:
   m_Component:
   - component: {fileID: 322871442}
   - component: {fileID: 322871441}
-  - component: {fileID: 322871443}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: Untagged
@@ -319,7 +318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4609830e189fd764f95b05d577520b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 8, y: 8}
+  gridSize: {x: 9, y: 8}
+  debugObstruction: {fileID: 6105583223289942562, guid: 6f868c8d663f16444815af83e8defdc1,
+    type: 3}
   tileGrid: {fileID: 287771995}
 --- !u!4 &322871442
 Transform:
@@ -335,20 +336,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 45}
---- !u!114 &322871443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 322871440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ac287303704fcf41b8338393df3c1c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugObstruction: {fileID: 6105583223289942562, guid: 6f868c8d663f16444815af83e8defdc1,
-    type: 3}
 --- !u!1 &873515067
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,9 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9c0498db326c9c459bbd6eae70a8a00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributes: 0900000009000000090000000c000000090000000900000009000000640000000900000004000000
+  attributes: 0900000009000000090000000c00000009000000090000000900000064000000090000003c000000
   cName: Slate
-  timeDelay: 0.5
+  timeDelay: 0.1
 --- !u!212 &873515070
 SpriteRenderer:
   m_ObjectHideFlags: 0

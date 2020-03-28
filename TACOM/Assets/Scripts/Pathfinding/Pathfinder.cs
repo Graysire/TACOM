@@ -2,78 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Class used for Pathfinding following the A* algorithm
-public class Pathfinder : MonoBehaviour
+public class Pathfinder
 {
     PathGrid grid;
 
     //Vector3 used to debug pathfinding
     //Vector3 debugStart;
     //Vector3 debugTarget;
-    List<GameObject> debugObstructions = new List<GameObject>();
-    public GameObject debugObstruction;
 
-    //On Awake gets the Pathfinding Grid it will be using
-    void Awake()
+    public Pathfinder(PathGrid g)
     {
-        grid = GetComponent<PathGrid>();
+        grid = g;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        ////debug that sets the start location of a path
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    debugStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
-        ////debug that sets the target location of a path
-        //if (Input.GetMouseButtonDown(1))
-        //{ 
-        //    debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
-        //debug to find a path between two points
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    FindPath(debugStart, debugTarget);
-        //}
-        //debug to toggle point obstruction
-        if (Input.GetKeyDown(KeyCode.O))
-        { 
-            PathNode p = grid.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (p != null)
-            {
-                p.isMoveObstructed = !p.isMoveObstructed;
-                p.isSightObstructed = !p.isSightObstructed;
-                if (p.isMoveObstructed)
-                {
-                    //if the tile is now obstructed add the debug object to show its obstruction
-                    GameObject ob = Instantiate(debugObstruction, grid.NodeToWorld(p), new Quaternion());
-                    debugObstructions.Add(ob);
-                }
-                else
-                {
-                    //otherwise remove the obstruction at that point
-                    Vector3 loc = grid.NodeToWorld(p);
-                    for (int i = 0; i < debugObstructions.Count; i++)
-                    {
-                        if (debugObstructions[i].transform.position == loc)
-                        {
-                           
-                            Destroy(debugObstructions[i]);
-                            debugObstructions.RemoveAt(i);
-                            return;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log("Target Point does not exist");
-            }
-        }
 
-    }
-    //Finds the shortest path between two points, if one exists and puts the pathh into the grid
+    //Finds the shortest path between two points, if one exists and puts the path into the grid
     public void FindPath(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
         //convert the given positions into pathfinding nodes
@@ -107,18 +50,18 @@ public class Pathfinder : MonoBehaviour
         //set of pathing nodes that have been checked
         HashSet<PathNode> ClosedList = new HashSet<PathNode>();
 
-        //reset gCost of the starting node
-        startNode.gCost = 0;
-
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
+
+        //reset gCost of the starting Node
+        startNode.gCost = 0;
 
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
         {
             //start by looking at the first node
             PathNode currentNode = OpenList[0];
-            //compare to every other node
+            //comapre to every other node
             for (int i = 0; i < OpenList.Count; i++)
             {
                 //if the total cost of a node is lower, or the total cost is equal but node is closer to the target
@@ -189,36 +132,43 @@ public class Pathfinder : MonoBehaviour
                 }
             }
         }
+
+        Debug.Log("No possible path to reach target");
         return;
     }
 
-    //Finds the shortest path between two points, if one exists and puts the pathh into the grid
-    public List<PathNode> FindSightPath(Vector3 startPos, Vector3 targetPos, int maxLength)
+    //Returns true if the straight line between two points is unobstructed, false otherwise
+    public bool FindSightPath(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
         //convert the given positions into pathfinding nodes
         PathNode startNode = grid.WorldToNode(startPos);
         PathNode targetNode = grid.WorldToNode(targetPos);
 
+        //resets gCost of startNode to 0
+        startNode.gCost = 0;
+        //reserts hCost of startNode to be the distance to the target node
+        startNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
+
         if (startNode == null)
         {
             Debug.Log("Starting Tile Out of Bounds");
-            return null;
+            return false;
         }
         else if (targetNode == null)
         {
             Debug.Log("Target Tile Out of Bounds");
-            return null;
+            return false;
         }
         else if (startNode == targetNode)
         {
             Debug.Log("Starting Tile and Target Tile are identical");
-            return null;
+            return true;
         }
         //checks if the target tile is farther than the max length of the path
-        else if ((int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f)) > maxLength)
+        else if (startNode.hCost > maxLength)
         {
-            Debug.Log("Target Tile out of movement range");
-            return null;
+            Debug.Log("Target Tile out of sight/ability range");
+            return false;
         }
 
         //list of pathing nodes that have not been checked yet
@@ -226,38 +176,51 @@ public class Pathfinder : MonoBehaviour
         //set of pathing nodes that have been checked
         HashSet<PathNode> ClosedList = new HashSet<PathNode>();
 
-        //reset gCost and hCost of the starting node
-        startNode.gCost = 0;
-        startNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
-
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
+
+        int strikes = 0;
+
+        //debug string
+        string debug = "";
 
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
         {
-            
             //start by looking at the first node
             PathNode currentNode = OpenList[0];
-            //compare to every other node
+            //comapre to every other node
             for (int i = 0; i < OpenList.Count; i++)
             {
                 //if the total cost of a node is lower, or the total cost is equal but node is closer to the target
-                if (/*OpenList[i].FCost < currentNode.FCost || currentNode.FCost == OpenList[i].FCost &&*/ OpenList[i].hCost < currentNode.hCost)
+                if (OpenList[i].hCost < currentNode.hCost || OpenList[i].hCost == currentNode.hCost && !OpenList[i].isSightObstructed)
                 {
                     //that node becomes the new current node
                     currentNode = OpenList[i];
                 }
             }
-            Debug.Log(currentNode.posX + " " + currentNode.posY + " F" + currentNode.FCost + " G" + currentNode.gCost + " H" + currentNode.hCost + " isSightBlock " + currentNode.isSightObstructed);
             //remove node from the unchecked nodes
             OpenList.Remove(currentNode);
             //add the node to the checked nodes
             ClosedList.Add(currentNode);
 
+
+            debug += currentNode.posX + " " + currentNode.posY + " G:" + currentNode.gCost + " H:" + currentNode.hCost + " LoSBlock:" + currentNode.isSightObstructed + "\n";
+
+            //if the path has backtracked, we are no longer finding a straight line
+            if (currentNode.isSightObstructed)
+            {
+                strikes++;
+                if (strikes >= 2)
+                {
+                    return false;
+                }
+            }
+
             //if the current node is the target
             if (currentNode == targetNode)
             {
+
                 //create a list to contain the final path
                 List<PathNode> finalPath = new List<PathNode>();
                 //go backwards from the current node until reaching the starting node
@@ -272,15 +235,18 @@ public class Pathfinder : MonoBehaviour
 
                 //reverse the final path so that it goes from start to end, rather than end to start
                 finalPath.Reverse();
-                Debug.Log("FSight");
-                return finalPath;
+                //send the final apth to the grid
+                grid.finalPath = finalPath;
+
+                Debug.Log(debug);
+                return true;
             }
 
             //look at each adjacent node
             foreach (PathNode adjacentNode in grid.GetAdjacentNodes(currentNode))
             {
-                //if it has already been checked, skip it
-                if (ClosedList.Contains(adjacentNode))
+                //if it has already been checked or is obstructed, skip it
+                if (currentNode.isSightObstructed || ClosedList.Contains(adjacentNode))
                 {
                     continue;
                 }
@@ -299,30 +265,16 @@ public class Pathfinder : MonoBehaviour
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
                         //if the unchecked nodes list does not contain the adjacent node and the adjacent node is not too far from the start, add it
-
-                        //costs
-                        //Debug.Log(adjacentNode.hCost + " vs " + currentNode.hCost);
-
-                        if (!OpenList.Contains(adjacentNode) && adjacentNode.gCost <= maxLength && adjacentNode.hCost < currentNode.hCost)
+                        if (!OpenList.Contains(adjacentNode) && adjacentNode.gCost <= maxLength)
                         {
-                            //Debug.Log("SightPing");
-                            //if not sight obstructed add the node to the open list
-                            if (!adjacentNode.isSightObstructed)
-                            {
-                                //Debug.Log("SightPingNoObstruct");
-                                OpenList.Add(adjacentNode);
-                            }
-                            //otherwise return because sight is blocked
-                            else
-                            {
-                                Debug.Log("Line of Sight blocked");
-                                //return null;
-                            }
+                            OpenList.Add(adjacentNode);
                         }
                     }
                 }
             }
         }
-        return null;
+        Debug.Log(debug);
+        //Debug.Log("No possible path to reach target");
+        return false;
     }
 }
