@@ -13,6 +13,9 @@ public class PathGrid : MonoBehaviour
     Vector2Int gridSize;
     Pathfinder pathfinder;
 
+    List<GameObject> debugObstructions = new List<GameObject>();
+    public GameObject debugObstruction;
+
     //the grid of tilemaps this pathing grid is attached to
     [SerializeField]
     Grid tileGrid;
@@ -27,7 +30,62 @@ public class PathGrid : MonoBehaviour
         //get the grid
         tileGrid = GameObject.Find("Grid").GetComponent<Grid>();
         //get the local pathfinder
-        pathfinder = GetComponent<Pathfinder>();
+        pathfinder = new Pathfinder(this);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        ////debug that sets the start location of a path
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    debugStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //}
+        ////debug that sets the target location of a path
+        //if (Input.GetMouseButtonDown(1))
+        //{ 
+        //    debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //}
+        //debug to find a path between two points
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    FindPath(debugStart, debugTarget);
+        //}
+        //debug to toggle point obstruction
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            PathNode p = WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (p != null)
+            {
+                p.isMoveObstructed = !p.isMoveObstructed;
+                if (p.isMoveObstructed)
+                {
+                    //if the tile is now obstructed add the debug object to show its obstruction
+                    GameObject ob = Instantiate(debugObstruction, NodeToWorld(p), new Quaternion());
+                    debugObstructions.Add(ob);
+                }
+                else
+                {
+                    //otherwise remove the obstruction at that point
+                    Vector3 loc = NodeToWorld(p);
+                    for (int i = 0; i < debugObstructions.Count; i++)
+                    {
+                        if (debugObstructions[i].transform.position == loc)
+                        {
+
+                            Destroy(debugObstructions[i]);
+                            debugObstructions.RemoveAt(i);
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Debug.Log("Target Point does not exist");
+            }
+        }
+
     }
 
     //creates the pathfinding grid

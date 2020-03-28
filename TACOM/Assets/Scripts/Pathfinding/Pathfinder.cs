@@ -2,76 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Class used for Pathfinding following the A* algorithm
-public class Pathfinder : MonoBehaviour
+public class Pathfinder
 {
     PathGrid grid;
 
     //Vector3 used to debug pathfinding
     //Vector3 debugStart;
     //Vector3 debugTarget;
-    List<GameObject> debugObstructions = new List<GameObject>();
-    public GameObject debugObstruction;
 
-    //On Awake gets the Pathfinding Grid it will be using
-    void Awake()
+    public Pathfinder(PathGrid g)
     {
-        grid = GetComponent<PathGrid>();
+        grid = g;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        ////debug that sets the start location of a path
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    debugStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
-        ////debug that sets the target location of a path
-        //if (Input.GetMouseButtonDown(1))
-        //{ 
-        //    debugTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //}
-        //debug to find a path between two points
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    FindPath(debugStart, debugTarget);
-        //}
-        //debug to toggle point obstruction
-        if (Input.GetKeyDown(KeyCode.O))
-        { 
-            PathNode p = grid.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            if (p != null)
-            {
-                p.isMoveObstructed = !p.isMoveObstructed;
-                if (p.isMoveObstructed)
-                {
-                    //if the tile is now obstructed add the debug object to show its obstruction
-                    GameObject ob = Instantiate(debugObstruction, grid.NodeToWorld(p), new Quaternion());
-                    debugObstructions.Add(ob);
-                }
-                else
-                {
-                    //otherwise remove the obstruction at that point
-                    Vector3 loc = grid.NodeToWorld(p);
-                    for (int i = 0; i < debugObstructions.Count; i++)
-                    {
-                        if (debugObstructions[i].transform.position == loc)
-                        {
-                           
-                            Destroy(debugObstructions[i]);
-                            debugObstructions.RemoveAt(i);
-                            return;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log("Target Point does not exist");
-            }
-        }
 
-    }
     //Finds the shortest path between two points, if one exists and puts the pathh into the grid
     public void FindPath(Vector3 startPos, Vector3 targetPos, int maxLength)
     {
