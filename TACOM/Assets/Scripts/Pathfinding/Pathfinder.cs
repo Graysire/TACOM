@@ -144,6 +144,11 @@ public class Pathfinder
         PathNode startNode = grid.WorldToNode(startPos);
         PathNode targetNode = grid.WorldToNode(targetPos);
 
+        //resets gCost of startNode to 0
+        startNode.gCost = 0;
+        //reserts hCost of startNode to be the distance to the target node
+        startNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
+
         if (startNode == null)
         {
             Debug.Log("Starting Tile Out of Bounds");
@@ -160,7 +165,7 @@ public class Pathfinder
             return true;
         }
         //checks if the target tile is farther than the max length of the path
-        else if ((int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f)) > maxLength)
+        else if (startNode.hCost > maxLength)
         {
             Debug.Log("Target Tile out of sight/ability range");
             return false;
@@ -174,8 +179,10 @@ public class Pathfinder
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
 
-        //resets gCost of startNode to 0
-        startNode.gCost = 0;
+        int strikes = 0;
+
+        //debug string
+        string debug = "";
 
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
@@ -186,7 +193,7 @@ public class Pathfinder
             for (int i = 0; i < OpenList.Count; i++)
             {
                 //if the total cost of a node is lower, or the total cost is equal but node is closer to the target
-                if (OpenList[i].FCost < currentNode.FCost || currentNode.FCost == OpenList[i].FCost && OpenList[i].hCost < currentNode.hCost)
+                if (OpenList[i].hCost < currentNode.hCost || OpenList[i].hCost == currentNode.hCost && !OpenList[i].isSightObstructed)
                 {
                     //that node becomes the new current node
                     currentNode = OpenList[i];
@@ -196,6 +203,19 @@ public class Pathfinder
             OpenList.Remove(currentNode);
             //add the node to the checked nodes
             ClosedList.Add(currentNode);
+
+
+            debug += currentNode.posX + " " + currentNode.posY + " G:" + currentNode.gCost + " H:" + currentNode.hCost + " LoSBlock:" + currentNode.isSightObstructed + "\n";
+
+            //if the path has backtracked, we are no longer finding a straight line
+            if (currentNode.isSightObstructed)
+            {
+                strikes++;
+                if (strikes >= 2)
+                {
+                    return false;
+                }
+            }
 
             //if the current node is the target
             if (currentNode == targetNode)
@@ -218,6 +238,7 @@ public class Pathfinder
                 //send the final apth to the grid
                 grid.finalPath = finalPath;
 
+                Debug.Log(debug);
                 return true;
             }
 
@@ -225,7 +246,7 @@ public class Pathfinder
             foreach (PathNode adjacentNode in grid.GetAdjacentNodes(currentNode))
             {
                 //if it has already been checked or is obstructed, skip it
-                if (adjacentNode.isSightObstructed || ClosedList.Contains(adjacentNode))
+                if (currentNode.isSightObstructed || ClosedList.Contains(adjacentNode))
                 {
                     continue;
                 }
@@ -240,7 +261,7 @@ public class Pathfinder
                         //calculate the adjacent node's distance from the target using manhatten distance
                         //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
                         //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
-                        adjacentNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
+                        adjacentNode.hCost = Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
                         //if the unchecked nodes list does not contain the adjacent node and the adjacent node is not too far from the start, add it
@@ -252,8 +273,8 @@ public class Pathfinder
                 }
             }
         }
-
-        Debug.Log("No possible path to reach target");
+        Debug.Log(debug);
+        //Debug.Log("No possible path to reach target");
         return false;
     }
 }

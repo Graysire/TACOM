@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4609830e189fd764f95b05d577520b52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 8, y: 8}
+  gridSize: {x: 9, y: 8}
   debugObstruction: {fileID: 6105583223289942562, guid: 6f868c8d663f16444815af83e8defdc1,
     type: 3}
   tileGrid: {fileID: 287771995}
