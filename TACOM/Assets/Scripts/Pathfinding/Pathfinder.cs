@@ -23,6 +23,11 @@ public class Pathfinder
         PathNode startNode = grid.WorldToNode(startPos);
         PathNode targetNode = grid.WorldToNode(targetPos);
 
+        //reset gCost of the starting Node
+        startNode.gCost = 0;
+        //sets hCost of starting Node
+        setHCost(startNode, targetNode, true);
+
         if (startNode == null)
         {
             Debug.Log("Starting Tile Out of Bounds");
@@ -39,7 +44,7 @@ public class Pathfinder
             return;
         }
         //checks if the target tile is farther than the max length of the path
-        else if ((int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f)) > maxLength)
+        else if (startNode.hCost > maxLength)
         {
             Debug.Log("Target Tile out of movement range");
             return;
@@ -52,9 +57,6 @@ public class Pathfinder
 
         //add the first node to the unchecked nodes
         OpenList.Add(startNode);
-
-        //reset gCost of the starting Node
-        startNode.gCost = 0;
 
         //while there are unchecked nodes, keep checking
         while (OpenList.Count > 0)
@@ -120,7 +122,7 @@ public class Pathfinder
                         //calculate the adjacent node's distance from the target using manhatten distance
                         //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
                         //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
-                        adjacentNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
+                        setHCost(adjacentNode, targetNode, true);
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
                         //if the unchecked nodes list does not contain the adjacent node and the adjacent node is not too far from the start, add it
@@ -132,8 +134,6 @@ public class Pathfinder
                 }
             }
         }
-
-        Debug.Log("No possible path to reach target");
         return;
     }
 
@@ -147,7 +147,7 @@ public class Pathfinder
         //resets gCost of startNode to 0
         startNode.gCost = 0;
         //reserts hCost of startNode to be the distance to the target node
-        startNode.hCost = (int)Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
+        setHCost(startNode, targetNode, true);
 
         if (startNode == null)
         {
@@ -261,7 +261,7 @@ public class Pathfinder
                         //calculate the adjacent node's distance from the target using manhatten distance
                         //adjacentNode.hCost = Mathf.Abs(adjacentNode.posX - targetNode.posX) + Mathf.Abs(adjacentNode.posY - targetNode.posY);
                         //calculate the adjacent node's distance from the target using pythagorean theorem rounding down
-                        adjacentNode.hCost = Mathf.Sqrt(Mathf.Pow(adjacentNode.posX - targetNode.posX, 2f) + Mathf.Pow(adjacentNode.posY - targetNode.posY, 2f));
+                        setHCost(adjacentNode, targetNode, false);
                         //set the current node as the predecessor of the adjacent node
                         adjacentNode.prevNode = currentNode;
                         //if the unchecked nodes list does not contain the adjacent node and the adjacent node is not too far from the start, add it
@@ -276,5 +276,18 @@ public class Pathfinder
         Debug.Log(debug);
         //Debug.Log("No possible path to reach target");
         return false;
+    }
+
+    //sets the HCost of startNode to the distance between startNode and TargetNode, optionally rounds it to an integer
+    public void setHCost(PathNode startNode, PathNode targetNode, bool makeInt)
+    {
+        if (makeInt)
+        {
+            startNode.hCost = (int) Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
+        }
+        else
+        {
+            startNode.hCost = Mathf.Sqrt(Mathf.Pow(startNode.posX - targetNode.posX, 2f) + Mathf.Pow(startNode.posY - targetNode.posY, 2f));
+        }
     }
 }

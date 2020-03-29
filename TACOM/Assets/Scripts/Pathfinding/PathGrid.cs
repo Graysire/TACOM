@@ -65,6 +65,9 @@ public class PathGrid : MonoBehaviour
                     //if the tile is now obstructed add the debug object to show its obstruction
                     GameObject ob = Instantiate(debugObstruction, NodeToWorld(p), new Quaternion());
                     debugObstructions.Add(ob);
+                    //reset cover bonus
+                    p.coverBonus = Random.Range(1, 5);
+                    Debug.Log(p.coverBonus);
                 }
                 else
                 {
@@ -77,6 +80,7 @@ public class PathGrid : MonoBehaviour
 
                             Destroy(debugObstructions[i]);
                             debugObstructions.RemoveAt(i);
+                            p.coverBonus = 0;
                             return;
                         }
                     }
@@ -138,34 +142,104 @@ public class PathGrid : MonoBehaviour
     }
 
 
-    //returns a list of all nodes adjacent to this one
-    public List<PathNode> GetAdjacentNodes(PathNode center)
+    //returns a list of all nodes cardinally adjacent to this one
+    //public List<PathNode> GetAdjacentNodes(PathNode center)
+    //{
+    //    //create the list of nodes to be returned
+    //    List<PathNode> adjacentNodes = new List<PathNode>();
+
+    //    //check if the top left node is out of bounds, if not, add it
+    //    if (center.posX + 1 >= 0 && center.posX + 1 < gridSize.x)
+    //    {
+    //        adjacentNodes.Add(nodeGrid[center.posX + 1, center.posY]);
+    //    }
+    //    //check if the bottom left node is out of bounds, if not, add it
+    //    if (center.posX - 1 >= 0 && center.posX - 1 < gridSize.x)
+    //    {
+    //        adjacentNodes.Add(nodeGrid[center.posX - 1, center.posY]);
+    //    }
+    //    //check if the top right node is out of bounds, if not, add it
+    //    if (center.posY + 1 >= 0 && center.posY + 1 < gridSize.y)
+    //    {
+    //        adjacentNodes.Add(nodeGrid[center.posX, center.posY + 1]);
+    //    }
+    //    //check if the bottom left node is out of bounds, if not, add it
+    //    if (center.posY - 1 >= 0 && center.posY - 1 < gridSize.y)
+    //    {
+    //        adjacentNodes.Add(nodeGrid[center.posX, center.posY - 1]);
+    //    }
+
+    //    return adjacentNodes;
+    //}
+
+    //returns a list of all nodes adjacent to this one, if includeDiagonals is true then include diagonals
+    public List<PathNode> GetAdjacentNodes(PathNode center, bool includeDiagnols = false)
     {
         //create the list of nodes to be returned
         List<PathNode> adjacentNodes = new List<PathNode>();
 
-        //check if the top left node is out of bounds, if not, add it
-        if (center.posX + 1 >= 0 && center.posX + 1 < gridSize.x)
+        for (int x = -1; x < 2; x++)
         {
-            adjacentNodes.Add(nodeGrid[center.posX + 1, center.posY]);
+            for (int y = -1; y < 2; y++)
+            {
+                if (center.posX + x >= 0 && center.posX + x < gridSize.x && center.posY + y >= 0 && center.posY + y < gridSize.y)
+                {
+                    if (!includeDiagnols && x != y && x != y * -1)
+                    {
+                        adjacentNodes.Add(nodeGrid[center.posX + x, center.posY + y]);
+                    }
+                    else if (includeDiagnols && !(x == 0) && !(y == 0))
+                    {
+                        Debug.Log((center.posX + x) + " " + (center.posY + y));
+                        adjacentNodes.Add(nodeGrid[center.posX + x, center.posY + y]);
+                    }
+                }
+            }
         }
-        //check if the bottom left node is out of bounds, if not, add it
-        if (center.posX - 1 >= 0 && center.posX - 1 < gridSize.x)
-        {
-            adjacentNodes.Add(nodeGrid[center.posX - 1, center.posY]);
-        }
-        //check if the top right node is out of bounds, if not, add it
-        if (center.posY + 1 >= 0 && center.posY + 1 < gridSize.y)
-        {
-            adjacentNodes.Add(nodeGrid[center.posX, center.posY + 1]);
-        }
-        //check if the bottom left node is out of bounds, if not, add it
-        if (center.posY - 1 >= 0 && center.posY - 1 < gridSize.y)
-        {
-            adjacentNodes.Add(nodeGrid[center.posX, center.posY - 1]);
-        }
-
         return adjacentNodes;
+    }
+
+    //returns the cover value adjacent to the target that is closest to the source
+    public int GetCoverValue(Vector3 source, Vector3 target)
+    {
+        //get the node forms of the given locations
+        PathNode sourceNode = WorldToNode(source);
+        PathNode targetNode = WorldToNode(target);
+
+        //set the distance from the target to source
+        pathfinder.setHCost(targetNode, sourceNode, false);
+
+        //initialize the lowest H vlaue so far
+        float lowH = Mathf.Infinity;
+        //the node with the lowest h cost so far
+        PathNode lowNode = targetNode;
+
+        //check each adjacent node
+        foreach (PathNode node in GetAdjacentNodes(targetNode))
+        {
+            //set the distance between the adjacent node and the source
+            pathfinder.setHCost(node, sourceNode, false);
+            //if the hCost is the lowest so far
+            if (node.hCost < lowH)
+            {
+                //set the lowest values
+                lowNode = node;
+                lowH = node.hCost;
+            }
+            else if (node.hCost == lowH) //if it is equidistant take the higher of the two cover values
+            {
+                if (node.coverBonus > lowNode.coverBonus)
+                {
+                    return node.coverBonus;
+                }
+                else
+                {
+                    return lowNode.coverBonus;
+                }
+            }
+        }
+        //return the cover value of the closest node
+        return lowNode.coverBonus;
     }
 
     void OnDrawGizmos()

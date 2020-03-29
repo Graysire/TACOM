@@ -52,10 +52,10 @@ public class Character
     }
 
     //uses abl on target, applying the effects of abl to the target
-    public void UseAbility(Ability abl, CharacterTargetInfo targetInfo)
+    public void UseAbility(Ability abl, int coverValue, CharacterTargetInfo targetInfo)
     {
         //Debug.Log("use");
-        abl.ApplyEffects(targetInfo);
+        abl.ApplyEffects(coverValue, targetInfo);
     }
 
     //increases an attribute att by str

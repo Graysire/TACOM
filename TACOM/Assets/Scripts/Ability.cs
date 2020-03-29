@@ -22,6 +22,8 @@ public class Ability
     int range;
     //whether or not the ability requires an unobstructed path to the target
     bool requiresLineOfSight;
+    //whether or not this ability is affected by cover
+    bool affectedByCover;
 
     //the name of the ability
     string name;
@@ -31,7 +33,7 @@ public class Ability
     { }
 
     //Constructor for a Single Effect Ability
-    public Ability(string name, ImmediateEffect eff, CharacterAttributes atk, CharacterAttributes tar, int range, int num = 2, int sides = 10, int baseDif = 11, bool lineOfSight = true)
+    public Ability(string name, ImmediateEffect eff, CharacterAttributes atk, CharacterAttributes tar, int range, int num = 2, int sides = 10, int baseDif = 11, bool lineOfSight = true, bool affectedByCover = true)
     {
         this.name = name;
         effects.Add(eff);
@@ -42,6 +44,7 @@ public class Ability
         baseDifficulty = baseDif;
         this.range = range;
         requiresLineOfSight = lineOfSight;
+        this.affectedByCover = affectedByCover;
     }
 
     //Constructor for Multiple Effect Ability
@@ -51,7 +54,7 @@ public class Ability
         effects.AddRange(eff);
     }
 
-    public void ApplyEffects(CharacterTargetInfo targetInfo)
+    public void ApplyEffects(int coverValue, CharacterTargetInfo targetInfo)
     {
         int diceRoll = targetInfo.source.GetAttribute(attackAttribute);
         //roll the dice
@@ -60,10 +63,18 @@ public class Ability
             diceRoll += Random.Range(1, diceSides + 1);
         }
         int targetNumber = targetInfo.target.GetAttribute(targetAttribute) + baseDifficulty;
+        if (affectedByCover)
+        {
+            targetNumber += coverValue;
+        }
 
         //adds information to log message: source uses ability on target, rolling diceRoll (XdY+bonus) against targetNumber
         targetInfo.logMessage += targetInfo.source.GetName() + " uses " + name + " on " + targetInfo.target.GetName() +
             ", rolling " + diceRoll + "(" + numDice + "d" + diceSides + "+" + targetInfo.source.GetAttribute(attackAttribute) + ") against target number: " + targetNumber;
+        if (affectedByCover)
+        {
+            targetInfo.logMessage += "(cover: " + coverValue + ")";
+        }
 
         //check if the ability has hit the atrget number
         if (diceRoll >= targetNumber)

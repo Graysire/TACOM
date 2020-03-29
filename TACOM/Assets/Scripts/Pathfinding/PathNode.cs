@@ -12,6 +12,8 @@ public class PathNode
     public bool isMoveObstructed;
     //whether this node is obstructed for line of sight
     public bool isSightObstructed;
+    //the defense bonus this tile gives if used as cover
+    public int coverBonus = 0;
 
     //the pathing node preceding this node when calculating a path
     public PathNode prevNode;
