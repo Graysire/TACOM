@@ -3,29 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //represents an event that applies an immediate change to a character
+[System.Serializable]
 public class ImmediateEffect
 {
     //the name of the attribute to be affected
+    [SerializeField]
     protected CharacterAttributes attribute;
     //the based numerical value the attribute will be changed by
+    [SerializeField]
     protected int power;
 
     //Source character's attribute that provide a bonus to the power
+    [SerializeField]
     CharacterAttributes powerBonus;
     //multiplier to powerBonus
+    [SerializeField]
     float powerBonusMultiplier;
 
     //number of dice rolled to determine the final power ofthe Effect
+    [SerializeField]
     protected int numDice;
     //number ofsides each die has
+    [SerializeField]
     protected int diceSides;
 
     //if true, power is subtracted from attribute, otherwise damage is added
+    [SerializeField]
     protected bool isDamage;
     //if true, armor is subtracted from power before damage is added
+    [SerializeField]
     protected bool isAffectedByArmor;
 
     //the name of the effect
+    [SerializeField]
     protected string name;
 
     //Default Constructor, defaults to affecting health with a strength of 0

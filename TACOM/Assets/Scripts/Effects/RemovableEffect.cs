@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Effect that stays on a character and cna be removed to reverse its changes
+//Effect that stays on a character and can be removed to reverse its changes
 public class RemovableEffect : ImmediateEffect
 {
+    //how much power is actually applied after negation by armor and such
     protected int powerApplied;
 
     //Default Constructor

@@ -34,7 +34,7 @@ public class Character
     }
 
     //constructor with custom name
-    public Character(string name, int[] att)
+    public Character(string name, int[] att, AbilitySets[] abilities)
     {
         this.charName = name;
         for (int i = 0; i < att.Length; i++)
@@ -42,10 +42,15 @@ public class Character
             attributes[i] = att[i];
         }
         attributes[attributes.Length - 1] = 0;
+        //adds all ability sets forthis characterto this character
+        foreach (AbilitySets abil in abilities)
+        {
+            AddAbility(abil);
+        }
         //attributes[(int)CharacterAttributes.Health] = 100;
-        abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, 3, CharacterAttributes.Perception), CharacterAttributes.Perception, CharacterAttributes.Defense, 6));
+        //abilities.Add(new Ability("Default Attack", new ImmediateEffect("Default Effect",CharacterAttributes.Health, 3, CharacterAttributes.Perception), CharacterAttributes.Perception, CharacterAttributes.Defense, 6));
         ImmediateEffect[] arr = { new ImmediateEffect("Default Poison Tick Effect",CharacterAttributes.Health, 2, CharacterAttributes.Zero, affectedByArmor: false, sides: 5) };
-        abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, 2, 2, 1, arr, false), CharacterAttributes.Perception, CharacterAttributes.Defense, 7));
+        //abilities.Add(new Ability("Default Poison Attack", new PeriodicTemporaryEffect("Default Poison Effect", CharacterAttributes.Health, 2, 2, 1, arr, false), CharacterAttributes.Perception, CharacterAttributes.Defense, 7));
         //abilities.Add(new Ability("Default Strength Buff", new TemporaryEffect("Default Strength Buff Effect", CharacterAttributes.Strength, 10, 2, false, false, 1, 20), CharacterAttributes.Strength, CharacterAttributes.Zero, 0, 0, 0));
         charID = nextID;
         nextID++;
@@ -88,6 +93,16 @@ public class Character
         eff.RemoveEffect(new CharacterTargetInfo(this,this));
     }
 
+    //adds one or more abilities based on the passed AbilitySet
+    void AddAbility(AbilitySets abil)
+    {
+        switch (abil)
+        {
+            default:
+                return;
+        }
+    }
+
     //returns the value of a given attribute
     public int GetAttribute(CharacterAttributes att)
     {
@@ -95,6 +110,7 @@ public class Character
         //as the location of the value in the attributes array
         return attributes[(int) att];
     }
+
 
     //returns an array of all the character's attributes
     public int[] GetAttributes()
@@ -124,6 +140,12 @@ public enum CharacterAttributes
 
     //the last attribute of a character, always set to 0
     Zero
+}
+
+//enumeration of sets of abilities a character could have
+public enum AbilitySets
+{
+    GOSPEL_Rifle
 }
 
 //struct containing data relating to Characters targeting other Characters

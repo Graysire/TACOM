@@ -11,8 +11,10 @@ public class Tester : MonoBehaviour
     {
         int[] att = { 9, 9, 9, 9, 9, 9, 4, 100, 6 };
         //tests Immediate Effects
-        Character c = new Character("Test Character 1", att);
-        Character c2 = new Character("Test Character 2", att);
+        AbilitySets[] abil = { AbilitySets.GOSPEL_Rifle };
+
+        Character c = new Character("Test Character 1", att,abil);
+        Character c2 = new Character("Test Character 2", att,abil);
         ImmediateEffect e = new ImmediateEffect("TestImmediateEffect-20",CharacterAttributes.Health, 20, CharacterAttributes.Perception);
         Ability a = new Ability("TestAbilityImmediate",e, CharacterAttributes.Perception, CharacterAttributes.Defense, 5);
         c.UseAbility(a, 0, new CharacterTargetInfo(c,c2));
