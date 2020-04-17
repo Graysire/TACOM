@@ -98,6 +98,21 @@ public class Character
     {
         switch (abil)
         {
+            case AbilitySets.GOSPEL_Rifle:
+                abilities.Add(new Ability("GOSPEL Rifle", new ImmediateEffect("GOSPEL Rifle Damage", CharacterAttributes.Health, 4, CharacterAttributes.Perception), CharacterAttributes.Perception, CharacterAttributes.Defense, 16));
+                return;
+            case AbilitySets.Melee:
+                abilities.Add(new Ability("Melee", new ImmediateEffect("Melee Damage", CharacterAttributes.Health, 2, CharacterAttributes.Strength, 1), CharacterAttributes.Strength, CharacterAttributes.Defense, 1));
+                return;
+            case AbilitySets.Scavenged_Pistol:
+                abilities.Add(new Ability("Scavenged Pistol", new ImmediateEffect("Scavenged Pistol Damage", CharacterAttributes.Health, 3, CharacterAttributes.Agility), CharacterAttributes.Agility, CharacterAttributes.Defense, 10));
+                return;
+            case AbilitySets.Psychic_Lash:
+                abilities.Add(new Ability("Psychic Lash", new ImmediateEffect("Psychic Lash Damage", CharacterAttributes.Health, 0, CharacterAttributes.Willpower, 0.75f, affectedByArmor:false), CharacterAttributes.Willpower, CharacterAttributes.Endurance, 12, affectedByCover:false));
+                return;
+            case AbilitySets.Psychic_Shield:
+                abilities.Add(new Ability("Psychic Shield", new TemporaryEffect("Psychic Shield", CharacterAttributes.Armor, 5, CharacterAttributes.Willpower, 3, 0.25f, false, false), CharacterAttributes.Willpower, CharacterAttributes.Zero, 6, baseDif:0,affectedByCover:false));
+                return;
             default:
                 return;
         }
@@ -108,9 +123,8 @@ public class Character
     {
         //casts the given attribute to an int and uses that 
         //as the location of the value in the attributes array
-        return attributes[(int) att];
+        return attributes[(int)att];
     }
-
 
     //returns an array of all the character's attributes
     public int[] GetAttributes()
@@ -145,7 +159,7 @@ public enum CharacterAttributes
 //enumeration of sets of abilities a character could have
 public enum AbilitySets
 {
-    GOSPEL_Rifle
+    GOSPEL_Rifle, Melee, Scavenged_Pistol, Psychic_Lash, Psychic_Shield
 }
 
 //struct containing data relating to Characters targeting other Characters

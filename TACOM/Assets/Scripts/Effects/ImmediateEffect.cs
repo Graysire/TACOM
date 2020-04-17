@@ -47,11 +47,11 @@ public class ImmediateEffect
     }
 
     //Constructor with inputs, att for attribute and value for strength
-    public ImmediateEffect(string name, CharacterAttributes att, int value, CharacterAttributes powBonus, float powBonusMultiplier = 0.5f, bool isDmg = true, bool affectedByArmor = true, int num = 1, int sides = 10)
+    public ImmediateEffect(string name, CharacterAttributes att, int basePower, CharacterAttributes powBonus, float powBonusMultiplier = 0.5f, bool isDmg = true, bool affectedByArmor = true, int num = 1, int sides = 10)
     {
         this.name = name;
         attribute = att;
-        power = value;
+        power = basePower;
         powerBonus = powBonus;
         powerBonusMultiplier = powBonusMultiplier;
         numDice = num;
@@ -101,7 +101,7 @@ public class ImmediateEffect
         }
 
         targetInfo.logMessage += "\n\t" + name + " applied, " + targetInfo.target.GetName() + "'s " + attribute + " changes by " + (isDamage?-1 * finalPower:finalPower) + 
-            "(rolled " + rolledPower + " on " + numDice + "d" + diceSides + "+" + (power + (int) (targetInfo.source.GetAttribute(powerBonus) * 0.5f)) + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
+            "(rolled " + rolledPower + " on " + numDice + "d" + diceSides + "+" + (power + (int) (targetInfo.source.GetAttribute(powerBonus) * powerBonusMultiplier)) + (isAffectedByArmor?"-" + targetInfo.target.GetAttribute(CharacterAttributes.Armor):"") + ")";
         
         //if isDamage, change the target attribute by -1* finalPower, otherwise change it by finalPower
         targetInfo.target.ChangeAttribute(attribute, isDamage?-1 *finalPower:finalPower);

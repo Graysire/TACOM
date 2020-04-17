@@ -160,7 +160,12 @@ public class CharacterManager : MonoBehaviour
         else
         {
             isEndingTurn = false;
-            Debug.Log(cName + "'s turn has begun");
+            string debug = cName + "'s turn has begun( ";
+            foreach (AbilitySets abil in abilities)
+            {
+                debug += abil + " ";
+            }
+            Debug.Log(debug + ")");
         }
         turnIsActive = !turnIsActive;
     }
